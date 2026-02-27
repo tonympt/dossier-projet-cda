@@ -1,0 +1,3 @@
+[submodule "projet-greenroots"]
+	path = projet-greenroots
+	url = git@github.com:tonympt/projets-greenroots.git
