@@ -1,0 +1,85 @@
+TEMPLATE DE DOCUMENT (Conventions non définies)
+
+Conventions de Nommage
+? Variables/Commentaires/Nom des fichiers de code en anglais
+? Fichiers & Dossiers : kebab-case (ex: user-service.ts, auth-controller.ts).
+? Variables & Fonctions : camelCase (ex: const connectedUser, function getUserById()).
+? Classes (NestJS & autres) : PascalCase (ex: class UsersService {}).
+? Composants React : PascalCase avec une extension .tsx (ex: UserProfile.tsx).
+? Base de Données (Prisma) :
+? Modèles : PascalCase (ex: model OrderItem {}).
+? Tables : snake_case.
+? Champs : camelCase (ex: orderId)
+? Prisma utilise du camelCase, mapper vers du snake_case PostgreSQL avec @map() et @@map() dans Prisma pour mapper le bon nommage en snack case dans postgresql
+? Colonnes, tables et enums peuvent tous être renommés librement grâce au mapping.
+Workflow Git
+Nous utilisons un workflow GitFlow simplifié pour une gestion claire des versions et des fonctionnalités.
+Branches
+? main : Reflète l'état de la production. Elle est protégée. Personne ne pousse directement sur main. Les mises à jour se font uniquement en fusionnant dev.
+? dev : Branche principale d'intégration. C'est la base pour tout nouveau développement.
+? feature/<nom-feature> : Branche pour le développement d'une nouvelle fonctionnalité (ex: feature/user-authentication). Elle est créée depuis dev.
+? fix/<nom-fix> : Branche pour la correction d'un bug (ex: fix/login-form-validation). Elle est créée depuis dev.
+? chore/<nom-chore> : Pour les tâches qui ne sont ni des feat ni des fix (ex: chore/update-docker-config).
+? ci/<nom-ci>:Pour la gestion de CI, pipelines.
+
+Règle d'or : Toujours créer une branche depuis dev et ne jamais commiter directement sur dev ou main.
+
+
+Commits
+Nous suivons la norme Conventional Commits. Cela permet de rendre l'historique du projet lisible et de préparer le terrain pour des automatisations futures.
+
+? Format : type(scope): description courte
+? Exemple : feat(api): add user registration endpoint
+? Exemple : fix(ui): correct button alignment on login form
+? Langue : Les messages de commit doivent être en anglais.
+? Types principaux :
+? feat: Ajout d'une nouvelle fonctionnalité.
+? fix: Correction d'un bug.
+? chore: Tâches de maintenance (configuration, build...).
+? docs: Modification de la documentation.
+? style: Changements liés au formatage du code (Prettier).
+? refactor: Modification du code qui n'ajoute ni fonctionnalité ni ne corrige de bug.
+? test: Ajout ou modification de tests.
+? Gitmoji [1]: L'utilisation de Gitmojis est optionnelle et laissée à l'appréciation de chacun pour agrémenter les commits, mais le message doit rester clair sans eux.
+
+Pull Requests (PR)
+
+? Toute branche de travail (feature, fix...) doit être fusionnée dans dev via une Pull Request sur GitHub.
+? Une PR doit être relue et approuvée par au moins un autre membre de l'équipe avant d'être fusionnée.
+? Le titre de la PR doit être explicite. La description doit expliquer les changements apportés et comment les tester.
+
+
+Style de Code et Formatage
+
+L'uniformité du code est assurée par des outils automatiques pour éviter les débats et les erreurs.
+
+Prettier & ESLint : Sont configurés à la racine du projet et partagent les mêmes règles pour tous. Ils garantissent un formatage et une analyse de code cohérents.
+Husky & lint-staged : Un hook de pre-commit est configuré. Avant chaque commit, il exécute automatiquement Prettier et ESLint sur les fichiers modifiés. Cette configuration garantit qu'aucun code non formaté ou contenant des erreurs de lint ne peut être commité. 
+
+Documentation
+? Commentaires : Le code doit être aussi clair que possible pour limiter le besoin de commentaires. Cependant, les commentaires sont encouragés pour expliquer le "pourquoi" d'une logique complexe, et non le "comment".
+
+? README.md : Chaque répertoire (front-end, back-end) aura son propre README.md expliquant comment installer les dépendances et lancer le projet en local.
+
+
+Architecture & Structure
+
+Back-end (NestJS)
+L'architecture modulaire de NestJS est suivie à la lettre.
+? Un module par ressource : Chaque entité métier (User, Tree, Order) possède son propre module (users.module.ts).
+? Flux de responsabilité clair : Controller (gère les requêtes HTTP) ? Service (contient la logique métier) ?  Repository (Un repository sert à isoler et centraliser l’accès aux données, afin que la logique métier ne dépende pas directement de Prisma ou de la base de données) -> Prisma (communique avec la base de données).
+? DTO (Data Transfer Objects) : Toute donnée entrant ou sortant de l'API est typée via une classe DTO. La validation des données d'entrée se fait dans les DTOs avec class-validator ou autres.
+? Swagger NestJs OpenApi / Décorateurs NestJs : Utiliser les outils Nest Js pour la documentation.
+Front-end (React)
+Nous adoptons une architecture avec une approche en “Atomic Design”.
+Structure de l'arborescence /src :
+
+? GuideLines Front : ici
+? TypeScript : Étant donné que nous utilisons TypeScript, nous n'utilisons pas PropTypes. Tous les props des composants doivent être explicitement typés via des interfaces ou des types TypeScript.
+
+
+
+
+
+
+[1]A discuter
