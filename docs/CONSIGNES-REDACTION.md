@@ -45,11 +45,12 @@ Le dossier est évalué lors de :
   - Section concernée : §10 (veille sécurité)
 
 ### Priorité 2 — RGPD et conformité légale (~5-7h)
-- **RGPD — Suppression de compte + anonymisation** (~3-4h) :
-  - Endpoint `DELETE /users/me` avec confirmation
-  - Anonymisation des commandes existantes (obligation comptable 6 ans) : remplacer nom/email/adresses par "Utilisateur supprimé", supprimer le User
-  - Transaction Prisma : anonymiser OrderAddress + Order.contactEmail → supprimer User
-  - Bouton dans le profil frontend avec dialog de confirmation
+- **~~RGPD — Suppression de compte + anonymisation~~** ✅ FAIT (branche `feature/rgpd-account-deletion`) :
+  - Endpoint `DELETE /auth/me` avec vérification mot de passe (bcrypt)
+  - Transaction Prisma atomique : anonymisation OrderAddress + Order.contactEmail → suppression Cart → suppression User
+  - Pattern anonymisation vs cascade delete : respect RGPD Art. 17 + obligation comptable 6 ans (L123-22)
+  - Frontend : `DeleteAccountSection` avec AlertDialog, confirmation par mot de passe, clear cache + logout + redirect
+  - Corrections annexes : `.gitattributes` (LF), normalisation Prettier (199 fichiers), `Dockerfile.prisma` (Prisma 7), imports inutilisés `invoice.service.ts`
   - Sections concernées : §7.2, §7.3, §8.5
 - **RGPD — Export de données** (~2-3h) :
   - Endpoint `GET /users/me/export`
@@ -88,7 +89,7 @@ Le dossier est évalué lors de :
 |---|---|---|
 | ~~Email confirmation commande~~ | ✅ FAIT | — |
 | ~~npm audit + ajout CI~~ | ✅ FAIT | — |
-| RGPD suppression + anonymisation | ~3-4h | P2 |
+| ~~RGPD suppression + anonymisation~~ | ✅ FAIT | — |
 | RGPD export données | ~2-3h | P2 |
 | ~~TVA stockée en BDD~~ | ✅ FAIT | — |
 | Facturation PDF (invoice.service) | ✅ FAIT (branche billing) | — |
