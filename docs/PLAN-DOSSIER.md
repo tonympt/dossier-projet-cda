@@ -251,7 +251,7 @@
 
 #### 6.4 Documentation et qualité de code (~0,5-1 page)
 - **CI/CD — 3 workflows GitHub Actions** :
-  - `pr-checks` : lint + tests automatiques sur chaque Pull Request
+  - `pr-checks` : audit sécurité (`npm audit --audit-level=critical`) + lint + tests automatiques sur chaque Pull Request
   - `develop-ci` : intégration continue sur branche develop
   - `production-deploy` : déploiement via webhook Coolify + health check HTTP post-déploiement (vérification que l'app répond)
 - **Linting/Formatting** : ESLint configuré front et back, commandes Makefile dédiées, exécuté aussi en CI
@@ -542,8 +542,11 @@
 
 #### 10.3 Veille sur les dépendances (~0.5 page)
 - **npm audit** : résultats sur backend et frontend, vulnérabilités trouvées et corrigées
+  - Backend : 28 → 25 vulnérabilités après `npm audit fix` (restantes = deps transitives NestJS/Prisma)
+  - Frontend : 6 → 3 vulnérabilités après `npm audit fix` (restantes = deps transitives ESLint)
   - Captures avant/après correction
-  - Ajout dans le workflow CI (`npm audit --audit-level=high`)
+  - Ajout dans le workflow CI `pr-checks` : `npm audit --audit-level=critical` sur les deux jobs (backend + frontend)
+  - Niveaux npm audit : low → moderate → high → **critical** (bloquant CI). Choix de `critical` car les vulnérabilités `high` restantes sont dans des dépendances transitives upstream non corrigeables sans breaking changes
 - **Gestion du lockfile** : `package-lock.json` versionné, garantit la reproductibilité
 - **Stratégie de mise à jour** : mise à jour régulière des dépendances, priorisation par niveau de gravité (critical > high > moderate)
 

@@ -159,7 +159,8 @@ Toutes les sous-sections (5.1 à 5.6) sont validées.
 
 ## Liste des évolutions à implémenter avant le passage (~2.5-3 jours)
 Voir `docs/CONSIGNES-REDACTION.md` pour le détail complet avec priorités.
-- P1 : Email confirmation commande (~15min), npm audit + CI (~30min)
+- ~~P1 : Email confirmation commande~~ ✅ FAIT (branche `feature/order-confirmation-email`, mergée dans develop)
+- ~~P1 : npm audit + CI~~ ✅ FAIT (branche `feature/npm-audit-ci`, audit fix + `npm audit --audit-level=critical` dans pr-checks)
 - P2 : RGPD suppression+anonymisation (~3-4h), RGPD export (~2-3h), TVA en BDD (~2-3h)
 - P3 : JWT HttpOnly (~4-6h), tests composants React (~2-3h)
 - P4 : Redis cache API (~3-4h)

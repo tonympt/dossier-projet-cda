@@ -37,9 +37,11 @@ Le dossier est évalué lors de :
   - Il manque juste l'appel dans `payment.service.ts` → `handlePaymentSuccess()` (TODO existant)
   - Un quasi one-liner à ajouter
   - Sections concernées : §7.2, §7.4
-- **npm audit + ajout CI** (~30 min) :
-  - Lancer `npm audit` sur backend et frontend, corriger les vulnérabilités
-  - Ajouter `npm audit --audit-level=high` dans le workflow `pr-checks`
+- **~~npm audit + ajout CI~~** ✅ FAIT (branche `feature/npm-audit-ci`) :
+  - `npm audit fix` exécuté sur backend (28→25 vulnérabilités) et frontend (6→3)
+  - Restantes = dépendances transitives upstream (NestJS, Prisma, ESLint) non corrigeables sans breaking changes
+  - Ajout de `npm audit --audit-level=critical` dans le workflow `pr-checks` (backend + frontend)
+  - Niveaux : low → moderate → high → **critical** (seul niveau bloquant en CI)
   - Section concernée : §10 (veille sécurité)
 
 ### Priorité 2 — RGPD et conformité légale (~5-7h)
@@ -84,8 +86,8 @@ Le dossier est évalué lors de :
 
 | Tâche | Estimation | Priorité |
 |---|---|---|
-| Email confirmation commande | ~15 min | P1 |
-| npm audit + ajout CI | ~30 min | P1 |
+| ~~Email confirmation commande~~ | ✅ FAIT | — |
+| ~~npm audit + ajout CI~~ | ✅ FAIT | — |
 | RGPD suppression + anonymisation | ~3-4h | P2 |
 | RGPD export données | ~2-3h | P2 |
 | ~~TVA stockée en BDD~~ | ✅ FAIT | — |
