@@ -41,7 +41,7 @@ GreenRoots est une plateforme e-commerce permettant à des particuliers et entre
 | shadcn/ui + Radix UI | Composants UI | - |
 | React Hook Form + Zod | Formulaires + validation | 7.71.1 / 4.3.5 |
 | Stripe React | Paiement | 5.4.1 |
-| Vitest + Testing Library | Tests | 4.0.18 |
+| Vitest + Testing Library | Tests unitaires (composants, utilitaires) | 4.0.18 |
 
 ### Backend
 | Techno | Rôle | Version |
@@ -49,7 +49,7 @@ GreenRoots est une plateforme e-commerce permettant à des particuliers et entre
 | NestJS | Framework API | 11.0.1 |
 | Prisma | ORM | 7.3.0 |
 | PostgreSQL + PostGIS | BDD relationnelle | 16 |
-| Redis | Cache + sessions | alpine |
+| Redis | Cache API (pays, catégories) + token blacklist + brute force | alpine |
 | Passport.js | Authentification (JWT + Local) | - |
 | Stripe | Paiement | 20.0.0 |
 | Resend | Emails transactionnels | 6.7.0 |
@@ -94,16 +94,16 @@ GreenRoots est une plateforme e-commerce permettant à des particuliers et entre
 `/admin` `/admin/trees` `/admin/trees/new` `/admin/trees/edit/:id` `/admin/orders`
 
 ## Sécurité implémentée
-- JWT (access + refresh tokens) avec expiration
+- JWT stocké en **cookie HttpOnly + Secure + SameSite=Lax** (migration depuis localStorage — protection XSS/CSRF)
 - Guards d'authentification et d'autorisation par rôles
 - Helmet (protection headers HTTP)
 - Rate limiting (60 req/min par IP)
 - Bcrypt pour le hachage des mots de passe
-- Token blacklist (déconnexion)
+- Token blacklist Redis (déconnexion)
 - Protection brute force (login attempts via Redis)
 - Validation des entrées (class-validator backend, Zod frontend)
 - HTTPS en production
-- RGPD : mentions légales, suppression de compte
+- RGPD : mentions légales, suppression de compte avec anonymisation, export de données personnelles
 
 ## CI/CD
 1. **pr-checks.yml** : Lint + tests sur les PRs (timeout 5min)
