@@ -443,9 +443,7 @@
   - Suppression de compte avec anonymisation (`DELETE /auth/me`) : vérification mot de passe (bcrypt) → transaction Prisma atomique (4 étapes : anonymiser OrderAddress, anonymiser Order.contactEmail, supprimer Cart, supprimer User)
   - Pattern anonymisation : données identifiantes remplacées par valeurs génériques ("Utilisateur supprimé", "deleted@anonymized.local", "00000"), données comptables conservées intactes (montants, factures, articles)
   - Frontend : section danger (rouge) dans le profil, AlertDialog avec confirmation par mot de passe, clear cache TanStack Query + logout Zustand + redirection
-- **Ce qui reste à implémenter** :
-  - Export de données (`GET /users/me/export`) : JSON structuré (profil, adresses, historique commandes)
-  - Bouton correspondant dans le profil utilisateur
+- **Export de données** (`GET /auth/me/export`) : JSON structuré (profil, commandes avec items et adresses, panier), header Content-Disposition pour téléchargement, exclusion automatique des champs sensibles via select Prisma, bouton dans le profil utilisateur
 - **Justification du pattern anonymisation vs cascade delete** : les commandes doivent être conservées pour la comptabilité, mais les données personnelles sont effacées → conforme à l'Article 17 (droit à l'effacement) tout en respectant l'obligation légale de conservation
 
 ---

@@ -52,10 +52,11 @@ Le dossier est évalué lors de :
   - Frontend : `DeleteAccountSection` avec AlertDialog, confirmation par mot de passe, clear cache + logout + redirect
   - Corrections annexes : `.gitattributes` (LF), normalisation Prettier (199 fichiers), `Dockerfile.prisma` (Prisma 7), imports inutilisés `invoice.service.ts`
   - Sections concernées : §7.2, §7.3, §8.5
-- **RGPD — Export de données** (~2-3h) :
-  - Endpoint `GET /users/me/export`
-  - Retourne JSON structuré : profil, adresses, historique commandes
-  - Bouton dans le profil frontend
+- **~~RGPD — Export de données~~** ✅ FAIT (branche `feature/rgpd-data-export`) :
+  - Endpoint `GET /auth/me/export` avec téléchargement JSON (Content-Disposition: attachment)
+  - Données exportées : profil, commandes (items + adresses), panier — sans champs sensibles (password, tokens)
+  - Frontend : `ExportDataSection` avec bouton de téléchargement Blob
+  - Corrections annexes : suppression directives `eslint-disable prettier/prettier` obsolètes
   - Sections concernées : §7.2, §8.5
 - **~~TVA stockée en BDD~~** ✅ FAIT (branche `feature/billing`) :
   - Champs ajoutés sur Order : `totalExclTax`, `totalVatAmount`, `currency`
@@ -90,7 +91,7 @@ Le dossier est évalué lors de :
 | ~~Email confirmation commande~~ | ✅ FAIT | — |
 | ~~npm audit + ajout CI~~ | ✅ FAIT | — |
 | ~~RGPD suppression + anonymisation~~ | ✅ FAIT | — |
-| RGPD export données | ~2-3h | P2 |
+| ~~RGPD export données~~ | ✅ FAIT | — |
 | ~~TVA stockée en BDD~~ | ✅ FAIT | — |
 | Facturation PDF (invoice.service) | ✅ FAIT (branche billing) | — |
 | Merger branche feature/billing | ~15 min | P1 |
