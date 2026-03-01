@@ -47,7 +47,7 @@
 
 **Mots-clés :** HTML/CSS, JavaScript/TypeScript, framework front (React…), responsive design, RGPD, accessibilité, tests unitaires (Vitest…)
 
-**Dans GreenRoots :** React 19 + Vite + TanStack Router, Tailwind CSS + shadcn/ui (Atomic Design : atoms/molecules/organisms), responsive, TanStack Query (appels asynchrones), Vitest + Testing Library, validation Zod côté client, mentions légales RGPD
+**Dans GreenRoots :** React 19 + Vite + TanStack Router, Tailwind CSS + shadcn/ui (Atomic Design : atoms/molecules/organisms), responsive, TanStack Query (appels asynchrones), Vitest + Testing Library (tests composants : LoadingSkeleton, QuantityInput — 11 tests couvrant rendu, interactions, accessibilité ARIA), validation Zod côté client, mentions légales RGPD
 
 ---
 
@@ -70,7 +70,7 @@
 
 **Mots-clés :** POO, API REST, authentification (JWT, sessions), ORM, tests unitaires, validation, gestion des exceptions, refactoring
 
-**Dans GreenRoots :** NestJS (architecture modulaire, injection de dépendances), services métier (orders, checkout, cart, trees), guards JWT/Roles, validation class-validator, Jest, style défensif, gestion des exceptions (filters), Prisma ORM
+**Dans GreenRoots :** NestJS (architecture modulaire, injection de dépendances), services métier (orders, checkout, cart, trees), guards JWT/Roles, JWT stocké en cookie HttpOnly (migration sécurité XSS), helper centralisé cookie options, validation class-validator, Jest, style défensif, gestion des exceptions (filters), Prisma ORM
 
 ---
 
@@ -134,7 +134,7 @@
 
 **Mots-clés :** architecture multicouche, MVC, API REST, design patterns, sécurité by design, DICP, éco-conception
 
-**Dans GreenRoots :** Architecture 3 couches (SPA React / API REST NestJS / PostgreSQL+Redis), architecture modulaire NestJS (séparation controllers/services/DTOs), guards de sécurité, conteneurisation Docker, Nginx reverse proxy ; éco-conception : Vite (build léger), Tailwind purge CSS, shadcn/ui (import sélectif)
+**Dans GreenRoots :** Architecture 3 couches (SPA React / API REST NestJS / PostgreSQL+Redis), architecture modulaire NestJS (séparation controllers/services/DTOs), guards de sécurité, cookie HttpOnly pour JWT (sécurité by design, OWASP), cache Redis dans l'architecture (layer cache entre service et BDD), conteneurisation Docker, Nginx reverse proxy ; éco-conception : Vite (build léger), Tailwind purge CSS, shadcn/ui (import sélectif), cache Redis (réduction requêtes SQL redondantes)
 
 ---
 
@@ -178,7 +178,7 @@
 
 **Mots-clés :** SQL, NoSQL, ORM, CRUD, injection SQL, transactions, requêtes paramétrées, tests unitaires
 
-**Dans GreenRoots :** Prisma ORM (accès SQL type-safe, requêtes paramétrées, transactions pour les commandes), Redis (cache NoSQL clé/valeur, token blacklist, login attempts), validation via DTOs (class-validator), gestion des conflits de stock
+**Dans GreenRoots :** Prisma ORM (accès SQL type-safe, requêtes paramétrées, transactions pour les commandes), Redis (cache NoSQL clé/valeur avec pattern cache-aside : pays TTL 24h, catégories TTL 1h + invalidation sur écriture ; token blacklist, login attempts), validation via DTOs (class-validator), gestion des conflits de stock
 
 ---
 
@@ -201,7 +201,7 @@
 
 **Mots-clés :** plan de tests, tests d'intégration, tests système, tests de sécurité (OWASP), tests d'acceptation (UAT), automatisation (Vitest, Jest, Postman…), rapport de tests
 
-**Dans GreenRoots :** Tests unitaires (Jest back, Vitest + Testing Library front), coverage, audit de sécurité sprint 3, environnement de test Docker isolé, seed Prisma (jeux d'essai)
+**Dans GreenRoots :** Tests unitaires (Jest back : 35 suites / 151 tests, Vitest + Testing Library front : 8 suites / 60 tests — incluant tests composants React avec interactions userEvent et vérification ARIA), coverage, audit de sécurité sprint 3, environnement de test Docker isolé, seed Prisma (jeux d'essai)
 
 ---
 

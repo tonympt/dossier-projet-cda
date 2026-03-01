@@ -164,8 +164,8 @@ Voir `docs/CONSIGNES-REDACTION.md` pour le détail complet avec priorités.
 - ~~P2 : RGPD suppression+anonymisation~~ ✅ FAIT (branche `feature/rgpd-account-deletion`, DELETE /auth/me + transaction anonymisation + frontend DeleteAccountSection)
 - ~~P2 : RGPD export~~ ✅ FAIT (branche `feature/rgpd-data-export`, GET /auth/me/export + frontend ExportDataSection)
 - ~~P3 : JWT HttpOnly~~ ✅ FAIT (commit `45b8cbb`, migration localStorage → cookies HttpOnly+Secure+SameSite=Lax, cookie-parser backend, withCredentials frontend, suppression accessToken du store)
-- P3 : tests composants React (~2-3h)
-- P4 : Redis cache API (~3-4h)
+- ~~P3 : tests composants React~~ ✅ FAIT (PR #3, LoadingSkeleton 4 tests + QuantityInput 7 tests, fix vitest jsdom config, 8/8 suites 60/60 tests)
+- ~~P4 : Redis cache API~~ ✅ FAIT (PR #2, cache-aside pattern : countries billing/planting TTL 24h, categories list/detail TTL 1h avec invalidation sur write, graceful degradation si Redis down)
 
 ### ✅ Annexes — Structure validée (~27-43 pages, max 40)
 - **A. Maquettes Figma** (~5-8p) : ensemble complet, par parcours
