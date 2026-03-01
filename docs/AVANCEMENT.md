@@ -163,7 +163,8 @@ Voir `docs/CONSIGNES-REDACTION.md` pour le détail complet avec priorités.
 - ~~P1 : npm audit + CI~~ ✅ FAIT (branche `feature/npm-audit-ci`, audit fix + `npm audit --audit-level=critical` dans pr-checks)
 - ~~P2 : RGPD suppression+anonymisation~~ ✅ FAIT (branche `feature/rgpd-account-deletion`, DELETE /auth/me + transaction anonymisation + frontend DeleteAccountSection)
 - ~~P2 : RGPD export~~ ✅ FAIT (branche `feature/rgpd-data-export`, GET /auth/me/export + frontend ExportDataSection)
-- P3 : JWT HttpOnly (~4-6h), tests composants React (~2-3h)
+- ~~P3 : JWT HttpOnly~~ ✅ FAIT (commit `45b8cbb`, migration localStorage → cookies HttpOnly+Secure+SameSite=Lax, cookie-parser backend, withCredentials frontend, suppression accessToken du store)
+- P3 : tests composants React (~2-3h)
 - P4 : Redis cache API (~3-4h)
 
 ### ✅ Annexes — Structure validée (~27-43 pages, max 40)
