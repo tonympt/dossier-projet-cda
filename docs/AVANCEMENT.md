@@ -44,7 +44,7 @@ On est en train de définir le plan du dossier **section par section**, en discu
 - **Design patterns** : DI, Repository, Module, Guards/Decorators, State machine (backend) ; Atomic Design, Feature-based, Store pattern (frontend)
 - **Diagramme d'architecture** : à créer en Mermaid
 - **Sécurité dans l'architecture** : sécurité à chaque couche (validation client → validation API → ORM paramétré), référence OWASP
-- **Éco-conception** : choix architecturaux (Vite, Tailwind purge, shadcn sélectif, Cloudinary, code splitting, Redis cache prévu), cohérence avec la mission GreenRoots, référentiels (WSG, RGESN, RWEB)
+- **Éco-conception** : choix architecturaux (Vite, Tailwind purge, shadcn sélectif, Cloudinary, code splitting, Redis cache implémenté countries/categories), cohérence avec la mission GreenRoots, référentiels (WSG, RGESN, RWEB)
 - **Conteneurisation** : Docker Compose (8 services) comme partie de l'architecture — détail en §6
 
 ### ✅ Section 5.3 — Maquettes et enchaînement des maquettes (CP5, ~2-3 pages)
@@ -78,7 +78,7 @@ On est en train de définir le plan du dossier **section par section**, en discu
 - **Diagramme 1 : Processus de commande** — 5 acteurs (User→Frontend→Backend→PostgreSQL→Stripe), flux complet checkout avec webhook, transaction atomique
 - **Diagramme 2 : Authentification** — 5 acteurs (User→Frontend→Backend→PostgreSQL→Redis), login (brute force) + logout (blacklist)
 - Les deux en Mermaid sequenceDiagram avec légende
-- Le diagramme auth sera adapté selon l'implémentation HttpOnly cookies
+- Le diagramme auth reflète l'implémentation HttpOnly cookies (cookie posé via `Set-Cookie`, envoyé automatiquement par le navigateur)
 - Stratégie : checkout et auth en 5.6 (haut niveau), le code détaillé viendra en §7.2/7.3/8 (angles différents)
 
 ---
@@ -97,7 +97,7 @@ Toutes les sous-sections (5.1 à 5.6) sont validées.
   - Indépendant de l'IDE
 - **6.3 Stratégie de sécurité** :
   - Réseau : Helmet, CORS restrictif, expose (pas ports) en prod, réseau Docker isolé
-  - Application : ValidationPipe (whitelist), ThrottlerGuard, Guards rôles, JWT (→ HttpOnly), bcrypt, brute force Redis, JWT blacklist
+  - Application : ValidationPipe (whitelist), ThrottlerGuard, Guards rôles, JWT en cookie HttpOnly (migration réalisée), bcrypt, brute force Redis, JWT blacklist
   - Données : Prisma paramétré, transactions pessimiste, Joi fail-fast, non-root containers
   - Audit OWASP Top 10:2025 (phases 1-2 backend OK), Stripe webhook secret
 - **6.4 Documentation et qualité** : 3 workflows GitHub Actions (pr-checks, develop-ci, production-deploy + health check), ESLint, Swagger (dev only), conventions partagées, Prisma Studio
@@ -128,22 +128,22 @@ Toutes les sous-sections (5.1 à 5.6) sont validées.
   - updateOrderStatus : state machine + cas CANCELLED (refund + restauration stock)
 - **7.3 Accès aux données (CP8)** :
   - SQL : transactions Prisma (confirmCheckout, cancelOrder), requêtes batch avec include imbriqué, pagination parallèle
-  - NoSQL : Redis brute force login + JWT blacklist
+  - NoSQL : Redis cache-aside (countries TTL 24h, categories TTL 1h + invalidation sur écriture), brute force login, JWT blacklist
 - **7.4 Autres composants** :
   - Stripe module (factory global singleton), Cloudinary upload signé (backend signature → frontend upload direct), Guards+Decorators RBAC
 
 ### ✅ Section 8 — Éléments de sécurité (~3-4 pages)
-- **8.1 Authentification** : JWT, bcrypt, tokens hashés, blacklist Redis, évolution HttpOnly
+- **8.1 Authentification** : JWT en cookie HttpOnly+Secure+SameSite=Lax (migration réalisée), bcrypt, tokens hashés, blacklist Redis
 - **8.2 Attaques courantes** : organisé par menace (injection, XSS, CSRF, brute force, broken access control) avec extraits de code
 - **8.3 Intégrations tierces** : Stripe (webhook signature, anti-spoofing, pas de données carte), Cloudinary (upload signé)
 - **8.4 Infrastructure** : non-root, expose vs ports, Joi fail-fast, Swagger désactivé prod
-- **8.5 RGPD** : ce qui existe (pages légales, safeSelect, bcrypt) + évolutions à implémenter (suppression compte avec anonymisation, export données JSON)
+- **8.5 RGPD** : ce qui existe (pages légales, safeSelect, bcrypt) + implémentations réalisées (suppression compte avec anonymisation, export données JSON)
 - **Décision** : pas de bannière cookies (pas de tracking/analytics, cookies fonctionnels exemptés)
 - **Décision** : OWASP comme cadre d'organisation en §8 (implémentations) vs §10 (démarche de veille)
 
 ### ✅ Section 9 — Plan de tests (CP9, ~3-4 pages)
-- **9.1 Stratégie** : pyramide de tests, 41 fichiers (35 back + 6 front), Jest + Vitest/Testing Library, CI sur PR
-- **9.2 Extraits significatifs** : payment.service.spec (webhook), orders.service.spec (accès/forbidden), cartStore.test (sync stock, expiration) + tests composants React à ajouter (CartItem, CheckoutForm)
+- **9.1 Stratégie** : pyramide de tests, 43 fichiers (35 back / 151 tests + 8 front / 60 tests), Jest + Vitest/Testing Library, CI sur PR
+- **9.2 Extraits significatifs** : payment.service.spec (webhook), orders.service.spec (accès/forbidden), cartStore.test (sync stock, expiration), tests composants React : LoadingSkeleton (4 tests : rendu, rows custom, cas limite) + QuantityInput (7 tests : interactions userEvent, accessibilité ARIA)
 - **9.3 Jeu d'essai** : tableau tunnel de vente (8 scénarios : nominal + erreurs stock + webhook + auth + expiration)
 - **9.4 Bilan honnête** : points forts (métier testé, CI) + faiblesses (controllers superficiels, pas de composants React initialement, pas de couverture CI)
 - **Décision** : pas de E2E, ajouter 2-3 tests composants React (~2-3h) pour compléter la couverture CP2+CP9
@@ -157,7 +157,7 @@ Toutes les sous-sections (5.1 à 5.6) sont validées.
 - **Décision** : §8 = implémentations, §10 = démarche/processus — pas de redite
 - **Posture dossier** : "quasi prod-ready" honnête avec liste des éléments manquants identifiés et priorisés
 
-## Liste des évolutions à implémenter avant le passage (~2.5-3 jours)
+## Liste des évolutions implémentées avant le passage
 Voir `docs/CONSIGNES-REDACTION.md` pour le détail complet avec priorités.
 - ~~P1 : Email confirmation commande~~ ✅ FAIT (branche `feature/order-confirmation-email`, mergée dans develop)
 - ~~P1 : npm audit + CI~~ ✅ FAIT (branche `feature/npm-audit-ci`, audit fix + `npm audit --audit-level=critical` dans pr-checks)
@@ -193,8 +193,9 @@ Prochaine étape : **rédaction** du dossier section par section + **implémenta
 - Les **contraintes** sont en section 5, pas en section 2
 - **Pas de DoD formel** — le code review obligatoire avant merge joue ce rôle en pratique
 - **Éco-conception** : fil conducteur à évoquer dans plusieurs sections (5.2, 7.1, et potentiellement §2 pour la cohérence mission/éco)
-- **JWT HttpOnly cookies** : évolution prévue pour renforcer la sécurité (à implémenter puis documenter en §8)
-- **Redis cache API** : évolution prévue au-delà du brute force/blacklist actuels (routes pays, catégories, catalogue)
+- **JWT HttpOnly cookies** : migration réalisée — cookies HttpOnly+Secure+SameSite=Lax, documenté en §8 et new-features/05
+- **Redis cache API** : implémenté — cache-aside countries/categories, documenté en §7.3 et new-features/06
+- **Tests composants React** : implémentés — LoadingSkeleton + QuantityInput (11 tests), documenté en §9 et new-features/07
 
 ## Ressources disponibles
 - Code source complet dans `projet-greenroots/`

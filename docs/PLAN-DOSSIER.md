@@ -99,7 +99,7 @@
   - Frontend : Atomic Design, Feature-based architecture, Store pattern (Zustand)
 - **Diagramme d'architecture** : schéma des couches et flux (à créer en Mermaid)
 - **Sécurité dans l'architecture** : sécurité à chaque couche (validation client Zod → validation API DTOs → ORM paramétré Prisma), référence OWASP
-- **Éco-conception** : choix architecturaux (Vite build léger, Tailwind purge CSS, shadcn/ui import sélectif, Cloudinary optimisation images, code splitting lazy loading 25 routes, Redis cache API prévu), cohérence avec la mission GreenRoots (plateforme de reforestation), référentiels utilisés (WSG W3C, RGESN 2024, RWEB GreenIT v5)
+- **Éco-conception** : choix architecturaux (Vite build léger, Tailwind purge CSS, shadcn/ui import sélectif, Cloudinary optimisation images, code splitting lazy loading 25 routes, Redis cache API implémenté sur countries/categories — réduction requêtes SQL redondantes), cohérence avec la mission GreenRoots (plateforme de reforestation), référentiels utilisés (WSG W3C, RGESN 2024, RWEB GreenIT v5)
 - **Conteneurisation** : Docker Compose (8 services) comme partie intégrante de l'architecture — détail en §6
 
 #### 5.3 Maquettes et enchaînement des maquettes (~2-3 pages)
@@ -171,10 +171,10 @@
 
 - **Diagramme 2 : Authentification** (~0,5-1 page, Mermaid sequenceDiagram) :
   - 5 acteurs/systèmes : Utilisateur → Frontend → Backend → PostgreSQL → Redis
-  - Sous-flux login : credentials → vérification brute force Redis → bcrypt compare → génération JWT → réponse (HttpOnly cookie ou token selon implémentation finale)
+  - Sous-flux login : credentials → vérification brute force Redis → bcrypt compare → génération JWT → réponse (cookie HttpOnly+Secure+SameSite=Lax via `Set-Cookie`)
   - Sous-flux logout + accès protégé : requête avec JWT → vérification blacklist Redis → accès autorisé / ou logout → ajout token à la blacklist → requêtes suivantes rejetées
   - Points clés à légender : rôle de Redis (brute force + blacklist), sécurité multicouche
-  - Note : le flux exact dépendra de l'implémentation HttpOnly cookies (à finaliser)
+  - Le cookie est posé par le backend via `res.cookie()` et envoyé automatiquement par le navigateur (`withCredentials: true`)
 
 - **Diagramme 3 : Diagramme d'états — Cycle de vie d'une commande** (~0,5 page, Mermaid stateDiagram) :
   - Deux machines parallèles : **OrderStatus** et **PaymentStatus**
@@ -195,7 +195,7 @@
 - Backend : NestJS 11 (architecture modulaire, DI native, décorateurs, 14 modules dans `app.module.ts`)
 - BDD : PostgreSQL 16 + PostGIS (données géospatiales localisation arbres)
 - ORM : Prisma 7 (type-safety, migrations versionnées, 25 migrations)
-- Cache/Protection : Redis (brute force + JWT blacklist, évolution vers cache API)
+- Cache/Protection : Redis (cache API countries/categories pattern cache-aside + brute force login + JWT blacklist)
 - Reverse proxy : Nginx (routing frontend/API, gzip, cache assets 1 an)
 - Paiement : Stripe (webhooks source de vérité)
 - Images : Cloudinary (CDN, transformations à la volée)
@@ -237,7 +237,7 @@
   - ValidationPipe global (`whitelist: true` + `forbidNonWhitelisted: true`) : sanitization automatique des entrées
   - ThrottlerGuard global (rate limiting via `@nestjs/throttler`)
   - Guards par rôle (USER, ADMIN, SUPERADMIN) via Passport.js
-  - JWT (évolution prévue → HttpOnly cookies pour éliminer le risque XSS sur le token)
+  - JWT stocké en cookie HttpOnly+Secure+SameSite=Lax (migration réalisée — élimine le risque XSS sur le token)
   - Bcrypt (10 rounds) pour hash mots de passe
   - Protection brute force login via Redis (compteur tentatives)
   - JWT blacklist Redis (invalidation au logout)
@@ -362,9 +362,10 @@
   - Pattern : `TREE_INCLUDES` réutilisable (constante d'include typée)
 
 - **Accès NoSQL — Redis** :
+  - Cache API (pattern cache-aside) : countries billing/planting TTL 24h, categories list/detail TTL 1h avec invalidation sur écriture (create/update/delete), dégradation gracieuse si Redis indisponible
   - Protection brute force login : compteur de tentatives par IP/email, TTL d'expiration
   - JWT blacklist : ajout du token au logout, vérification à chaque requête authentifiée
-  - Couvre l'exigence CP8 "SQL et NoSQL" avec deux cas d'usage concrets
+  - Couvre l'exigence CP8 "SQL et NoSQL" avec trois cas d'usage concrets (cache, brute force, blacklist)
 
 #### 7.4 Autres composants (~1-2 pages)
 
@@ -400,17 +401,16 @@
 > Organisé par menace/risque, pas par technologie — montre une démarche de sécurité réfléchie
 
 #### 8.1 Authentification et gestion des sessions (~1 page)
-- **JWT** : génération, expiration configurable (`JWT_EXPIRATION`), stratégie Passport.js
+- **JWT en cookie HttpOnly** : migration réalisée de localStorage vers cookies HttpOnly+Secure+SameSite=Lax — le token n'est plus accessible au JavaScript (protection XSS). Backend : `cookie-parser`, helper centralisé `getCookieOptions()`, extracteur JWT custom depuis cookie. Frontend : `withCredentials: true`, suppression de l'interceptor Authorization, suppression de `accessToken` du store Zustand
 - **Bcrypt** (10 rounds) : hash mots de passe, jamais en clair en BDD
 - **Tokens hashés** : reset password et vérification email hashés en BDD (post-audit sécurité sprint 3)
-- **JWT blacklist Redis** : invalidation au logout, vérification à chaque requête authentifiée
+- **JWT blacklist Redis** : invalidation au logout (lecture token depuis cookie, `clearCookie` + ajout blacklist), vérification à chaque requête authentifiée
 - **Vérification email** : flow complet à l'inscription (token hashé, expiry 24h, guard login bloque si non vérifié)
-- **Évolution HttpOnly cookies** : migration prévue localStorage → cookies HttpOnly+Secure+SameSite (élimine le risque XSS sur le token) — à implémenter
 
 #### 8.2 Protection contre les attaques courantes (~1-1.5 page)
 - **Injection SQL/NoSQL** : Prisma ORM (requêtes paramétrées par défaut), ValidationPipe global (`whitelist: true`, `forbidNonWhitelisted: true`), DTOs class-validator avec contraintes de type/longueur
 - **XSS** : Helmet (Content-Security-Policy, X-XSS-Protection et autres headers), React échappe par défaut, validation côté client Zod
-- **CSRF** : CORS restrictif (origin unique configurable via `FRONTEND_URL`), SameSite cookies (quand HttpOnly implémenté)
+- **CSRF** : CORS restrictif (origin unique configurable via `FRONTEND_URL`, `credentials: true`), cookie SameSite=Lax (implémenté — les requêtes cross-site POST/PUT/DELETE n'envoient pas le cookie)
 - **Brute force** : ThrottlerGuard global (`@nestjs/throttler`) + compteur Redis par IP/email spécifique au login
 - **Broken Access Control** : Guards par rôle (USER/ADMIN/SUPERADMIN), vérification propriétaire systématique (`order.userId === userId`), SUPER_ADMIN bypass, `@CurrentUser()` decorator
 - Extraits de code concrets pour chaque menace
@@ -452,7 +452,7 @@
 > **CP9** - Préparer et exécuter les plans de tests
 
 #### 9.1 Stratégie de tests (~0.5 page)
-- **Pyramide de tests** : unitaires (base large, 41 fichiers) → pas d'intégration lourde → E2E minimal (health check)
+- **Pyramide de tests** : unitaires (base large, 43 fichiers : 35 back / 151 tests + 8 front / 60 tests) → pas d'intégration lourde → E2E minimal (health check)
 - **Justification** : priorité aux tests de logique métier (services) et de gestion d'état (stores), couverture pragmatique adaptée au planning (4 sprints)
 - **Outils** :
   - Backend : Jest 29 + ts-jest, mocking via `jest.fn()`, `Test.createTestingModule()` NestJS
@@ -479,10 +479,11 @@
   - Test `isExpired` : panier récent → false, panier > 24h → true
   - Pattern : accès direct `useCartStore.getState()`, reset `beforeEach`
 
-- **Frontend — Tests de composants** (à implémenter, ~0.5 page) :
-  - 2-3 tests composants React avec Testing Library : rendu, interaction utilisateur, validation formulaire
-  - Exemples ciblés : `CartItem` (affichage, modification quantité, suppression), `CheckoutForm` (validation Zod, soumission)
-  - Pattern : `render()`, `screen.getByRole()`, `userEvent.click()`, `waitFor()`
+- **Frontend — Tests de composants React** (~0.5 page) :
+  - `LoadingSkeleton` (4 tests) : rendu par défaut (6 rows), rows custom, cas limite rows=0, wrapper CSS
+  - `QuantityInput` (7 tests) : valeur initiale, increment/decrement via `userEvent.click()`, désactivation aux bornes min/max, état disabled complet, attributs ARIA (`aria-valuemin`, `aria-valuemax`, `aria-valuenow`)
+  - Pattern : `render()`, `screen.getByRole("spinbutton")`, `screen.getByLabelText()`, `userEvent.setup()`, `vi.fn()`, `toBeDisabled()`, `toHaveAttribute()`
+  - Config : `vitest.config.ts` séparé (compatibilité `tsc -b`), environnement `jsdom`, `@testing-library/jest-dom` pour les matchers
 
 #### 9.3 Jeu d'essai — Tunnel de vente (~1 page)
 - **Fonctionnalité testée** : processus de commande complet (fil rouge du dossier)
@@ -539,7 +540,7 @@
   - Phase 3 : restant à faire (identifié, priorisé)
 - **Démarche d'amélioration continue** : audit → corrections → re-vérification
 - Référence au document `SECURITY_AUDIT_BACKEND.md`
-- **Audit frontend** : identifié mais non encore réalisé, priorité = migration HttpOnly cookies
+- **Audit frontend** : identifié mais non encore réalisé formellement (migration HttpOnly cookies déjà effectuée)
 
 #### 10.3 Veille sur les dépendances (~0.5 page)
 - **npm audit** : résultats sur backend et frontend, vulnérabilités trouvées et corrigées

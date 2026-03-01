@@ -29,7 +29,7 @@ Le dossier est évalué lors de :
 - **Veille sécurité** : section dédiée obligatoire sur les vulnérabilités trouvées/corrigées
 - **Posture prod** : ne pas survendre "prod-ready", dire honnêtement "quasi prod-ready" avec liste des éléments manquants — montre de la maturité au jury
 
-## Évolutions techniques prévues (à implémenter avant le passage + documenter dans les sections adéquates)
+## Évolutions techniques implémentées (documentées dans les sections adéquates + `new-features/`)
 
 ### Priorité 1 — Corrections rapides (< 1h)
 - **Email confirmation de commande** (~15 min) :
@@ -69,20 +69,25 @@ Le dossier est évalué lors de :
 - **Bannière cookies** : NON nécessaire — pas de tracking ni d'analytics, cookies fonctionnels uniquement (exemptés directive ePrivacy)
 
 ### Priorité 3 — Sécurité et qualité (~7-10h)
-- **JWT HttpOnly cookies** (~4-6h) :
-  - Migration du stockage localStorage vers cookies HttpOnly+Secure+SameSite
-  - Modification auth backend (set-cookie) + frontend (suppression localStorage, credentials: include)
-  - Sections concernées : §8.1, §5.6 (diagramme auth)
-- **Tests composants React** (~2-3h) :
-  - Ajouter 2-3 tests composants avec Testing Library : `CartItem` (affichage, modification qty, suppression), `CheckoutForm` (validation Zod, soumission)
-  - Pattern : render, screen.getByRole, userEvent, waitFor
-  - Objectif : compléter la couverture frontend (CP2+CP9)
-  - Section concernée : §9
+- **~~JWT HttpOnly cookies~~** ✅ FAIT (PR develop, branche `feature/jwt-httponly-cookies`) :
+  - Migration localStorage → cookies HttpOnly+Secure+SameSite=Lax
+  - Backend : cookie-parser, helper `getCookieOptions()`, extracteur JWT custom depuis cookie, CORS credentials
+  - Frontend : withCredentials axios, suppression accessToken du store Zustand, suppression interceptor Authorization
+  - Fix boucle infinie React (JSON.stringify comparison dans useEffect)
+  - Sections concernées : §8.1, §8.2, §5.6 (diagramme auth), §6.3
+- **~~Tests composants React~~** ✅ FAIT (PR #3, branche `feature/react-component-tests`) :
+  - LoadingSkeleton (4 tests : rendu par défaut, rows custom, rows=0, wrapper class)
+  - QuantityInput (7 tests : valeur initiale, increment, decrement, min/max disable, disabled state, ARIA)
+  - Config vitest extraite dans `vitest.config.ts` séparé (compatibilité tsc -b)
+  - Résultat CI : 8/8 suites, 60/60 tests
+  - Section concernée : §9, CP2
 
 ### Priorité 4 — Améliorations techniques (~3-4h)
-- **Redis cache API** (~3-4h) :
-  - Étendre l'usage de Redis au-delà du brute force/blacklist vers le cache de routes (pays, catégories, catalogue)
-  - Sections concernées : §5.2, §7.3
+- **~~Redis cache API~~** ✅ FAIT (PR #2, branche `feature/redis-cache-api`) :
+  - Pattern cache-aside : countries billing/planting TTL 24h, categories list/detail TTL 1h
+  - Invalidation cache catégories sur create/update/delete
+  - Dégradation gracieuse si Redis indisponible
+  - Sections concernées : §5.2, §7.3, §6.2
 
 ### Récapitulatif
 
@@ -93,9 +98,9 @@ Le dossier est évalué lors de :
 | ~~RGPD suppression + anonymisation~~ | ✅ FAIT | — |
 | ~~RGPD export données~~ | ✅ FAIT | — |
 | ~~TVA stockée en BDD~~ | ✅ FAIT | — |
-| Facturation PDF (invoice.service) | ✅ FAIT (branche billing) | — |
-| Merger branche feature/billing | ~15 min | P1 |
-| JWT HttpOnly cookies | ~4-6h | P3 |
-| Tests composants React (2-3) | ~2-3h | P3 |
-| Redis cache API | ~3-4h | P4 |
-| **TOTAL restant** | **~2 jours** | |
+| ~~Facturation PDF (invoice.service)~~ | ✅ FAIT (branche billing) | — |
+| ~~Merger branche feature/billing~~ | ✅ FAIT | — |
+| ~~JWT HttpOnly cookies~~ | ✅ FAIT | — |
+| ~~Tests composants React~~ | ✅ FAIT (11 tests) | — |
+| ~~Redis cache API~~ | ✅ FAIT | — |
+| **TOTAL restant** | **0 — toutes les évolutions sont implémentées** | |
