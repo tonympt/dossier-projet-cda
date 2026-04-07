@@ -1,0 +1,1459 @@
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Table des matières
+1.	LISTE DES COMPÉTENCES MISES EN ŒUVRES	4
+2.	CAHIER DES CHARGES / EXPRESSION DES BESOINS	5
+3.	CONTEXTE DU PROJET	8
+4.	GESTION DU PROJET	8
+4.1	Méthodologie et organisation	8
+4.2	Déroulement des sprints	9
+4.3	Outils et qualité	10
+4.4	Bilan	10
+5.	SPÉCIFICATIONS FONCTIONNELLES	11
+5.1	Contraintes du projet et livrables attendus	11
+5.2	Architecture logicielle du projet	12
+5.3	Maquettes et enchaînement des maquettes	14
+5.4	Schéma entités-relations	18
+5.5	Diagramme de cas d'utilisation	21
+5.6	Diagrammes de séquence et d'états	22
+6.	SPÉCIFICATIONS TECHNIQUES	25
+6.1	Stack technique et justification des choix	25
+6.2	Environnement de développement et outil	27
+6.3	Stratégie de sécurité	28
+6.4	Documentation et qualité de code	29
+7.	RÉALISATIONS - EXTRAITS DE CODE SIGNIFICATIFS	30
+7.1	Interfaces utilisateur	30
+7.2	Composants métier	36
+7.3	Composants d'accès aux données	42
+7.4	Autres composants significatifs	45
+8.	ÉLÉMENTS DE SÉCURITÉ DE L'APPLICATION	47
+8.1	Authentification et gestion des sessions	47
+8.2	Protection contre les attaques courantes	48
+8.3	Sécurité des intégrations tierces	49
+8.4	Sécurité de l'infrastructure	50
+8.5	RGPD et données personnelles	50
+9.	PLANT DE TESTS	51
+9.1	Stratégie de tests	51
+9.2	Tests significatifs	52
+9.3	Jeu d'essai - Tunnel de vente	53
+9.4	Bilan et axes d'amélioration	54
+10.	VEILLE TECHNOLOGIQUE ET SÉCURITÉ	55
+10.1	Démarche de veille	55
+10.2	Audit de sécurité - démarche OWASP	56
+10.3	Résultats concrets et amélioration continue	57
+
+
+
+
+1.	LISTE DES COMPÉTENCES MISES EN ŒUVRES 
+
+CP
+INTITULÉ
+SECTION DU DOSSIER
+CP1
+Installer et configurer son environnement de travail
+§6
+CP2
+Développer des interfaces utilisateur
+§7.1
+CP3
+Développer des composants métier
+§7.2
+CP4
+Contribuer à la gestion d'un projet informatique
+§4
+CP5
+Analyser les besoins et maquetter une application
+§2, §5
+CP6
+Définir l'architecture logicielle d'une application
+§5.2
+CP7
+Concevoir et mettre en place une BDD relationnelle
+§5.4
+CP8
+Développer des composants d'accès aux données SQL et NoSQL
+§7.3
+CP9
+Préparer et exécuter les plans de tests
+§9
+CP10
+Préparer et documenter le déploiement
+§6.2
+CP11
+Contribuer à la mise en production (DevOps)
+§6.2, §6.4
+
+2.	 CAHIER DES CHARGES / EXPRESSION DES BESOINS
+*	Présentation du projet : 
+ 
+Face à l'urgence climatique et à la déforestation, beaucoup de personnes souhaitent agir mais ne savent pas comment. GreenRoots naît de ce 
+constat : transformer les bonnes intentions en actions concrètes, un arbre à la fois. GreenRoots est une plateforme e-commerce dont la mission est 
+de rendre la contribution à la reforestation aussi simple qu'un achat en ligne. En quelques clics, l'utilisateur consulte un catalogue d'arbres, découvre 
+l'essence et le lieu de plantation, passe commande, paie et suit ses achats depuis son espace personnel. La plateforme s'inscrit dans une démarche 
+d'éco-conception cohérente avec sa mission : un site de reforestation se doit d'être sobre dans son empreinte numérique. 
+
+*	Objectifs :
+?	Simplifier l'acte d'achat : un parcours fluide et intuitif, du catalogue à la confirmation de commande,
+?	Assurer la transparence : chaque utilisateur sait quel arbre a été planté, de quelle essence, et à quel endroit,
+?	Rendre l'engagement accessible : s'adresser aussi bien aux particuliers qu'aux entreprises, sans barrière technique. 
+
+*	Cible utilisateurs : 
+ 
+Particuliers éco-conscients (cible principale du MVP) :
+?	Personnes souhaitant s'engager concrètement pour l'environnement, 
+?	Le MVP couvre l'intégralité de leur parcours : consultation, achat, paiement sécurisé, suivi des commandes
+Entreprises et organisations RSE (cible anticipée) :
+?	Des entreprises et associations qui cherchent à donner de la substance à leurs engagements écologiques, pas une simple déclaration 
+d'intention, mais des arbres plantés, comptabilisables et communicables. Des évolutions sont prévues pour répondre à leurs besoins 
+spécifiques portail partenaires, campagnes collectives de plantation, système de parrainage
+
+
+*	Acteurs du système :
+Rôle
+Description
+Accès
+Visiteur
+Utilisateur non authentifié
+Consultation du catalogue, fiches arbres, ajout au panier, pages publiques 
+(CGV, mentions légales, à propos)
+Utilisateur authentifié
+Visiteur ayant créé un 
+compte
+Tunnel d'achat complet (paiement Stripe), espace personnel (profil, historique 
+de commandes), gestion du compte
+Administrateur
+Gestionnaire de la 
+plateforme
+Back-office : gestion du catalogue d'arbres (CRUD), suivi et gestion des 
+commandes
+
+Le panier est accessible sans authentification pour fluidifier le parcours : le visiteur compose sa sélection librement, la création de compte n'intervient 
+qu'à la finalisation de commande.
+
+*	Périmètre du MVP :
+L'objectif est de livrer une plateforme e-commerce production-ready couvrant l'intégralité du parcours d'achat.
+Fonctionnalité MVP
+Évolution future envisagée
+
+?	Landing page (mission + sélection d'arbres),
+?	Authentification (inscription, connexion, reset 
+password),
+?	Catalogue d'arbres + fiches détaillées,
+?	Tunnel d'achat avec paiement Stripe et confirmation de 
+commande par email,
+?	Espace utilisateur (profil, historique commandes)
+?	Back-office admin (CRUD arbres, gestion commandes)
+
+
+?	Carte interactive des lieux de plantation,
+?	Suivi détaillé des arbres (croissance, photos),
+?	Gestion des profils utilisateurs,
+?	Portail partenaires (organisations externes)
+?	Système de parrainage et fidélité
+?	Support multilingue (FR/EN)
+ 
+La plateforme intègre dès le MVP les exigences de conformité RGPD (droit à la suppression, anonymisation, export des données personnelles), 
+détaillées en section 8. 
+ 
+
+*	User stories principales :
+En tant que
+Je veux...
+Afin de...
+Visiteur
+accéder à la landing page
+comprendre la mission de 
+GreenRoots et être incité à agir
+Visiteur
+consulter le catalogue des arbres
+découvrir les essences disponibles à 
+l'achat
+Visiteur
+créer un compte
+d'accéder aux fonctionnalités 
+authentifiées
+Utilisateur authentifié
+ajouter des arbres à mon panier depuis le catalogue ou la fiche 
+détail
+composer ma sélection avant achat
+Utilisateur authentifié
+valider mon panier et payer
+finaliser ma commande 
+Utilisateur authentifié
+consulter mon historique de commandes
+retrouver mes achats et les arbres 
+commandés
+
+Utilisateur authentifié
+supprimer mon compte
+de retirer mes données de la 
+plateforme
+Administrateur
+ajouter, modifier ou retirer un arbre du catalogue
+gérer le stock
+Administrateur
+consulter l'ensemble des commandes
+de suivre l'activité et gérer les 
+plantations
+
+
+
+
+
+
+3.	 CONTEXTE DU PROJET
+GreenRoots est un projet de fin de formation réalisé dans le cadre du titre professionnel Concepteur Développeur d'Applications, dispensé par le centre de 
+formation O'clock. Le projet a été mené en équipe de cinq apprenants, constituée pour l'occasion, dans des conditions simulant un contexte professionnel : 
+contraintes de délais, livrables attendus et méthodologie de travail imposée.                                                                                           
+Le thème du projet nous a été donné : concevoir et développer un site e-commerce dédié à la vente d'arbres pour la reforestation. En revanche, nous avions 
+toute liberté sur les choix techniques : stack, architecture, outils, ainsi que sur le détail des fonctionnalités, à condition de répondre aux exigences d'un e-
+commerce complet.
+Mon rôle initial, défini lors du sprint 0 (phase de conception), était celui de Lead Dev Front. À ce titre, j'ai arbitré les choix de stack technique et 
+d'architecture côté frontend. Une fois ces fondations posées, j'ai naturellement élargi mon périmètre d'intervention au backend, à la conteneurisation et au 
+DevOps, tirant parti de mes compétences sur l'ensemble des couches applicatives. Cette polyvalence m'a permis de contribuer à toutes les étapes du projet, 
+de la conception au déploiement.
+4.	GESTION DU PROJET
+4.1	Méthodologie et organisation
+Le projet a été conduit selon une méthodologie Agile/Scrum adaptée au contexte de formation : des cycles courts d'une semaine permettant d'itérer 
+rapidement et de livrer des incréments fonctionnels à chaque fin de sprint. 
+L'équipe de cinq membres était structurée autour des rôles Scrum classiques (Product Owner, Scrum Master) complétés par une répartition technique : 
+Lead Dev Front (mon rôle initial), Lead Dev Back et développeur Full-stack. En pratique, j'ai progressivement élargi mon périmètre au-delà du frontend, 
+prenant notamment le leadership sur le suivi du backlog et la priorisation des tâches pour garantir la livraison dans les délais.
+Les cérémonies Scrum ont été respectées tout au long du projet :
+*	Daily meetings quotidiens en visio, chaque matin à 9h (~15 minutes) : point sur les avancées, les blocages rencontrés et mise à jour du board 
+Kanban,
+*	Rétrospectives en fin de sprint : bilan de ce qui a fonctionné, des points d'amélioration et définition des objectifs du sprint suivant.
+ 
+Capture Trello + board Kanban en cours de sprint
+4.2	 Déroulement des sprints
+Le projet s'est articulé en quatre sprints d'une semaine :                                                                                                                 
+*	Sprint 0 - Conception : rédaction du cahier des charges, maquettes Figma, définition de l'architecture technique (front et back), modélisation de la 
+base de données, mise en place des conventions communes et du GitFlow,
+*	Sprint 1 - Fondations : mise en place de l'environnement Docker, structure des projets front et back, premières fonctionnalités MVP (authentification, 
+catalogue, navigation),
+*	Sprint 2 - MVP : finalisation du tunnel d'achat, espace utilisateur, back-office admin, intégration Stripe et Cloudinary,
+*	Sprint 3 - Qualité et sécurité : audit de sécurité OWASP Top 10, correctifs associés, optimisation des performances (Lighthouse), SEO, accessibilité, 
+mise en place de la CI/CD.
+
+4.3	Outils et qualité
+Gestion de versions - GitFlow
+La stratégie de branches suivait un GitFlow simplifié :
+*	main : branche protégée, code stable déployable en production,
+*	dev : branche d'intégration, reçoit les merges des branches de travail,
+*	Branches de travail : nommées selon la convention feature/, fix/, chore/ ou ci/ suivies d'une description explicite.
+Chaque contribution passait par une Pull Request vers dev, avec description précise du périmètre de la PR et code review obligatoire par au moins un autre 
+membre avant merge. Les commits suivaient la convention Conventional Commits (type(scope): description en anglais).
+Qualité de code
+Des conventions communes ont été documentées dès le sprint 0 et appliquées tout au long du projet : nommage en anglais, formats de fichiers (kebab-
+case), linting automatique via ESLint et Prettier. J'ai veillé au respect de ces conventions, notamment à travers les codes reviews.
+Côté frontend, des guidelines spécifiques formalisaient l'architecture en Atomic Design et les patterns à suivre (composants, routing, gestion d'état).
+Analyse des risques
+Les risques du projet ont été identifiés dès le sprint 0 dans le cahier des charges : risques techniques, organisationnels, humains et de sécurité. Cette 
+anticipation a guidé certains choix, comme la conteneurisation dès le départ pour limiter les problèmes d'environnement, ou la mise en place de 
+conventions strictes pour réduire les conflits de code.
+4.4	Bilan
+Le projet a été livré dans les délais avec l'ensemble des fonctionnalités MVP et plusieurs améliorations au-delà du périmètre initial (intégration Stripe réelle, 
+cache Redis, audit sécurité). L'investissement au sein de l'équipe a été inégal, ce qui m'a conduit à élargir significativement mon périmètre d'intervention 
+pour assurer la qualité et la cohérence de l'ensemble.
+Avec le recul, des sprints plus longs auraient permis de mieux absorber les écarts de rythme tout en maintenant la rigueur sur les conventions. Cette 
+expérience m'a néanmoins conforté dans ma capacité à prendre des responsabilités, à m'adapter et à garantir la livraison d'un produit fonctionnel malgré 
+les aléas d'équipe.
+
+5.	SPÉCIFICATIONS FONCTIONNELLES
+5.1	Contraintes du projet et livrables attendus
+Le projet s'inscrivait dans un cadre contraint : quatre semaines de développement, une équipe de cinq personnes aux niveaux hétérogènes et des rôles 
+définis au démarrage (cf. §4). Ces contraintes ont directement influencé le périmètre fonctionnel retenu et les priorités de développement.
+Contraintes techniques
+Plusieurs choix techniques ont été adoptés dès le sprint 0 :
+*	Conteneurisation Docker : choix d'équipe pour garantir un environnement de développement identique entre tous les membres et reproductible en 
+production,
+*	TypeScript sur l'ensemble de la stack (frontend et backend) : standard adopté pendant la formation, la question ne s'est pas posée, il est 
+dorénavant un standard de l'industrie. Le typage statique apporte de la fiabilité et facilite la collaboration,
+*	Responsive design : interfaces adaptées à tous les supports,
+*	Compatibilité navigateurs : deux dernières versions majeures de Chrome, Firefox, Edge et Safari.
+Plusieurs bibliothèques identifiées en phase de conception comme pistes à explorer (TanStack Query, TanStack Router, Zustand, Zod) ont été évaluées puis 
+adoptées, renforçant le routage, la gestion d'état et la validation des données. 
+
+Contraintes réglementaires
+*	RGPD : par souci de cohérence avec un objectif de site production-ready, la conformité RGPD a été intégrée progressivement : les pages légales 
+(mentions légales, politique de confidentialité, CGV) dès le sprint 2, puis les fonctionnalités techniques en sprint 3 : suppression de compte avec 
+anonymisation des données comptables et export des données personnelles. 
+
+*	RGAA : l'accessibilité repose sur shadcn/ui (fondé sur Radix UI, conforme WAI-ARIA nativement : focus trap, navigation clavier, rôles ARIA), 
+complété par des attributs ARIA manuels sur les composants custom (aria-label sur les boutons icônes, role spinbutton avec aria-valuemin/max/now 
+sur le contrôle de quantité), un HTML sémantique (header, nav, main, footer), des labels associés à chaque input, et des alt descriptifs sur les 
+images. Les tests de composants vérifient ces attributs via les sélecteurs accessibles de Testing Library (getByRole, getByLabelText). 
+ 
+ 
+
+Contraintes fonctionnelles
+Le périmètre du MVP a été défini par l'équipe : une application e-commerce fonctionnelle répondant au thème imposé. Le cahier des charges initial prévoyait 
+un tunnel d'achat simulé, mais l'intégration d'un prestataire de services de paiement s'est rapidement imposée. Pour qu'un site e-commerce soit crédible, le 
+frontend devait réagir en fonction du résultat réel du paiement : confirmation, échec, gestion du stock. Stripe s'est imposé comme le choix naturel : 
+documentation complète, composant React intégré (PaymentElement) qui gère la saisie et la validation côté client, les données bancaires ne transitant jamais 
+par notre API. Une distinction claire a été maintenue entre le périmètre MVP et les évolutions futures identifiées dans le cahier des charges.
+Livrables
+*	Application MVP fonctionnelle et déployée,
+*	Code source versionné sur GitHub,
+*	Documentation technique : README, documentation API (Swagger), conventions communes, guidelines frontend. 
+
+5.2	Architecture logicielle du projet 
+
+GreenRoots repose sur une architecture 3 tiers classique, où chaque couche a une responsabilité distincte et ne communique qu'avec la suivante :
+*	Couche présentation : une SPA React servie par Nginx, qui consomme l'API via des requêtes http,
+*	Couche logique métier : une API REST NestJS qui traite les règles métier, l'authentification et la validation des donnée,
+*	Couche données : PostgreSQL (stockage relationnel) et Redis (cache et données éphémères).
+Nginx joue le rôle de reverse proxy, acheminant les requêtes vers le frontend ou le backend selon la route. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+Diagramme d'architecture
+Architecture modulaire backend
+Le backend suit l'architecture modulaire de NestJS : chaque domaine fonctionnel (arbres, commandes, authentification, panier...) est isolé dans un module 
+dédié, structuré en couches :
+*	Controller : point d'entrée HTTP, validation des requêtes,
+*	DTOs : objets de transfert avec validation (class-validator),
+*	Service : logique métier et orchestration,
+*	Prisma : accès aux données via l'ORM, qui joue implicitement le rôle de repository.
+
+
+Ce découpage ne relève pas d'une architecture hexagonale au sens strict, il n'y a pas d'interfaces intermédiaires entre les services et l'ORM, mais il assure 
+une séparation claire des responsabilités et facilite la testabilité grâce à l'injection de dépendances de NestJS, un mécanisme que l'on retrouve dans des 
+frameworks comme Spring Boot.
+Justification des choix techniques
+Le choix de la stack a été guidé par la fiabilité, la productivité et la cohérence de l'écosystème :
+*	React + Vite : écosystème mature, large communauté. Vite remplace avantageusement Webpack avec un temps de démarrage quasi instantané en 
+développement,
+*	NestJS : framework TypeScript structurant qui impose une architecture organisée, avec un système de modules, de guards et d'injection de 
+dépendances, 
+PostgreSQL + Prisma : SGBD robuste et conforme aux standards SQL, couplé à un ORM type-safe qui sécurise les requêtes par défaut (requêtes 
+paramétrées),
+*	Redis : cache en mémoire pour réduire la charge sur PostgreSQL (pays, catégories) et gérer les données éphémères (tentatives de connexion, 
+blacklist JWT).
+  Le détail de chaque technologie et sa configuration est développé en section 6.
+Conteneurisation
+L'ensemble de l'application est conteneurisé via Docker Compose dès le sprint 0, garantissant un environnement identique pour tous les membres de 
+l'équipe. Deux configurations coexistent : un environnement de développement complet (7 services incluant Prisma Studio et Stripe CLI) et un 
+environnement de production épuré (3 services). Le détail est présenté en section 6.
+Sécurité et éco-conception
+L'architecture intègre une approche de sécurité à chaque couche : validation côté client, validation des DTOs côté API, validation règles métier, requêtes 
+paramétrées via l'ORM, détaillée en section 8.                                                             
+Dans la cohérence avec la mission de reforestation du projet, certains choix architecturaux contribuent à limiter l'empreinte numérique : build optimisé via 
+Vite, purge CSS avec Tailwind, import sélectif des composants shadcn/ui et cache Redis réduisant les requêtes SQL redondantes.
+
+
+
+5.3	Maquettes et enchaînement des maquettes
+Identité visuelle
+L'identité visuelle s'appuie sur la police Montserrat, hébergée en local pour limiter les requêtes externes. La palette de couleurs, centrée sur des tons verts 
+en cohérence avec la thématique de reforestation, associe un fond blanc à une typographie sombre pour garantir la lisibilité et des contrastes conformes 
+aux standards d'accessibilité, validés via Lighthouse. La hiérarchie visuelle est assurée par cinq variantes de poids (300 à 700) et des tailles responsives qui 
+s'adaptent aux breakpoints mobile et desktop.
+Wireframes et maquettes
+La conception des interfaces a suivi une démarche progressive : wireframes pour poser la structure et la disposition des éléments, puis maquettes détaillées 
+sur Figma. Les maquettes couvrent les vues mobile et desktop, l'adaptation tablette se fait naturellement via les breakpoints CSS de Tailwind.
+ 
+  
+Wireframe desktop et mobile - page catalogue 
+ 
+ 
+Maquette Figma desktop et mobile - page catalogue
+
+ 
+ 
+La page /catalog illustre les choix de mise en page : grille de cartes produit en trois colonnes sur desktop, une seule colonne sur mobile. Chaque carte 
+affiche l'image de l'arbre, son nom, son prix, sa localisation et un contrôle d'ajout au panier. La comparaison entre les wireframes et la maquette montre la 
+progression de la structure fonctionnelle vers le rendu final. 
+ 
+Arborescence du site 
+
+  Le site est organisé en quatre zones distinctes, correspondant à des niveaux d'accès différents :
+
+*	Pages publiques (vert) : le visiteur accède librement à l'accueil, au catalogue, aux fiches arbre, au panier ainsi qu'aux pages légales (mentions légales, 
+CGV, politique de confidentialité),                 
+*	Tunnel d'achat (orange) : à partir du panier, le checkout et la confirmation de commande nécessitent une authentification,
+*	Espace utilisateur (bleu) : profil personnel, historique et détail des commandes, 
+*	Back-office admin (rouge) : gestion des arbres, catégories, localisations et commandes (restreint au rôle ADMIN). 
+
+version agrandie en Annexe X
+
+ 
+La hiérarchie des routes reflète la navigation réelle de l'application : chaque niveau de profondeur correspond à un écran accessible depuis son parent.
+
+Enchaînement des écrans : parcours d'achat
+Le parcours d'achat principal guide l'utilisateur du catalogue jusqu'à la confirmation de commande :
+
+ 
+ 
+L'utilisateur consulte le catalogue, accède à la fiche d'un arbre, l'ajoute au panier. Au moment de valider, s'il n'est pas connecté, il est redirigé vers la page 
+de connexion puis automatiquement renvoyé vers le checkout. Le paiement est traité via Stripe, et la confirmation affiche le statut de la commande en 
+temps réel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5.4	Schéma entités-relations
+La base de données PostgreSQL est structurée autour de 12 entités, modélisées via Prisma ORM. Le schéma Prisma a servi de support de modélisation dès 
+le sprint 0, avec les migrations versionnées comme historique d'évolution (23 migrations au total) :
+version agrandie en Annexe X
+ 
+ 
+Le modèle s'organise autour de trois domaines fonctionnels :
+*	Catalogue : Tree, Category, Location, Country, TreeStock - un arbre appartient à une catégorie (n-1), est planté dans une localisation (n-1) rattachée à 
+un pays (n-1). Le stock est isolé dans une entité dédiée (1-1 avec Tree), séparant l'identité de l'arbre de sa disponibilité commerciale, ce qui permet 
+d'évoluer indépendamment (seuils d'alerte, historique), 
+
+*	Commandes : Order, OrderItem, OrderAddress - une commande contient plusieurs items (1-N), chacun lié à un arbre, avec prix unitaire et TVA figés 
+au moment de l'achat. Deux adresses typées complètent la commande (facturation et livraison). Les données sont des snapshots : le countryCode de 
+l'adresse n'est volontairement pas lié à la table Country pour préserver l'intégrité historique des commandes, 
+
+*	Utilisateurs : User, Role, Cart, CartItem - un utilisateur possède un rôle (N-1), un panier unique (1-1) et peut passer plusieurs commandes (1-N). Le 
+panier est géré côté client (Zustand + localStorage) ; les tables Cart et CartItem sont prévues pour une synchronisation serveur en évolution future,
+Choix de modélisation notables
+*	Prix en centimes (INT) : tous les montants sont stockés en entiers (centimes) plutôt qu'en décimal. Ce choix élimine les erreurs d'arrondi liées aux 
+nombres flottants et s'aligne sur le standard de Stripe qui attend des montants en centimes. Un décorateur @PriceToDecimal() assure la conversion à 
+l'affichage côté API, 
+
+*	Enums : PaymentStatus et OrderStatus contraignent les valeurs possibles au niveau de la base de données, garantissant l'intégrité des statuts. Les 
+transitions autorisées entre ces statuts sont gérées par une state machine côté applicatif (détaillée en section 7.2), 
+
+*	PostGIS : le champ coordinates de type geometry dans Location utilise l'extension PostGIS de PostgreSQL pour stocker des coordonnées 
+géographiques natives, en vue de l'évolution prévue dans le cahier des charges (carte interactive des plantations), 
+
+*	Conventions de nommage : les modèles Prisma suivent le PascalCase, tandis que les tables et colonnes en base utilisent le snake_case via les 
+directives @map et @@map, respectant les conventions de chaque écosystème.
+
+
+
+Contraintes d'intégrité et sécurité 
+*	Clés étrangères : toutes les relations sont contraintes, avec cascade sur TreeStock et OrderAddress (suppression liée à l'entité parente),
+*	Unicité : email utilisateur, combinaison arbre/localisation (unique_tree_per_location), combinaison commande/arbre dans les items, un seul panier 
+par utilisateur,
+*	Sécurité des données : mot de passe hashé (bcrypt), tokens de vérification et réinitialisation stockés sous forme de hash SHA-256, select sécurisé 
+côté service pour exclure les champs sensibles des réponses API,
+*	RGPD : suppression de compte avec anonymisation des données de commande (obligation comptable de conservation 6 ans) et export des 
+données personnelles au format JSON,
+
+Droits d'accès
+*	Les droits sont gérés au niveau applicatif via les guards NestJS (JWT + rôles) plutôt que par des rôles PostgreSQL. Ce choix est justifié par 
+l'architecture : Prisma utilise une connexion unique à la base, et la gestion des permissions à la couche API est le pattern standard des applications 
+REST modernes.
+
+Jeu d'essai et migrations
+Un seed Prisma fournit un jeu de données de test couvrant les différents scénarios (utilisateurs avec rôles variés, arbres avec stocks différents, commandes 
+dans chaque statut). Les 23 migrations versionnées constituent l'historique complet de l'évolution du schéma depuis le sprint 0.
+
+
+
+
+
+
+
+
+5.5	Diagramme de cas d'utilisation
+Le diagramme ci-dessous modélise les interactions entre les trois acteurs du système et les fonctionnalités de l'application. 
+ 
+ 
+ 
+
+Trois acteurs interagissent avec le système, selon une hiérarchie d'accès :
+*	Visiteur : consulte le catalogue, les fiches arbre, gère son panier, s'inscrit, se connecte et peut réinitialiser son mot de passe,  
+
+*	Utilisateur (hérite du Visiteur) : passe commande, consulte son historique, gère son profil (modification des informations personnelles et du mot de 
+passe), peut supprimer son compte et exporter ses données personnelles (RGPD), 
+
+*	Admin (hérite de l'Utilisateur) : gère les arbres, catégories, localisations et commandes (consultation, changement de statut, annulation) via le back-
+office.
+Deux relations <<include>> sont identifiées : passer commande inclut systématiquement la vérification du stock et le paiement via Stripe. Une relation 
+<<extend>> lie la gestion des commandes au remboursement Stripe, déclenché uniquement en cas d'annulation d'une commande payée.
+Dans l'implémentation, cette hiérarchie d'accès est assurée par les guards NestJS : JwtAuthGuard pour les routes authentifiées et RolesGuard pour les routes 
+admin.
+
+
+
+      version agrandie en Annexe X 
+
+5.6	Diagrammes de séquence et d'états
+Les deux flux les plus critiques de GreenRoots :  le tunnel de commande et l'authentification sont formalisés ci-dessous sous forme de diagrammes de 
+séquence. Un diagramme d'états complète cette modélisation en décrivant le cycle de vie d'une commande. Les diagrammes présentent le flux nominal ; les 
+cas d'erreur sont détaillés dans les sections dédiées (§7.2, §8). 
+ 
+Processus de commande
+Le diagramme ci-contre détaille les échanges entre les cinq acteurs du tunnel de commande : l'utilisateur, le frontend React, le backend NestJS, PostgreSQL 
+et Stripe.
+Le flux se décompose en cinq phases.  
+L'initialisation (phase 1) crée la commande et le PaymentIntent Stripe sans réserver le stock ; un choix délibéré pour éviter de bloquer des articles pendant 
+que l'utilisateur peut encore modifier son panier ou abandonner. Sans cette séparation, il faudrait également gérer un panier côté serveur synchronisé avec 
+le stock réservé, ce qui ajouterait une complexité non nécessaire au MVP.  
+La réservation intervient au dernier moment, lors de la confirmation (phase 2), via une transaction atomique Prisma : si le stock est insuffisant entre-temps, 
+l'utilisateur est informé et peut ajuster sa commande.  
+Le paiement (phase 3) s'effectue directement entre le navigateur et Stripe via le composant PaymentElement, les données bancaires ne transitent jamais par 
+notre backend. Le webhook Stripe (phase 4) constitue la source de vérité : c'est un appel serveur-à-serveur, vérifié par signature HMAC, indépendant du 
+navigateur de l'utilisateur. Enfin, le frontend interroge le backend par polling (phase 5) jusqu'à obtenir la confirmation de la commande.
+
+      version agrandie en Annexe X
+Authentification
+Le second diagramme couvre le login et le logout, avec Redis qui intervient à chaque étape.
+
+Au login, le backend commence par vérifier dans Redis si le compte est verrouillé pour brute force (5 tentatives maximum, blocage de 15 minutes via un 
+compteur avec TTL auto-expirant). Après vérification du mot de passe par bcrypt, le backend génère un JWT et le pose en cookie 
+HttpOnly+Secure+SameSite=Lax. 
+Le token n'est jamais accessible par JavaScript côté client, ce qui protège contre le vol via XSS. Au logout, le token est ajouté à une blacklist Redis avec un 
+TTL correspondant à sa durée de vie restante : il s'efface automatiquement à son expiration naturelle. Par la suite, chaque requête authentifiée passe par la 
+vérification de cette blacklist et le contrôle en base de données que l'utilisateur existe toujours, avec récupération de son rôle actuel plutôt que celui stocké 
+dans le token.
+
+
+
+Cycle de vie d'une commande
+Le diagramme d'états ci-dessous formalise les transitions autorisées pour les deux statuts parallèles d'une commande : OrderStatus (suivi logistique) et 
+PaymentStatus (suivi financier).
+ 
+
+Les deux state machine évoluent conjointement : le webhook Stripe pilote le PaymentStatus (PROCESSING ? PAID ou FAILED), ce qui déclenche la transition 
+correspondante de l'OrderStatus (PENDING ? CONFIRMED).  
+ 
+Ces transitions sont contrôlées côté code par la constante ORDER_STATUS_TRANSITIONS, qui liste explicitement les passages autorisés, toute transition non 
+déclarée est rejetée par le service. L'annulation d'une commande déjà payée déclenche automatiquement un remboursement via l'API Stripe et la 
+restauration du stock réservé en base de données. Un CRON de réconciliation traite les cas limites : commandes abandonnées et webhooks perdus.
+6.	SPÉCIFICATIONS TECHNIQUES
+6.1	Stack technique et justification des choix
+Le choix des technologies a été guidé par un critère principal : privilégier des outils que l'équipe maîtrisait déjà, afin de réduire le coût d'apprentissage sur 
+un projet limité à quatre semaines de développement. Les technologies vues en formation (React, NestJS, PostgreSQL, Prisma) ont constitué le socle, 
+complétées par des bibliothèques sélectionnées pour leur maturité et leur communauté. L'architecture retenue, une SPA React découplée d'une API REST 
+NestJS, a été préférée à un framework fullstack comme Next.js, afin de maintenir une séparation claire des responsabilités entre frontend et backend. 
+
+Technologie
+Version
+Rôle
+Justification
+React
+19
+Framework frontend
+Maîtrisé par toute l'équipe, large écosystème
+Vite
+7.2.4
+Outil de développement
+Serveur HMR + bundler Rollup, standard actuel (remplace CRA)
+TanStack Router
+1
+Routage
+Type-safe, code splitting natif
+TanStack Query
+5
+Gestion asynchrone
+Cache intelligent, polling, invalidation
+Zustand
+5
+État global
+Léger, simple, persist localStorage
+Tailwind CSS
+4
+Styles
+Utilitaire, purge CSS automatique
+shadcn/ui
+-
+Composants UI
+Basé sur Radix UI (accessibilité), import sélectif
+NestJS
+11
+Framework backend
+Architecture modulaire, DI native, décorateurs
+PostgreSQL
+16
+Base de données
+SGBD relationnel robuste, extension PostGIS
+Prisma
+7
+ORM
+Type-safety, migrations versionnées
+Redis
+redis:alpine
+Cache et protection
+Cache API, brute force, blacklist JWT
+Nginx
+nginx:alpine
+Reverse proxy
+Sert les fichiers statiques, redirige /api vers NestJS
+Stripe
+-
+Paiement
+PSP complet, composants React, webhooks
+Cloudinary
+-
+Gestion d'images
+CDN, transformations à la volée
+Resend
+-
+Envoi d'emails
+API moderne, templates HTML
+
+
+
+
+
+Les bibliothèques frontend (TanStack Router/Query, Zustand, Tailwind CSS, shadcn/ui) ont été proposées par moi-même au sprint 0. Ces outils bénéficient 
+d'une large communauté, d'une documentation complète et d'un bon niveau de maturité. Le recul acquis sur des projets précédents a permis de les 
+intégrer rapidement et d'en tirer parti dès le premier sprint.
+NestJS a été retenu pour le backend plutôt qu'Express. Là où Express laisse une liberté totale d'organisation, NestJS impose une structure claire : modules, 
+contrôleurs, services, injection de dépendances, qui facilite le travail en équipe et la maintenabilité du code. Son architecture rappelle celle de Spring Boot, 
+avec laquelle une partie de l'équipe avait déjà travaillé.
+PostgreSQL s'est imposé comme SGBD principal pour sa robustesse et sa popularité. L'extension PostGIS a été ajoutée dès le départ pour stocker les 
+coordonnées géographiques des localisations d'arbres, en anticipation de l'évolution carte interactive prévue dans le cahier des charges.  
+ 
+Prisma, en tant qu'ORM, apporte la type-safety TypeScript de bout en bout et un système de migrations versionnées (23 migrations sur le projet) qui 
+garantit la traçabilité de chaque évolution du schéma.
+Stripe a été choisi comme prestataire de services de paiement pour la richesse de son écosystème : SDK backend complet, composants React prêts à 
+l'emploi (PaymentElement) qui gèrent la saisie sécurisée des données bancaires sans qu'elles ne transitent par notre serveur, système de webhooks fiable 
+pour la confirmation asynchrone des paiements, et une documentation particulièrement détaillée. Ce choix élimine toute problématique de conformité PCI-
+DSS côté application.
+Cloudinary a été sélectionné après une analyse des solutions d'hébergement d'images disponibles. L'objectif était de disposer d'une solution clé en main : 
+upload signé sans transit par notre serveur, stockage cloud, transformations d'images à la volée, sans investir du temps de développement sur une 
+infrastructure dédiée.
+
+
+
+
+
+
+6.2	Environnement de développement et outil 
+
+L'environnement de développement repose entièrement sur Docker Compose, qui orchestre sept services en local :
+Service
+Rôle
+Frontend
+Serveur Vite avec hot reload (volume monté)
+Backend
+NestJS en mode watch, avec démarrage automatique (migration, génération Prisma, seed, lancement)
+Database
+PostgreSQL 16 + PostGIS
+redis
+Cache API, brute force, blacklist JWT
+Nginx
+Reverse proxy : sert le frontend et redirige /api vers le backend
+stripe-cli
+Écoute et forward des webhooks Stripe vers le backend en loca
+prisma-studio
+Interface visuelle d'exploration de la base de données
+
+Chaque service dispose d'un healthcheck (pg_isready pour PostgreSQL, redis-cli ping pour Redis) et les dépendances entre services sont déclarées via 
+depends_on avec condition service_healthy, garantissant un démarrage ordonné.
+En production, la configuration est épurée à trois services (frontend, backend, database). Les images sont construites en multi-stage : une première étape 
+installe les dépendances et compile le projet, une seconde étape copie uniquement les fichiers compilés dans une image légère (Node Alpine ou Nginx 
+Alpine). Les containers de production tournent avec un utilisateur non-root, limitant la surface d'attaque en cas de faille. Les ports ne sont pas exposés 
+directement (expose au lieu de ports), l'accès passant par le réseau interne Docker.
+Un Makefile regroupe une vingtaine de commandes qui standardisent le workflow de l'équipe : démarrage de l'environnement, reset complet du backend 
+(suppression des volumes, rebuild, migration, seed), linting, accès aux logs. Cet outil a facilité l'onboarding  et permis à chaque membre de l'équipe d'utiliser 
+les mêmes commandes quel que soit son niveau technique.
+Les variables d'environnement sont documentées via des fichiers .env.example (développement) et .env.production.example (production). Côté backend, un 
+schéma de validation Joi vérifie au démarrage que toutes les variables requises sont présentes et valides.  L'application refuse de démarrer si une 
+configuration est manquante.
+                  
+                                                      
+6.3	Stratégie de sécurité 
+
+La sécurité de l'application est organisée selon le principe de défense en profondeur : chaque couche traversée par la donnée dispose de ses propres 
+mesures de protection, indépendantes les unes des autres. Si une couche est compromise, les suivantes résistent.                                                                                                                                                                                                                                                          
+Au niveau réseau, Helmet ajoute automatiquement une dizaine de headers HTTP de sécurité aux réponses du serveur (protection contre le clickjacking, le 
+sniffing de type MIME, etc.). Le CORS restreint les appels API au seul domaine du frontend : aucun autre site ne peut interroger l'API depuis le navigateur 
+d'un utilisateur.
+Au niveau applicatif, le ValidationPipe NestJS constitue la première barrière : appliqué globalement, il filtre chaque requête entrante en supprimant tout 
+champ non déclaré dans le DTO et en rejetant les requêtes contenant des propriétés non autorisées. Le ThrottlerGuard complète cette protection en 
+limitant le nombre de requêtes par IP, prévenant les abus et les tentatives de saturation. Les guards Passport.js (JWT et rôles) contrôlent ensuite 
+l'authentification et les autorisations d'accès.
+Au niveau données, Prisma génère des requêtes paramétrées qui éliminent tout risque d'injection SQL. Les contraintes d'intégrité en base de données (clés 
+étrangères, unicité, enums) constituent la dernière barrière de validation. 
+ 
+Cette organisation par couches suit le principe de défense en profondeur, défini notamment par l'ANSSI. Un audit structuré selon le référentiel OWASP Top 
+10:2025 a été mené en sprint 3 sur le backend, aboutissant à plusieurs correctifs (tokens hashés en base, renforcement des headers, passage du JWT en 
+cookie HttpOnly). Le détail des mesures de sécurité implémentées et les résultats de l'audit sont présentés en section 8.
+
+
+
+
+
+
+
+
+6.4	Documentation et qualité de code
+L'intégration continue repose sur trois workflows GitHub Actions, déclenchés à différentes étapes du cycle de développement :
+
+Workflow
+Déclencheur
+Rôle
+pr-checks
+Chaque Pull 
+Request
+Audit de sécurité (npm audit --audit-level=critical), lint ESLint et tests unitaires. Bloque le merge en cas 
+d'échec
+develop-ci
+Push ou PR vers 
+develop
+Suite de tests complète avec une base PostgreSQL dédiée (seed reproductible), lint frontend et 
+backend
+production-deploy
+Push sur main
+Build de production, déploiement via webhook Coolify et vérification HTTP post-déploiement (health 
+check)
+
+Le workflow pr-checks constitue le filet de sécurité principal : aucune Pull Request ne peut être mergée si le lint, les tests ou l'audit de sécurité échouent. Le 
+workflow develop-ci va plus loin en exécutant les tests backend avec une base de données PostgreSQL dédiée, alimentée par un seed qui garantit un état de 
+départ reproductible à chaque exécution.
+ESLint et Prettier sont configurés sur le frontend et le backend, avec des règles partagées par l'équipe. La vérification du lint s'effectue en CI sur chaque Pull 
+Request. En évolution technique, la mise en place de Husky avec un hook pre-commit est prévue pour valider le code directement sur la machine du 
+développeur, avant même le push : ce qui permettrait de détecter les erreurs de formatage plus tôt dans le cycle.
+La documentation de l'API est générée automatiquement par Swagger (OpenAPI), accessible uniquement en environnement de développement. Elle est 
+désactivée en production pour éviter d'exposer la structure complète des routes à un utilisateur malveillant.
+Les conventions de développement (nommage, Git flow, format des commits, règles de Pull Request) sont formalisées dans un document partagé par 
+l'équipe. Chaque Pull Request fait l'objet d'une revue de code obligatoire par au moins un autre membre avant le merge.
+
+
+7.	RÉALISATIONS - EXTRAITS DE CODE SIGNIFICATIFS
+7.1	Interfaces utilisateur
+Le fil rouge de cette section est le tunnel de vente : du panier à la confirmation de commande, qui constitue le parcours central de GreenRoots. Le back-
+office admin complète cette présentation avec un exemple de composant responsive adaptatif. 
+ 
+Panier - Gestion d'état et persistance 
+ 
+Le panier est géré côté client via un store Zustand. Ce choix répond à un besoin précis : le panier doit être accessible depuis plusieurs composants (badge du 
+header, page panier, checkout) et persister entre les sessions utilisateur. Le middleware persist synchronise automatiquement l'état avec le localStorage, 
+offrant une persistance transparente sans développer de panier côté serveur.
+ 
+ 
+ 
+Cependant, un panier purement local pose un problème de désynchronisation avec le stock réel : un article ajouté la veille peut être en rupture le 
+lendemain. L'action syncWithStock réconcilie le panier avec les données serveur : elle compare chaque quantité locale au stock disponible et ajuste à la 
+baisse si nécessaire, en mémorisant les changements pour en informer l'utilisateur via un dialog d'alerte. 
+ 
+Cette synchronisation est pilotée par TanStack Query : les données stock sont mises en cache avec un staleTime de 5 minutes, au-delà duquel tout 
+remontage du composant ou retour sur l'onglet déclenche une nouvelle requête serveur.
+ 
+ 
+
+
+
+
+Checkout - Formulaire et paiement en deux phases
+Le composant Checkout orchestre le formulaire d'adresse et l'intégration Stripe via une state machine implicite définie par l'interface PaymentState. Le flux 
+suit trois états : inactif (formulaire éditable), initialisation en cours, puis prêt pour le paiement (formulaire verrouillé, Stripe Elements monté).
+
+
+
+
+      Interface PaymentState
+
+
+Le verrouillage du formulaire (isFormLocked) est dérivé directement de la présence du clientSecret : si Stripe a retourné un secret, la commande est créée 
+côté backend et le formulaire ne doit plus être modifiable. Ce choix évite un état boolean supplémentaire et garantit la cohérence : pas de clientSecret = pas 
+de verrouillage.  
+ 
+Point important : le composant StripePaymentSection n'est monté dans le DOM qu'après obtention du clientSecret. Avant cela, seul le récapitulatif avec le 
+bouton "Valider et payer" est affiché. Ce montage conditionnel évite de charger le SDK Stripe inutilement et réduit le poids initial de la page. 
+
+
+
+
+Logique du composant Checkout - verrouillage formulaire et initialisation du paiement 
+
+ 
+ 
+ 
+ 
+ 
+?? Rendu du composant Checkout - montage conditionnel  
+de Stripe Elements 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Page /checkout avec formulaire verrouillé et StripeElements visible ??
+
+
+
+
+
+
+Une fois le clientSecret obtenu, l'utilisateur accède au formulaire de carte bancaire (Stripe Elements).  
+ 
+Le paiement suit un pattern de double confirmation implémenté dans StripePaymentSection : d'abord une requête backend pour réserver le stock de manière 
+atomique (confirmCheckout), puis seulement en cas de succès, le paiement Stripe est déclenché (stripe.confirmPayment). 
+ 
+Si le stock est insuffisant entre-temps, le paiement n'est jamais lancé et l'utilisateur est informé via un dialog détaillant les articles concernés.
+						
+
+
+
+
+
+
+
+Confirmation de commande - Polling intelligent
+Après le paiement, le frontend ne reçoit pas directement la confirmation : le webhook Stripe est une communication serveur-à-serveur que le navigateur 
+ne voit pas. Le composant OrderConfirmation interroge donc le backend par polling (requête toutes les 2 secondes) pour connaître le statut réel de la 
+commande.
+Ce polling est implémenté via l'option refetchInterval de TanStack Query, avec une logique adaptative selon le statut reçu : arrêt immédiat si PAID, poursuite 
+jusqu'à 30 tentatives (1 minute) si PROCESSING, et un délai de grâce de 5 tentatives si FAILED, car le webhook de succès peut arriver quelques secondes 
+après un échec initial (cas d'un second essai de paiement).
+Le composant OrderConfirmation consomme ce hook et adapte son affichage selon six cas : commande en attente (PENDING), paiement en cours 
+(PROCESSING), timeout de validation bancaire (après 30 tentatives), paiement confirmé (PAID), échec après délai de grâce (FAILED), et échec en cours de 
+vérification (délai de grâce actif). Le panier est vidé automatiquement via un useEffect lorsque le statut passe à PAID.
+En évolution, ce mécanisme de polling pourrait être remplacé par des Server-Sent Events (SSE), technologie supportée nativement par NestJS, qui 
+permettrait au serveur de notifier le client en temps réel sans requêtes répétées.
+
+Responsive adaptatif - Rendu conditionnel
+Pour le tableau des commandes, l'approche habituelle avec Tailwind CSS serait d'utiliser les classes responsive (hidden md:block) pour masquer un 
+composant selon la taille d'écran. Mais masquer en CSS ne suffit pas : le composant reste monté dans le DOM, sa logique JavaScript est exécutée et son 
+arbre de nœuds est calculé par le navigateur. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ici, le composant desktop utilise la bibliothèque TanStack React Table, un tableau riche avec tri par colonnes et pagination, qui représente un poids 
+significatif. Pour éviter de le monter inutilement sur mobile, un hook custom useMediaQuery écoute l'API   native window.matchMedia et retourne un 
+booléen réactif. Cela permet un rendu conditionnel en JavaScript : sur mobile, seule une liste de cartes légères (MobileOrdersList) est montée. 
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+?? 
+
+ 
+ 
+ 
+ 
+
+
+ 
+Ce pattern s'inscrit dans la démarche d'éco-conception du projet : réduire le poids de ce qui est rendu au navigateur quand le contexte le permet. 
+
+7.2	Composants métier 
+
+Les composants métier du tunnel de vente forment un écosystème dont chaque maillon garantit l'intégrité des données à son niveau : cohérence du stock, 
+fiabilité des paiements, et exactitude des statuts de commande. Ils sont présentés ici dans l'ordre du cycle de vie d'une commande, de l'initialisation jusqu'à 
+la gestion post-achat. 
+
+
+
+ 
+ 
+ 
+
+Initialisation du checkout 
+ 
+ 
+ 
+Le service initCheckout crée ou met à jour une commande lorsque l'utilisateur valide le formulaire de commande (bouton "Valider et payer" dans le 
+composant Checkout). Concrètement, il génère une Order en base (items, quantités, prix unitaires, calcul TVA, adresse de facturation) et un PaymentIntent 
+côté Stripe (qui encapsule le montant à débiter). L'identifiant du PaymentIntent est stocké sur la commande en base, il servira à vérifier la correspondance 
+lors du webhook (cf. §8). Le clientSecret retourné par Stripe est transmis au frontend pour monter le formulaire de carte bancaire. 
+ 
+Une décision structurante a été prise : le stock n'est pas décrémenté à cette étape. L'objectif est de vérifier la disponibilité au plus proche du paiement 
+réel, et d'éviter de bloquer du stock pour des paniers abandonnés, problème courant en e-commerce. L'utilisateur est averti en temps réel si le stock a 
+changé lors de la confirmation. 
+ 
+Pour éviter de créer des commandes multiples, le service recherche d'abord une commande PENDING réutilisable (moins de 30 minutes, stock non 
+réservé).  
+Si l'utilisateur revient modifier son panier, la commande existante est mise à jour plutôt que recréée.  
+Ce seuil de 30 minutes reste pertinent même sans blocage de stock : il limite les commandes fantômes en base et s'aligne sur le timeout standard des 
+sessions Stripe. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Confirmation et réservation de stock 
+ 
+La méthode confirmCheckout est la pièce maîtresse du tunnel. Appelée par le frontend juste avant de lancer stripe.confirmPayment(), elle vérifie la 
+disponibilité du stock et le décrémente atomiquement dans une transaction Prisma. 
+
+Plusieurs gardes de sécurité protègent l'opération : vérification que l'utilisateur est bien le propriétaire de la commande, que le statut autorise encore la 
+modification, et surtout une garde d'idempotence via le flag stockReservedAt. Si le stock a déjà été réservé (cas du double-clic utilisateur), la méthode 
+retourne directement {success: true } sans re-décrémenter, évitant ainsi une corruption silencieuse du stock.
+La validation parcourt tous les items avant toute décrémentation. Si un problème est détecté, le retour structuré { success: false, issues: [...] } permet au 
+frontend d'afficher un message précis par article (rupture totale ou stock insuffisant). 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Webhook Stripe - source de vérité 
+ 
+Le statut de paiement n'est jamais mis à jour depuis le frontend.  
+On ne fait pas confiance au " client ", qui peut être manipulé ou interrompu (fermeture du navigateur, perte de connexion). La seule source de vérité est le 
+webhook Stripe, une communication serveur-à-serveur signée par HMAC-SHA256.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Nettoyage et réconciliation 
+ 
+ 
+ 
+ 
+ 
+Un CRON horaire (OrdersCleanupService) agit comme filet de sécurité pour gérer les commandes dans des statuts incohérents.  
+ 
+Le paiement implique deux infrastructures indépendantes (Stripe et notre backend) : il existe une probabilité pour que l'une des deux soit indisponible au 
+moment critique, entraînant la perte du webhook. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gestion admin - state machine 
+ 
+La mise à jour du statut d'une commande par l'administrateur s'appuie sur une state machine explicite.  
+ 
+La constante ORDER_STATUS_TRANSITIONS centralise les transitions autorisées dans un objet lisible et extensible, contrairement à un if/else dispersé dans le 
+code. 
+ 
+Le cas d'annulation illustre un pattern fail-early : le remboursement Stripe est tenté avant la transaction de mise à jour en base. Si Stripe refuse le 
+remboursement, une exception est levée et la commande reste inchangée, évitant le scénario d'une commande annulée sans remboursement. 
+La restauration du stock est effectuée dans la même transaction que le changement de statut. 
+ 
+Enfin, un service de facturation génère des factures PDF via @react-pdf/renderer, avec numéro séquentiel atomique (format FA-YYYY-NNNNNN) et mentions 
+légales obligatoires. Ce service complète le cycle de vie de la commande : de la création à la preuve documentaire. 
+
+7.3	Composants d'accès aux données 
+
+L'accès aux données dans GreenRoots repose sur deux technologies complémentaires : Prisma ORM pour l'accès relationnel à PostgreSQL, et Redis pour les 
+données éphémères et le cache. Toutes les entrées sont validées en amont par les DTOs (class-validator) avant d'atteindre la couche d'accès. Les transactions 
+atomiques et la gestion des conflits de stock, détaillées en §7.2, ne sont pas reprises ici. 
+ 
+Accès SQL - Requêtes avec relations et pagination 
+ 
+L'ORM Prisma génère des requêtes type-safe à partir du schéma de données. Les include permettent de charger les relations en une seule opération, mais 
+Prisma les traduit en requêtes SQL séparées batchées plutôt qu'en JOIN : pour un arbre avec son stock, sa catégorie et sa localisation, Prisma émet trois 
+requêtes SELECT ... WHERE id IN(...). Ce comportement est acceptable pour le volume de GreenRoots, mais pour des jeux de données volumineux, Prisma 
+supporte $queryRaw pour écrire du SQL natif optimisé. 
+La constante TREE_INCLUDES centralise la profondeur d'include en un seul endroit, réutilisée dans toutes les méthodes du service (findAll, findOne, create, 
+update). Si une relation est ajoutée au modèle (par exemple des images), la modification se fait à un seul endroit. 
+ 
+ 
+Accès NoSQL - Cache Redis (pattern cache-aside) 
+ 
+ 
+Les données de référence peu modifiées (catégories, pays de facturation) sont mises en cache dans Redis selon le pattern cache-aside : à chaque lecture, le 
+service vérifie d'abord si la donnée existe en cache. En cas de cache hit, elle est retournée directement sans requête PostgreSQL. En cas de cache miss, la 
+base est interrogée et le résultat est stocké dans Redis avec un TTL (1 heure pour les catégories, 24 heures pour les pays).  
+
+L'invalidation est gérée à l'écriture : chaque opération de création, modification ou suppression d'une catégorie supprime les clés Redis correspondantes. Le 
+prochain appel reconstruira le cache avec les données fraîches. 
+                                                                                                                                                                             La dégradation gracieuse est intégrée à l'architecture : si 
+Redis est indisponible, chaque méthode du RedisService retourne une valeur neutre (null, false, 0) grâce à un double filet (isAvailable() + try/catch). L'API 
+continue de fonctionner via PostgreSQL, simplement sans cache. Redis est un accélérateur, pas une dépendance bloquante. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Accès NoSQL - Protection brute force 
+ 
+ 
+ 
+Redis sert aussi en dehors du cache pour des cas où la performance et le caractère éphémère de la donnée sont essentielles. Le service LoginAttemptsService 
+implémente un compteur de tentatives de connexion par email : à chaque échec, la commande INCR incrémente atomiquement le compteur (pas de race 
+condition même sous requêtes concurrentes) et pose un TTL de 15 minutes au premier échec. Après 5 tentatives, le compte est verrouillé. Le compteur se 
+réinitialise automatiquement à l'expiration du TTL, sans CRON de nettoyage.
+Le même principe sert à la blacklist JWT : au logout, le token est stocké dans Redis avec un TTL égal à sa durée de vie restante, et vérifié à chaque requête 
+authentifiée (détail en §8). 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+7.4	Autres composants significatifs
+Plusieurs composants transversaux complètent l'architecture présentée dans les sections précédentes. Sans être rattachés à une fonctionnalité métier 
+unique, ils illustrent des patterns NestJS réutilisés dans l'ensemble du projet. 
+ 
+ 
+Module Stripe - Singleton global via factory 
+ 
+L'intégration de Stripe repose sur un module dédié, déclaré @Global() pour être accessible dans tous les modules (checkout, payment, orders) sans import 
+explicite.  L'instance Stripe est construite au démarrage via un useFactory qui injecte le ConfigService pour lire la clé secrète depuis les variables 
+d'environnement. 
+ 
+Le résultat est un singleton : une seule instance Stripe partagée dans toute l'application, injectée via le constructeur de chaque service (constructor(private 
+readonly stripe: Stripe)). La version de l'API est fixée pour éviter les breaking changes lors des mises à jour de la bibliothèque. 
+ 
+ 
+ 
+ 
+Transformation des réponses - Interceptor et conversion des prix 
+ 
+Les prix sont stockés en centimes (entiers) en base de données, conformément au standard Stripe et pour éviter les erreurs d'arrondi liées au floating point. 
+Côté API, un interceptor NestJS (SerializeInterceptor) transforme automatiquement les réponses en appliquant les règles définies dans les DTOs. Le decorator 
+@PriceToDecimal(), basé sur @Transform() de class-transformer, convertit chaque champ prix de centimes vers euros au moment de la sérialisation. 
+ 
+
+
+
+Upload d'images - Cloudinary signé 
+ 
+Un service d'upload signé vers Cloudinary a été développé : le backend génère une signature HMAC et un timestamp, le frontend upload le fichier 
+directement vers l'API Cloudinary sans que l'image ne transite par le serveur. Ce choix réduit la charge réseau et la consommation de bande passante côté 
+backend, tout en maintenant la sécurité la clé secrète Cloudinary reste exclusivement côté serveur.
+ 
+ 
+Contrôle d'accès - Guards et decorators RBAC 
+ 
+Le contrôle d'accès aux routes s'appuie sur la composition de deux guards exécutés dans l'ordre : JwtAuthGuard vérifie l'identité (extraction du JWT depuis le 
+cookie), puis RolesGuard vérifie les permissions (comparaison du rôle avec le decorator @Roles() posé sur la route). Le decorator @CurrentUser() simplifie 
+l'accès aux informations de l'utilisateur authentifié dans les controllers. Ce mécanisme est détaillé en §8. 
+ 
+
+
+
+
+
+
+
+
+
+
+
+8.	ÉLÉMENTS DE SÉCURITÉ DE L'APPLICATION  
+
+La section 6.3 a posé la stratégie de sécurité de GreenRoots selon le principe de défense en profondeur : chaque couche de l'architecture dispose de ses 
+propres mesures de protection, indépendantes les unes des autres. Cette section détaille les implémentations concrètes de cette stratégie, organisées par 
+domaine de risque.
+8.1	Authentification et gestion des sessions
+L'authentification repose sur des JSON Web Tokens (JWT) qui encapsulent l'identité de l'utilisateur (identifiant, rôle, date d'expiration). Le choix structurant 
+du sprint 3 a été la migration du stockage de ces tokens : initialement conservés dans le localStorage du navigateur pour des raisons de simplicité, ils ont été 
+déplacés vers des cookies HttpOnly à la suite de l'audit de sécurité OWASP et de lectures sur les bonnes pratiques de stockage des tokens.
+Le localStorage est accessible par n'importe quel script JavaScript exécuté sur la page. En cas de faille XSS, un attaquant pourrait lire le token et usurper 
+l'identité de l'utilisateur. Un cookie marqué HttpOnly est invisible pour JavaScript, le navigateur l'envoie automatiquement avec chaque requête, mais 
+aucune API côté client ne peut le lire. Combiné aux flags Secure (transmission uniquement sur HTTPS) et SameSite=Lax (protection CSRF, détaillée en §8.2), 
+le cookie devient un conteneur de transport sécurisé pour le JWT.
+Cette migration a eu un impact sur l'ensemble de la stack. Côté backend, ajout de cookie-parser, création d'un helper centralisé pour les options de cookie 
+et d'un extracteur JWT personnalisé lisant le token depuis le cookie plutôt que le header Authorization. Côté frontend, activation de withCredentials sur 
+toutes les requêtes API et suppression complète du token du store Zustand et de l'intercepteur Authorization.
+Les mots de passe sont hashés avec bcrypt (10 rounds, salt unique par utilisateur intégré au hash). Les tokens de réinitialisation de mot de passe et de 
+vérification d'email sont hashés en SHA-256 avant stockage en base de données. Une correction appliquée après l'audit OWASP du sprint 3, qui avait 
+identifié que ces tokens étaient auparavant stockés en clair. SHA-256 suffit ici car ces tokens, générés par crypto.randomBytes, possèdent déjà 256 bits 
+d'entropie, contrairement aux mots de passe humains qui nécessitent le ralentissement volontaire de bcrypt.
+La déconnexion repose sur une blacklist Redis : le token est ajouté à la blacklist avec un TTL correspondant à sa durée de validité restante. À chaque 
+requête authentifiée, le backend vérifie que le token présenté ne figure pas dans cette blacklist. Ce mécanisme est complémentaire du cookie HttpOnly : le 
+cookie empêche le vol du token côté client, la blacklist permet son invalidation côté serveur.
+ 
+Enfin, le flow de vérification d'email sécurise l'inscription : un token hashé avec une expiration de 24 heures est envoyé par email, et le login est bloqué tant 
+que l'adresse n'est pas vérifiée.
+8.2	Protection contre les attaques courantes 
+
+Les protections sont organisées selon les catégories du référentiel OWASP Top 10:2025, utilisé comme grille d'audit en sprint 3.
+*	Injection (A03) : Prisma ORM génère des requêtes paramétrées par défaut. Les valeurs utilisateur ne sont jamais concaténées dans les requêtes 
+SQL. Dans le cas ponctuel où du SQL brut est nécessaire (tri aléatoire via ORDER BY RANDOM()), Prisma utilise des tagged template literals qui 
+paramètrent automatiquement les variables. En amont de la couche données, le ValidationPipe global de NestJS filtre toutes les entrées : l'option 
+whitelist supprime les propriétés non déclarées dans le DTO, et forbidNonWhitelisted rejette la requête avec une erreur 400 si des champs inconnus 
+sont présents. Ainsi, un utilisateur malveillant ne peut pas injecter de champs supplémentaire (par exemple un rôle administrateur) dans une 
+requête, le pipe le rejette avant que le code du contrôleur ne s'exécute, 
+
+*	Cross-Site Scripting - XSS (A03) : La protection est multicouche : Helmet configure automatiquement les headers HTTP de sécurité (Content-
+Security-Policy,  X-Content-Type-Options, X-Frame-Options), React échappe par défaut tout contenu rendu dans le DOM, et Zod valide les données 
+côté client avant envoi. Le stockage du JWT en cookie HttpOnly (cf. §8.1) ajoute une protection supplémentaire : même en cas de XSS réussi, le 
+script injecté ne peut pas lire le token d'authentification,  
+
+*	Cross-Site Request Forgery - CSRF : Les cookies étant envoyés automatiquement par le navigateur, ils sont vulnérables aux requêtes forgées depuis 
+un site tiers. Deux mécanismes complémentaires protègent l'application. Le CORS restrictif (côté serveur) n'autorise que l'origine du frontend, avec 
+credentials explicites, toute requête AJAX depuis un autre domaine est rejetée. Le flag SameSite=Lax (côté navigateur) empêche l'envoi du cookie 
+pour les requêtes POST cross-site, un formulaire caché sur un site malveillant ne transmettra pas le cookie d'authentification. SameSite=Lax empêche 
+l'envoi du cookie lors de requêtes cross-origin initiées par des formulaires ou scripts (form submissions, fetch/XHR). Combiné au CORS restrictif qui 
+bloque les requêtes AJAX cross-origin, un token CSRF explicite n'est pas nécessaire dans le contexte d'une SPA moderne ciblant les deux dernières 
+versions de navigateurs.
+
+
+
+
+
+*	Brute force (A07) : Deux niveaux de protection se complètent. Le ThrottlerGuard global limite le nombre de requêtes par IP sur l'ensemble de l'API. 
+Un compteur Redis spécifique au login va plus loin : chaque tentative échouée est comptabilisée par adresse email via un incrément atomique 
+Redis, et après cinq échecs le compte est verrouillé pendant quinze minutes. Le TTL Redis réinitialise automatiquement le compteur sans nécessiter 
+de tâche de nettoyage. Si Redis est indisponible, le système adopte une stratégie " fail-open " : on ne bloque personne plutôt que de refuser tout 
+accès (cf. §7.3 pour le détail de l'implémentation). 
+
+*	Broken Access Control (A01) : Trois niveaux de contrôle s'appliquent en cascade sur les endpoints protégés. Le JwtAuthGuard vérifie l'identité (le 
+token est-il valide et non blacklisté ?). Le RolesGuard vérifie les permissions (l'utilisateur a-t-il le rôle requis pour cette route ?). Enfin, la vérification 
+d'ownership dans le service métier contrôle que la ressource appartient bien à l'utilisateur (par exemple, une commande ne peut être consultée que 
+par son propriétaire). Ce dernier niveau est dans le service et non dans un guard, car il dépend de la donnée elle-même, pas d'un rôle générique (cf. 
+§7.2, méthode confirmCheckout).
+8.3	Sécurité des intégrations tierces 
+
+Les trois intégrations externes de GreenRoots reposent chacune sur un mécanisme de sécurité adapté à leur rôle :
+*	Stripe : L'endpoint webhook reçoit les notifications de paiement de Stripe (paiement réussi, échoué, annulé). Chaque requête est accompagnée 
+d'une signature HMAC-SHA256 calculée par Stripe avec un secret partagé. Le backend recalcule cette signature et rejette la requête si elle ne 
+correspond pas. Au-delà de la signature, une vérification anti-spoofing compare le paymentIntentId reçu avec celui stocké en base pour la 
+commande concernée, la signature prouve que la requête vient de Stripe, mais cette vérification garantit en plus que le paiement correspond bien 
+à la bonne commande (cf. §7.2). Les données bancaires ne transitent jamais par notre serveur : le composant PaymentElement côté client 
+communique directement avec Stripe via le clientSecret. Enfin, l'endpoint webhook est exclu du rate limiting pour ne pas bloquer les notifications de 
+Stripe.
+
+*	Cloudinary : L'upload d'images suit un schéma en trois étapes : le frontend demande une signature au backend (route protégée par 
+authentification), le backend signe la requête avec le secret API Cloudinary, puis le frontend upload directement vers Cloudinary avec cette 
+signature. Le backend ne reçoit et ne stocke jamais le fichier image, il ne fait que délivrer une autorisation signée. Ce mécanisme limite la surface 
+d'attaque et évite de consommer la bande passante du serveur pour le transfert de fichiers.
+
+*	Resend : l'envoi d'emails (vérification d'adresse, réinitialisation de mot de passe, confirmation de commande) passe par l'API Resend, authentifiée 
+par clé API côté serveur. Les templates HTML sont générés côté backend. Le frontend ne déclenche jamais d'envoi directement. La clé API est 
+validée au démarrage par le schéma Joi et n'est jamais exposée côté client. 
+ 
+
+8.4	Sécurité de l'infrastructure 
+
+Au niveau de l'infrastructure conteneurisée, plusieurs mesures complètent les protections applicatives (cf. §6.2 pour le détail de l'environnement Docker). 
+Les conteneurs de production s'exécutent avec un utilisateur non-root (node), ce qui limite l'impact d'une éventuelle compromission de processus. Les 
+services internes (PostgreSQL, Redis) utilisent la directive expose plutôt que ports : ils sont accessibles uniquement au sein du réseau Docker, sans aucun port 
+ouvert vers l'extérieur. Les Dockerfiles adoptent un build multi-stage pour produire des images finales minimales basées sur Alpine.
+La validation des variables d'environnement au démarrage (via Joi) applique une stratégie fail-fast : si une configuration est manquante ou invalide, 
+l'application refuse de démarrer plutôt que de fonctionner dans un état dégradé potentiellement dangereux. La documentation Swagger est désactivée en 
+production pour ne pas exposer la surface de l'API. 
+
+8.5	RGPD et données personnelles   
+
+La conformité RGPD a été construite progressivement. Dès le MVP, les fondations étaient en place : pages légales (mentions légales, politique de 
+confidentialité, conditions générales de vente), exclusion systématique des données sensibles dans les réponses API via un helper safeSelect (mot de passe 
+et tokens ne sont jamais exposés), et hachage des mots de passe en bcrypt. L'application n'utilisant ni tracking ni analytics, les cookies sont exclusivement 
+fonctionnels (authentification) et ne nécessitent pas de bannière de consentement au titre de la directive ePrivacy.
+En sprint 3, deux fonctionnalités ont été implémentées pour renforcer les droits des utilisateurs. La suppression de compte permet à l'utilisateur de 
+supprimer son profil depuis son espace personnel, après confirmation par mot de passe. La suppression déclenche une transaction atomique qui 
+anonymise les données personnelles des commandes passées (noms, adresses, email de contact remplacés par des valeurs génériques) avant de supprimer 
+le compte utilisateur. Ce choix d'anonymisation plutôt que de suppression en cascade répond à une double exigence : respecter le droit à l'effacement 
+(Article 17 du RGPD) tout en conservant les données comptables nécessaires à l'obligation légale de conservation de six ans (Article L123-22 du Code de 
+commerce). L'export de données personnelles permet à l'utilisateur de télécharger l'ensemble de ses données (profil, commandes, panier) au format JSON, 
+avec exclusion automatique des champs sensibles.
+Enfin, la facturation respecte les obligations légales : factures PDF générées avec les mentions obligatoires (CGI article 289), TVA calculée et stockée en base 
+de données (montant HT, taux, montant TVA, TTC), et numéro de facture unique attribué de manière atomique.  
+
+
+9.	PLANT DE TESTS
+9.1	Stratégie de tests 
+
+La stratégie de tests adoptée par l'équipe suit le modèle de la pyramide de tests : une base large de tests unitaires couvrant la logique métier critique, 
+complétée par l'exécution automatisée en intégration continue. La priorité a été donnée aux services backend (checkout, paiement, gestion du stock, 
+panier) et aux stores frontend qui portent la logique d'état, c'est-à-dire le code où un bug aurait le plus d'impact sur l'utilisateur final. Ce choix pragmatique 
+a été dicté par le planning serré de quatre sprints d'une semaine.
+Deux frameworks de tests coexistent, chacun adapté à son écosystème :
+Côté backend, Jest est le standard intégré par défaut dans NestJS, avec le module @nestjs/testing pour instancier les services dans un contexte d'injection de 
+dépendances. 
+Côté frontend, Vitest partage la configuration de Vite (résolution de modules, transpilation TypeScript), évitant ainsi une double configuration.  
+ 
+Les deux outils proposent une API quasi identique (describe, it, expect, fonctions de mock), ce qui facilite la cohérence entre les deux bases de code. Les tests 
+frontend sont complétés par React Testing Library pour le rendu et l'interaction avec les composants.
+L'organisation des fichiers suit les conventions de chaque écosystème : fichiers .spec.ts partagé avec le code source côté backend (structure classique d'un 
+module NestJS), et dossiers __tests__/ dédiés côté frontend. Les tests sont exécutés automatiquement sur chaque pull request via le workflow CI pr-checks, 
+constituant un filet de sécurité avant toute intégration dans la branche de développement. 
+
+
+
+
+
+
+9.2	Tests significatifs
+ 
+Les tableaux ci-dessous récapitulent les principaux fichiers de tests et leur couverture. 
+ 
+Backend (Jest) - 35 suites, 151 tests :
+Fichier de test
+Périmètre couvert
+Tests
+payment.service.spec
+Webhook Stripe : signature HMAC, événements succeeded/failed/canceled, variable d'env manquante
+5
+orders.service.spec
+CRUD commandes : pagination, accès autorisé/interdit (ownership), NotFoundException
+9
+checkout.service.spec
+Tunnel de vente : initCheckout, confirmCheckout, vérification stock, idempotence
+3
+cart.service.spec
+Panier serveur : ajout, mise à jour quantité, suppression
+10
+trees.service.spec
+Catalogue : CRUD arbres, gestion du stock, recherche
+15
+Autres services
+Auth, users, categories, countries, locations, cloudinary
+109
+ 
+ 
+Frontend (Vitest + Testing Library) - 8 suites, 60 tests :
+Fichier de test
+Périmètre couvert
+Tests
+cartStore.test
+Store Zustand : addItem, syncWithStock, isExpired, clearCart
+16
+LoadingSkeleton.test
+Composant : rendu par défaut, rows custom, cas limite
+4
+QuantityInput.test
+Composant : interactions userEvent, bornes min/max, ARIA
+7
+Autres
+Utilitaires (formatage prix, dates), hooks
+26
+ 
+
+Approche par type de test
+Les tests de services backend reposent sur le mocking des dépendances externes : Stripe, Prisma et Redis sont remplacés par des objets simulés, ce qui 
+permet de tester uniquement la logique métier sans dépendre de l'infrastructure. Par exemple, les tests du webhook Stripe simulent différents types 
+d'événements (paiement réussi, échoué, signature invalide) et vérifient que le service met à jour la commande dans le bon état, sans jamais contacter 
+Stripe. 
+Les tests de stores frontend exploitent la particularité de Zustand : le store est accessible directement via getState() et setState(), sans monter de composant 
+React. On appelle une action, on vérifie l'état résultant, comme une fonction pure.
+Les tests de composants React suivent la philosophie de Testing Library : tester du point de vue de l'utilisateur. Le composant est rendu dans un 
+environnement simulé (jsdom), les interactions sont simulées via userEvent (clics, saisie), et les vérifications portent sur ce que l'utilisateur voit (rôles ARIA, 
+texte affiché, état des boutons) plutôt que sur l'implémentation interne. 
+
+9.3	Jeu d'essai - Tunnel de vente
+Le jeu d'essai ci-dessous formalise les scénarios testés sur le processus de commande, fil rouge fonctionnel de l'application. Il est construit à partir des tests 
+unitaires existants dans le code, organisé pour couvrir le parcours nominal et les principaux cas d'erreur.
+Scénario
+Entrée
+Résultat attendu
+Statut
+Ajout au panier
+treeId=1, qty=2
+Panier contient 1 item, qty=2
+OK
+Stock insuffisant au confirm 
+qty=10, stock=3
+success: false, issue insufficient
+OK
+Produit épuisé  
+stock=0
+success: false, issue out-of-stock
+OK
+Paiement réussi (webhook)
+Événement payment_intent.succeeded
+Commande ? PAID + CONFIRMED
+OK
+Paiement échoué (webhook)
+Événement payment_intent.payment_failed
+Stock restauré, commande ? FAILED
+OK
+Signature webhook invalide
+Signature incorrecte
+Requête rejetée (BadRequest)
+OK
+Accès commande d'un autre utilisateur
+userId différent du propriétaire
+Accès refusé (Forbidden)
+OK
+Panier expiré
+createdAt > 24h
+Panier détecté comme expiré
+OK
+L'ensemble des scénarios testés ne présente pas d'écart entre résultats attendus et obtenus. La couverture porte sur les cas nominaux et les principaux cas 
+d'erreur du tunnel de vente. 
+
+9.4	Bilan et axes d'amélioration
+
+*	Points forts : la logique métier critique est testée : le tunnel de vente (checkout, paiement, stock), la gestion du panier et l'authentification sont 
+couverts par des tests unitaires. L'intégration continue exécute les tests sur chaque pull request, empêchant l'introduction de régressions. Deux 
+frameworks de tests sont configurés et opérationnels, couvrant backend et frontend.
+ 
+*	Points faibles identifiés :  les tests de contrôleurs backend se limitent à vérifier l'instanciation, ils ne testent pas les routes ni les guards. Les tests de 
+composants React ont été ajoutés tardivement en sprint 3 pour compléter la couverture frontend, initialement limitée aux stores et utilitaires. Le 
+projet ne dispose pas de tests end-to-end couvrant un parcours utilisateur complet, et aucun seuil de couverture de code n'est imposé en CI. 
+
+*	Axes d'amélioration : 
+Trois évolutions sont identifiées et priorisées. 
+Premièrement, l'ajout d'un seuil de couverture minimum en CI (par exemple 70 %) permettrait de s'assurer que la couverture ne régresse pas au fil 
+des contributions. Deuxièmement, des tests d'intégration backend avec une base de données de test (fixtures, setup/teardown) valideraient les 
+interactions réelles entre les services et la base. Troisièmement, des tests end-to-end sur les parcours critiques (inscription, achat complet) avec un 
+outil comme Cypress offriraient une couverture fonctionnelle de bout en bout. 
+
+
+
+
+
+
+
+
+10.	VEILLE TECHNOLOGIQUE ET SÉCURITÉ
+
+La section 8 a détaillé les mesures de sécurité implémentées dans GreenRoots. Cette section aborde la démarche qui a conduit à ces implémentations : les 
+sources de veille, le processus d'audit et les résultats concrets obtenus. 
+
+10.1	Démarche de veille
+La veille technologique s'articule sur deux niveaux complémentaires.  
+ 
+Le premier est une veille continue personnelle, pratiquée au quotidien indépendamment du projet : suivi de créateurs de contenu spécialisés (Korben pour 
+l'actualité tech), utilisation de DailyDev comme agrégateur de contenu développeur, et écoute de podcasts spécialisés. C'est d'ailleurs un podcast traitant du 
+Top 10 OWASP 2023 (AXOPEN, OWASP Top 10 : comment (vraiment) sécuriser son API) qui a initié la démarche d'audit de sécurité détaillée en §10.2, et c'est 
+un article lu sur le stockage sécurisé des tokens qui a motivé la migration vers les cookies HttpOnly (cf. §8.1).
+Le second niveau est une veille projet, orientée par les besoins concrets de développement. En tant que Lead Dev Front lors du sprint 1, les choix de stack 
+frontend ont fait l'objet d'une veille comparative active. Le cahier des charges listait plusieurs bibliothèques " à l'étude " (TanStack, Zustand, Zod) : des 
+articles comparatifs, benchmarks et retours d'expérience de l'équipe ont permis de valider leur adoption.  
+ 
+Pour la gestion d'état, Zustand a été retenu face à Redux et React Context après comparaison de la complexité, de la courbe d'apprentissage et de 
+l'adéquation à la taille du projet. Pour la bibliothèque de composants, shadcn/ui a été préféré à Material UI ou Chakra UI pour sa légèreté (code copié 
+localement plutôt que dépendance runtime), son accessibilité native via Radix UI, et sa compatibilité avec Tailwind CSS : un choix cohérent avec la démarche 
+d'éco-conception. La documentation officielle de NestJS, particulièrement complète, a été une ressource centrale pour les choix d'architecture backend, et 
+la documentation Stripe a guidé l'intégration du paiement et la sécurisation des webhooks. 
+Pour l'architecture frontend, le site de référence du créateur de l'Atomic Design, Brad Frost, a structuré l'organisation des composants en atoms, molecules 
+et organisms. Cette veille au fil de l'eau ne suit pas de calendrier formel, elle est déclenchée par le besoin, ce qui la rend directement exploitable dans le 
+code. 
+ 
+
+
+
+10.2	Audit de sécurité - démarche OWASP
+
+L'OWASP (Open Worldwide Application Security Project) publie régulièrement un classement des dix failles de sécurité les plus critiques pour les 
+applications web. C'est un podcast consacré à l'édition 2023 de ce classement (AXOPEN) qui a éveillé mon intérêt pour ce référentiel. Lorsque l'édition 2025 
+a été publiée en fin d'année, l'opportunité s'est présentée d'appliquer cette grille actualisée au code de GreenRoots : un audit structuré a été mené en 
+sprint 3 à partir de cette nouvelle édition.
+La démarche a suivi un processus en plusieurs étapes : 
+ 
+L'audit a été scindé en deux volets : backend et frontend, pour couvrir l'ensemble de la surface d'attaque. L'intelligence artificielle a été utilisée comme 
+outil d'assistance pour structurer l'analyse : à partir du code source et du Top 10 OWASP, elle a permis d'identifier systématiquement les points de 
+vulnérabilité potentiels pour chaque catégorie du classement. Les résultats ont ensuite été vérifiés manuellement pour évaluer leur pertinence dans le 
+contexte de GreenRoots. 
+ 
+La priorisation a été réalisée selon un critère coût/risque.  
+Les trois premières catégories du Top 10, Broken Access Control (A01), Cryptographic Failures (A02) et Injection (A03), ont été traitées en priorité car elles 
+concentrent les risques les plus élevés. Pour chaque vulnérabilité identifiée, le temps de développement nécessaire a été estimé et mis en regard du niveau 
+de risque : les corrections à fort impact et faible coût ont été implémentées immédiatement (tokens hashés, rate limiting renforcé), tandis que les 
+améliorations plus lourdes ont été documentées et priorisées pour des itérations futures. 
+ 
+Les corrections issues de cet audit sont détaillées en section 8 : migration JWT vers cookies HttpOnly, hashage des tokens de reset et vérification email, 
+protection brute force par compteur Redis, vérification d'ownership systématique dans les services métier. L'audit frontend a conduit principalement à la 
+migration HttpOnly, le reste de la surface étant déjà couvert par les protections natives de React et la configuration Helmet.
+
+
+
+
+
+
+
+10.3	Résultats concrets et amélioration continue
+
+La démarche de veille a produit des cycles complets : veille -> action -> résultats vérifiables dans le code.
+La lecture d'un article sur les risques du localStorage pour les tokens JWT a conduit à la migration vers les cookies HttpOnly : un changement impactant 
+l'ensemble de la stack (cf. §8.1). 
+L'audit OWASP a révélé que les tokens de réinitialisation de mot de passe et de vérification email étaient stockés en clair en base de données : ils ont été 
+hashés en SHA-256 (cf. §8.1). Ces deux exemples illustrent un processus concret : une source de veille identifie un risque, l'analyse confirme sa pertinence 
+dans le contexte du projet, et une correction est implémentée puis vérifiée.
+Sur le volet des dépendances, l'outil npm audit a été intégré au workflow CI pr-checks avec un seuil bloquant au niveau critical. Ce scan automatisé vérifie à 
+chaque pull request que les dépendances directes et transitives (dépendances de dépendances) ne présentent pas de vulnérabilité critique connue.  
+Les vulnérabilités résiduelles de niveau inférieur, présentes dans des dépendances transitives des frameworks (NestJS, Prisma), ont été identifiées et 
+documentées, elles ne sont pas corrigeables sans changement majeur de version.
+L'outil Mozilla Observatory (Mozilla Foundation) a été identifié comme référence pour valider la configuration des headers HTTP de sécurité. La 
+configuration Helmet mise en place couvre les critères évalués par cet outil : protection contre le clickjacking (X-Frame-Options), le MIME sniffing (X-Content-
+Type-Options) et la politique de sécurité du contenu (Content-Security-Policy). Un scan en environnement de production permettrait de confirmer 
+formellement cette couverture.  
+ 
+L'application est dans une posture quasi production-ready : les protections essentielles sont en place, et les éléments manquants (tests end-to-end, seuil de 
+couverture CI, audit frontend formalisé) sont identifiés et priorisés. Cette transparence sur ce qui reste à faire témoigne d'une démarche d'amélioration 
+continue plutôt que d'une prétention à l'exhaustivité.
+1
+

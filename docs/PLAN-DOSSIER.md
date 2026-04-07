@@ -98,9 +98,9 @@
   - Backend : Injection de dépendances, Repository, Module, Guards/Decorators, State machine (statuts commandes)
   - Frontend : Atomic Design, Feature-based architecture, Store pattern (Zustand)
 - **Diagramme d'architecture** : schéma des couches et flux (à créer en Mermaid)
-- **Sécurité dans l'architecture** : sécurité à chaque couche (validation client Zod → validation API DTOs → ORM paramétré Prisma), référence OWASP
+- **Sécurité dans l'architecture (DICP)** : analyse selon les indicateurs DICP (Disponibilité, Intégrité, Confidentialité, Preuve) — **Disponibilité** : healthchecks Docker sur chaque service, cron de réconciliation commandes (résilience webhooks perdus), dégradation gracieuse Redis (cache indisponible → fallback BDD) ; **Intégrité** : transactions Prisma atomiques (stock/paiement), validation DTOs class-validator, contraintes BDD (FK, unicité, enums) ; **Confidentialité** : JWT HttpOnly+Secure+SameSite, bcrypt 10 rounds, RBAC guards (USER/ADMIN/SUPERADMIN), safeSelect (exclusion password/tokens) ; **Preuve** : numéros de facture uniques, dates de facturation, historique commandes conservé (anonymisation sans suppression). Sécurité à chaque couche (validation client Zod → validation API DTOs → ORM paramétré Prisma), conformément aux recommandations ANSSI (guide de sécurisation des sites web) et au référentiel OWASP Top 10:2025
 - **Éco-conception** : choix architecturaux (Vite build léger, Tailwind purge CSS, shadcn/ui import sélectif, Cloudinary optimisation images, code splitting lazy loading 25 routes, Redis cache API implémenté sur countries/categories — réduction requêtes SQL redondantes), cohérence avec la mission GreenRoots (plateforme de reforestation), référentiels utilisés (WSG W3C, RGESN 2024, RWEB GreenIT v5)
-- **Conteneurisation** : Docker Compose (8 services) comme partie intégrante de l'architecture — détail en §6
+- **Conteneurisation** : Docker Compose (7 services) comme partie intégrante de l'architecture — détail en §6
 
 #### 5.3 Maquettes et enchaînement des maquettes (~2-3 pages)
 > **CP5** - Maquetter une application
@@ -243,10 +243,10 @@
   - JWT blacklist Redis (invalidation au logout)
 - **Couche données** :
   - Prisma ORM (requêtes paramétrées → pas d'injection SQL possible)
-  - Transactions avec verrouillage pessimiste (réservation stock checkout)
+  - Transactions atomiques Prisma (réservation stock checkout via `decrement` atomique)
   - Validation Joi des variables d'environnement au démarrage (fail-fast si config manquante)
   - Utilisateur non-root dans les containers de production
-- **Audit OWASP Top 10:2025** : phases 1-2 réalisées sur le backend en sprint 3 (correctifs appliqués), audit frontend planifié — détail en §8
+- **Conformité ANSSI + OWASP** : les mesures de sécurité sont conformes aux recommandations ANSSI (guide de sécurisation des applications web) et au référentiel OWASP Top 10:2025. Audit OWASP : phases 1-2 réalisées sur le backend en sprint 3 (correctifs appliqués), audit frontend planifié — détail en §8
 - **Stripe** : webhook secret pour vérification signatures, aucune donnée bancaire côté serveur (Stripe Elements)
 
 #### 6.4 Documentation et qualité de code (~0,5-1 page)
@@ -512,13 +512,14 @@
 - **Axes d'amélioration identifiés** :
   - Tests d'intégration backend avec BDD de test (fixtures, setup/teardown)
   - Seuil de couverture minimum en CI (ex: 70%)
-  - Tests E2E sur les parcours critiques (Playwright)
+  - Tests E2E sur les parcours critiques (Cypress)
 
 ---
 
-### 10. Veille sécurité (~2-3 pages)
-> Transversal (CP9, CP10, CP11)
+### 10. Veille technologique et sécurité (~2-3 pages)
+> Transversal (CP2, CP3, CP8, CP9, CP10, CP11)
 > Focus sur la **démarche** (sources, processus, cycle) — les implémentations concrètes sont en §8
+> Couvre la veille sur tous les domaines exigés par le REAC : interfaces utilisateur (CP2), composants métier (CP3), bases de données SQL/NoSQL (CP8), tests (CP9), déploiement (CP10), DevOps (CP11)
 
 #### 10.1 Sources de veille (~0.5 page)
 - **Tableau** : source / type / fréquence / ce qu'on en tire

@@ -40,7 +40,7 @@ dossier-projet/
 - **Email** : Resend
 - **Tests** : Vitest + Testing Library (front), Jest (back)
 - **CI/CD** : GitHub Actions (3 workflows)
-- **Conteneurisation** : Docker Compose (8 services)
+- **Conteneurisation** : Docker Compose (7 services)
 - **Déploiement** : Hetzner + Coolify
 
 ### Commandes utiles

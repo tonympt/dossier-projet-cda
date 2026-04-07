@@ -15,94 +15,80 @@ On est en train de définir le plan du dossier **section par section**, en discu
 - Contenu : présentation du projet, objectifs, cible utilisateurs, acteurs (3 rôles), périmètre MVP vs évolutions futures, user stories principales
 - **Hors de cette section** : contraintes et livrables → section 5 / risques → section 4
 
-### ✅ Section 3 — Contexte du projet (~0,5 page)
-- Adaptation de "présentation de l'entreprise" pour un projet de formation
-- Contenu : organisme de formation, GreenRoots projet fictif, rôle du candidat (Lead Dev Front + contribution étendue)
-- **Hors de cette section** : organisation de l'équipe et pilotage → section 4
-- Note : Tony a touché à tout malgré le rôle Lead Dev Front — à valoriser dans la rédaction
+### ✅ Section 3 — Contexte du projet (~0,5 page) — RÉDIGÉE
+- Formation CDA chez O'clock, équipe de 5 apprenants, projet de fin de formation
+- Thème imposé (e-commerce d'arbres), liberté sur la stack et les choix techniques
+- Rôle initial Lead Dev Front au sprint 0, élargi au backend, conteneurisation et DevOps
+- **Décisions rédaction** : O'clock nommé explicitement, pas de mention de l'aide aux camarades (gardé pour §4)
 
-### ✅ Section 4 — Gestion de projet (~3-4 pages)
-- Méthodologie Agile/Scrum, 4 sprints d'1 semaine (Sprint 0 à Sprint 3)
-- Planning/suivi : Trello Kanban avec captures disponibles
-- Cérémonies : daily meetings, rétrospectives, définition des objectifs
-- Qualité : conventions communes documentées, guidelines frontend (Atomic Design), PRs + code review obligatoire, ESLint + Prettier
-- Git flow : stratégie de branches + PRs focalisées, pas de merge sans review
-- Risques : définis dans le CDC (section 2), simple référence ici — pas de suivi formel pendant le projet
+### ✅ Section 4 — Gestion de projet (~3-4 pages) — RÉDIGÉE
+- **4.1 Méthodologie et organisation** : Scrum adapté, rôles Scrum (PO, SM) + rôles techniques (Lead Dev Front/Back, Full-stack), Tony a pris le leadership PO en pratique
+- **4.2 Déroulement des sprints** : Sprint 0 (conception) → Sprint 1 (fondations) → Sprint 2 (MVP) → Sprint 3 (qualité/sécurité)
+- **4.3 Outils et qualité** : GitFlow détaillé ici (main/dev/feature), conventions communes, code review, ESLint+Prettier
+- **4.4 Bilan** : investissement inégal formulé positivement, sprints plus longs avec le recul
+- **Décisions rédaction** : daily meetings en visio 9h ~15min, 1 capture Trello milieu/fin de sprint, pas de noms des membres, risques par référence au CDC
 
-### ✅ Section 5.1 — Contraintes du projet et livrables attendus
-- **Contraintes temporelles/humaines** : 4 semaines, équipe de 5, rôles définis
-- **Contraintes techniques** : Docker obligatoire, TypeScript front+back, responsive, compatibilité navigateurs (2 dernières versions majeures Chrome/Firefox/Edge/Safari)
-- **Contraintes réglementaires** : RGPD (mentions légales, confidentialité, suppression compte), RGAA (accessibilité)
-- **Contraintes fonctionnelles** : MVP borné au CDC (tunnel simulé initialement, Stripe intégré au final), distinction claire MVP vs évolutions futures
-- **Livrables** : application MVP déployée, documentation technique (README, Swagger, conventions, guidelines), code source versionné sur GitHub
-- Note : le dossier de projet CDA n'est pas un livrable du projet en tant que tel
+### ✅ Section 5.1 — Contraintes du projet et livrables attendus — RÉDIGÉE
+- Contraintes temporelles (4 semaines, 5 personnes), techniques (Docker, TypeScript, responsive), réglementaires (RGPD sprint 3, RGAA via shadcn/ui), fonctionnelles (MVP + Stripe imposé par la logique e-commerce)
+- Stripe : PaymentElement React communique directement avec Stripe, données bancaires ne transitent jamais par l'API
+- Biblis "à l'étude" du CDC (TanStack, Zustand, Zod) toutes adoptées
+- **Décisions rédaction** : Docker = choix d'équipe, TypeScript = standard non questionné, RGPD = initiative de Tony
 
-### ✅ Section 5.2 — Architecture logicielle du projet (CP6, ~2-3 pages)
-- **Architecture multicouche 3 tiers** : SPA React → API REST NestJS → PostgreSQL + Redis, Nginx en reverse proxy
-- **Justification des choix techniques** : pourquoi React/Vite, NestJS, PostgreSQL/Prisma, Redis (bref, détail en §6)
-- **Architecture modulaire backend** : Controller → Service → Repository → Prisma, injection de dépendances
-- **Design patterns** : DI, Repository, Module, Guards/Decorators, State machine (backend) ; Atomic Design, Feature-based, Store pattern (frontend)
-- **Diagramme d'architecture** : à créer en Mermaid
-- **Sécurité dans l'architecture** : sécurité à chaque couche (validation client → validation API → ORM paramétré), référence OWASP
-- **Éco-conception** : choix architecturaux (Vite, Tailwind purge, shadcn sélectif, Cloudinary, code splitting, Redis cache implémenté countries/categories), cohérence avec la mission GreenRoots, référentiels (WSG, RGESN, RWEB)
-- **Conteneurisation** : Docker Compose (8 services) comme partie de l'architecture — détail en §6
+### ✅ Section 5.2 — Architecture logicielle du projet (CP6, ~2-3 pages) — RÉDIGÉE
+- Architecture 3 tiers : couche présentation (Nginx + SPA React) → couche métier (API NestJS) → couche données (PostgreSQL + Redis)
+- Architecture modulaire NestJS (pas hexagonale) : Controller → Service → DTOs → Prisma (repository implicite)
+- **Diagramme d'architecture créé** : `diagrammes/architecture-globale.md` — format paysage, 3 couches + services externes
+- Justification choix techniques (React+Vite, NestJS, PostgreSQL+Prisma, Redis) — bref, détail en §6
+- Conteneurisation Docker Compose (7 services dev, 3 prod) — bref, détail en §6
+- Sécurité à chaque couche (bref, détail en §8)
+- Éco-conception (Vite, Tailwind purge, shadcn sélectif, Redis cache) — cohérence mission reforestation
+- **Décisions rédaction** : DPs retirés du texte (une phrase suffit), Spring Boot mentionné pour l'injection de dépendances
 
-### ✅ Section 5.3 — Maquettes et enchaînement des maquettes (CP5, ~2-3 pages)
-- **Wireframes / Zoning** : zoning des pages clés (landing, catalogue, fiche arbre, checkout) — à créer
-- **Maquettes Figma** : 3-4 captures représentatives dans le corps, ensemble complet en Annexe A
-- **Arborescence du site** : diagramme Mermaid (pages publiques / authentifiées / admin)
-- **Enchaînement des écrans** : 1-2 flowcharts Mermaid (parcours d'achat, authentification)
-- **Pas de charte graphique ici** — traitée dans les sections techniques
-- **Pas de section RGAA dédiée ici** — l'accessibilité est assurée par le choix de shadcn/ui (Radix UI, accessible par défaut), argument documenté en §5.2 (justification des choix techniques). Détail implémentation en §7.1, scores Lighthouse en §7.1
-- **Atomic Design** : c'est une architecture frontend, pas du design visuel — traité en §5.2 (design patterns) et §7.1 (extraits de code)
+### ✅ Section 5.3 — Maquettes et enchaînement des écrans (CP5, ~2-3 pages) — RÉDIGÉE
+- **Identité visuelle** : Montserrat hébergée local, palette verte, contrastes accessibilité validés Lighthouse
+- **Wireframes** : desktop + mobile page catalogue (créés sur Balsamiq/Figma), pas de zoning séparé
+- **Maquette Figma** : 1 capture page catalogue dans le corps, pas d'annexe Figma complète
+- **Arborescence** : `diagrammes/arborescence-site.md` — arbre hiérarchique avec couleurs par niveau d'accès (public/auth/checkout/admin)
+- **Parcours d'achat** : `diagrammes/parcours-achat.md` — flowchart horizontal simplifié (6 écrans, pas de détail technique)
+- **Décisions rédaction** : pas de zoning, pas de maquettes tablette, pas d'annexe Figma, wireframe et maquette sur même page (catalogue)
 
-### ✅ Section 5.4 — Modèle de données (CP7, ~2-3 pages)
-- **MCD** : diagramme entités-relations des 13 entités avec cardinalités — à créer
-- **MPD** : extrait commenté du schéma Prisma (Order/OrderItem, User), conventions `@map`/`@@map`, complet en annexe
-- **Types remarquables** : prix en INT (centimes, standard Stripe), enums pour machines à états, PostGIS pour géolocalisation
-- **Contraintes d'intégrité** : FK, unicité, enums, cascade vs protection
-- **Droits d'accès** : choix applicatif (guards NestJS) vs BDD (rôles PostgreSQL) — justifié (Prisma connexion unique, pattern moderne API REST)
-- **Sécurité données** : bcrypt, tokens hashés, select sécurisé, RGPD
-- **Jeu d'essai** : seed Prisma + migrations versionnées (25) + procédure backup/restore (pg_dump à documenter)
-- **Annexes** : dictionnaire de données (2-3 entités), index Prisma à implémenter
-- **Points forts identifiés** : prix en INT, PostGIS, transactions atomiques, pessimistic locking, 25 migrations
-- **Points à combler** : MCD à créer (obligatoire), procédure pg_dump à documenter, index à ajouter
+### ✅ Section 5.4 — Modèle de données (CP7, ~2-3 pages) — RÉDIGÉE
+- **ERD complet** : `diagrammes/erd-modele-donnees.md` — 13 entités, tous attributs, PK/FK/UK, format paysage
+- 3 domaines : catalogue (Tree, Category, Location, Country, TreeStock), commandes (Order, OrderItem, OrderAddress), utilisateurs (User, Role, Cart, CartItem)
+- Cart/CartItem en BDD mais non utilisés dans le MVP (panier côté client Zustand), mentionné dans le texte
+- Choix notables : prix en INT (centimes, standard Stripe), enums (PaymentStatus, OrderStatus), PostGIS, séparation Tree/TreeStock
+- Snapshot commandes : OrderAddress.countryCode = string sans FK (intégrité historique)
+- Contraintes d'intégrité, sécurité données (bcrypt, tokens hashés, safeSelect), RGPD (anonymisation + export)
+- Droits applicatifs (guards NestJS) vs BDD — justifié
+- **Décisions rédaction** : enum ≠ state machine (précisé), ERD complet plutôt qu'allégé
 
-### ✅ Section 5.5 — Diagramme de cas d'utilisation (CP5, ~1 page)
-- Diagramme UML en Mermaid, 3 acteurs avec héritage d'accès (Visiteur → Utilisateur → Admin)
-- Relations `<<include>>`/`<<extend>>` sur les cas pertinents (vérifier stock, rembourser Stripe)
-- Héritage = hiérarchie d'accès visuelle, dans le code c'est les guards NestJS (pas d'héritage POO)
-- Brève description textuelle sous le diagramme
+### ✅ Section 5.5 — Diagramme de cas d'utilisation (CP5, ~1 page) — RÉDIGÉE
+- **Diagramme** : `diagrammes/cas-utilisation.md` — Mermaid graph LR, 3 acteurs, 18 use cases, couleurs par niveau d'accès
+- 3 acteurs avec héritage : Visiteur → Utilisateur → Admin
+- Relations include (vérifier stock, payer Stripe) et extend (rembourser Stripe)
+- Texte précise les use cases englobants (gérer profil = modif infos + modif mdp, gérer commandes = consultation + statut + annulation)
+- Version agrandie en annexe pour lisibilité
+- **Décisions rédaction** : Mermaid plutôt que PlantUML, pas de diagramme UML natif dans Mermaid
 
-### ✅ Section 5.6 — Diagrammes de séquence (CP5/CP6, ~1-2 pages)
-- **Diagramme 1 : Processus de commande** — 5 acteurs (User→Frontend→Backend→PostgreSQL→Stripe), flux complet checkout avec webhook, transaction atomique
-- **Diagramme 2 : Authentification** — 5 acteurs (User→Frontend→Backend→PostgreSQL→Redis), login (brute force) + logout (blacklist)
-- Les deux en Mermaid sequenceDiagram avec légende
-- Le diagramme auth reflète l'implémentation HttpOnly cookies (cookie posé via `Set-Cookie`, envoyé automatiquement par le navigateur)
-- Stratégie : checkout et auth en 5.6 (haut niveau), le code détaillé viendra en §7.2/7.3/8 (angles différents)
+### ✅ Section 5.6 — Diagrammes de séquence et d'états (CP5/CP6, ~2-3 pages) — RÉDIGÉE
+- **Diagramme 1 : Processus de commande** (`diagrammes/sequence-checkout.md`) — 5 acteurs, 5 phases (init sans stock → confirm transaction atomique → paiement direct Stripe → webhook HMAC → polling)
+- **Diagramme 2 : Authentification** (`diagrammes/sequence-authentification.md`) — 5 acteurs, version compacte (login brute force Redis + cookie HttpOnly + logout blacklist)
+- **Diagramme 3 : Cycle de vie commande** (`diagrammes/etats-commande.md`) — stateDiagram-v2, deux machines parallèles OrderStatus + PaymentStatus
+- Diagrammes en version réduite dans le corps + version agrandie en annexe
+- Texte d'intro développé : justification des deux flux choisis (métier + sécurité), renvoi §7.2/§8 pour les détails
+- **Décisions rédaction** : diagrammes simplifiés (flux nominal uniquement, sans alt/erreurs) pour lisibilité Word, checkout en 2 étapes justifié dans le texte (pas de blocage stock inutile), webhook = source de vérité expliqué
 
 ---
 
 ### ✅ Section 5 complète — Spécifications fonctionnelles
 Toutes les sous-sections (5.1 à 5.6) sont validées.
 
-### ✅ Section 6 — Spécifications techniques (CP1, CP6, ~3-4 pages)
-- **6.1 Stack technique** : tableau récapitulatif techno/version/rôle/justification, toute la stack détaillée (React 19, NestJS 11, PostgreSQL 16/PostGIS, Prisma 7, Redis, Nginx, Stripe, Cloudinary, Resend)
-- **6.2 Environnement de développement et outillage** (CP1) :
-  - Docker Compose dev : 7 services (frontend, backend, database, redis, nginx, stripe-cli, prisma-studio), healthchecks partout
-  - Docker Compose prod : 3 services épurés (expose, réseau Coolify, pas de ports exposés)
-  - Makefile : ~20 commandes documentées, standardise le workflow équipe
-  - Dockerfiles multi-stage : build → run avec utilisateur non-root en prod, gzip + cache 1 an en frontend
-  - Variables d'environnement : .env.example + .env.production.example + validation Joi au démarrage
-  - Indépendant de l'IDE
-- **6.3 Stratégie de sécurité** :
-  - Réseau : Helmet, CORS restrictif, expose (pas ports) en prod, réseau Docker isolé
-  - Application : ValidationPipe (whitelist), ThrottlerGuard, Guards rôles, JWT en cookie HttpOnly (migration réalisée), bcrypt, brute force Redis, JWT blacklist
-  - Données : Prisma paramétré, transactions pessimiste, Joi fail-fast, non-root containers
-  - Audit OWASP Top 10:2025 (phases 1-2 backend OK), Stripe webhook secret
-- **6.4 Documentation et qualité** : 3 workflows GitHub Actions (pr-checks, develop-ci, production-deploy + health check), ESLint, Swagger (dev only), conventions partagées, Prisma Studio
-- **Observations notables** : Makefile = atout DX, différence dev/prod bien marquée, Joi fail-fast, vite.config.ts avec manual chunks + Critters
-- **⚠️ Déploiement prod (Coolify/Hetzner)** : pas géré par le candidat — mis entre parenthèses, à approfondir avant rédaction §10/Annexes F-G
+### ✅ Section 6 — Spécifications techniques (CP1, CP6, CP11, ~3-4 pages) — RÉDIGÉE
+- **6.1 Stack technique** : tableau 15 technos (techno/version/rôle/justification), intro sur le critère de sélection (maîtrise équipe, coût d'apprentissage), paragraphes frontend (initiative Lead Dev Front), NestJS vs Express, PostgreSQL+Prisma, Stripe (PSP complet, PCI-DSS), Cloudinary (analyse solutions, upload signé)
+- **6.2 Environnement de développement et outillage** (CP1) : tableau 7 services Docker Compose dev, différence dev/prod (7 vs 3 services, expose vs ports), healthchecks + depends_on, Makefile (~20 commandes), Dockerfiles multi-stage (build→run, non-root), variables d'environnement + validation Joi fail-fast
+- **6.3 Stratégie de sécurité** (CP6) : organisée par couches (défense en profondeur), réseau (Helmet, CORS), application (ValidationPipe whitelist, ThrottlerGuard), données (Prisma paramétré), conformité OWASP Top 10:2025 (audit sprint 3), renvoi §8 pour le détail
+- **6.4 Documentation et qualité** (CP11) : tableau 3 workflows GitHub Actions (pr-checks, develop-ci avec BDD, production-deploy), ESLint+Prettier en CI, Husky non implémenté → évolution prévue pre-commit, Swagger désactivé en prod (sécurité), conventions + code review obligatoire
+- **Décisions rédaction** : pas de mention ANSSI explicite sur les mesures (seulement défense en profondeur), Husky honnêtement traité (pas installé, CI joue le rôle, évolution prévue), Coolify mentionné brièvement (pas géré par le candidat), Cloudinary sans argument CDN (pas pertinent pour le contexte)
 
 ---
 
@@ -132,30 +118,27 @@ Toutes les sous-sections (5.1 à 5.6) sont validées.
 - **7.4 Autres composants** :
   - Stripe module (factory global singleton), Cloudinary upload signé (backend signature → frontend upload direct), Guards+Decorators RBAC
 
-### ✅ Section 8 — Éléments de sécurité (~3-4 pages)
-- **8.1 Authentification** : JWT en cookie HttpOnly+Secure+SameSite=Lax (migration réalisée), bcrypt, tokens hashés, blacklist Redis
-- **8.2 Attaques courantes** : organisé par menace (injection, XSS, CSRF, brute force, broken access control) avec extraits de code
-- **8.3 Intégrations tierces** : Stripe (webhook signature, anti-spoofing, pas de données carte), Cloudinary (upload signé)
-- **8.4 Infrastructure** : non-root, expose vs ports, Joi fail-fast, Swagger désactivé prod
-- **8.5 RGPD** : ce qui existe (pages légales, safeSelect, bcrypt) + implémentations réalisées (suppression compte avec anonymisation, export données JSON)
-- **Décision** : pas de bannière cookies (pas de tracking/analytics, cookies fonctionnels exemptés)
-- **Décision** : OWASP comme cadre d'organisation en §8 (implémentations) vs §10 (démarche de veille)
+### ✅ Section 8 — Éléments de sécurité (~3-4 pages) — RÉDIGÉE
+- **8.1 Authentification** : migration JWT HttpOnly comme fil conducteur (cycle audit→correction), bcrypt, tokens hashés SHA-256, blacklist Redis TTL, vérification email
+- **8.2 Attaques courantes** : organisé par menace OWASP (injection, XSS, CSRF, brute force, broken access control) — 100% textuel, renvois vers §7
+- **8.3 Intégrations tierces** : Stripe (HMAC + anti-spoofing + données carte jamais sur serveur) + Cloudinary (upload signé, backend ne touche pas l'image) — même principe de signature
+- **8.4 Infrastructure** : non-root, expose vs ports, Joi fail-fast, Swagger désactivé prod, multi-stage Alpine — renvoi §6.2
+- **8.5 RGPD** : base MVP (pages légales, safeSelect, pas de bannière cookies) + sprint 3 (anonymisation Art.17 + obligation comptable 6 ans, export JSON) + facturation conforme CGI art.289
+- **Décisions rédaction** : zéro code dans §8 (renvois §7 et §6), OWASP comme cadre d'organisation, pas de bannière cookies (cookies fonctionnels exemptés), détail technique anonymisation réservé à l'oral (SUJETS-ORAL.md)
 
-### ✅ Section 9 — Plan de tests (CP9, ~3-4 pages)
-- **9.1 Stratégie** : pyramide de tests, 43 fichiers (35 back / 151 tests + 8 front / 60 tests), Jest + Vitest/Testing Library, CI sur PR
-- **9.2 Extraits significatifs** : payment.service.spec (webhook), orders.service.spec (accès/forbidden), cartStore.test (sync stock, expiration), tests composants React : LoadingSkeleton (4 tests : rendu, rows custom, cas limite) + QuantityInput (7 tests : interactions userEvent, accessibilité ARIA)
+### ✅ Section 9 — Plan de tests (CP9, ~3 pages) — RÉDIGÉE
+- **9.1 Stratégie** : pyramide de tests, priorité logique métier critique, Jest (back) + Vitest/Testing Library (front), CI pr-checks
+- **9.2 Tests significatifs** : tableau récapitulatif des fichiers (35 back / 8 front), 3 approches expliquées textuellement (mocking services, store Zustand, composants Testing Library) — pas de code
 - **9.3 Jeu d'essai** : tableau tunnel de vente (8 scénarios : nominal + erreurs stock + webhook + auth + expiration)
 - **9.4 Bilan honnête** : points forts (métier testé, CI) + faiblesses (controllers superficiels, pas de composants React initialement, pas de couverture CI)
 - **Décision** : pas de E2E, ajouter 2-3 tests composants React (~2-3h) pour compléter la couverture CP2+CP9
 - **Inventaire tests existants** : backend bien couvert sur services métier (orders, cart, payment, trees), front couvert sur store + utilitaires + hooks
 
-### ✅ Section 10 — Veille sécurité (~2-3 pages)
-- **10.1 Sources de veille** : tableau (OWASP, npm audit, Dependabot, Stripe docs, Mozilla Observatory, Snyk)
-- **10.2 Audit sécurité démarche** : processus OWASP Top 10:2025 en sprint 3, phases 1-2 réalisées, amélioration continue
-- **10.3 Veille dépendances** : npm audit (résultats + ajout CI), lockfile, stratégie de mise à jour
-- **10.4 Résultats concrets** : scan Mozilla Observatory, npm audit, cycle veille→action (tokens hashés)
-- **Décision** : §8 = implémentations, §10 = démarche/processus — pas de redite
-- **Posture dossier** : "quasi prod-ready" honnête avec liste des éléments manquants identifiés et priorisés
+### ✅ Section 10 — Veille technologique et sécurité (~2-2.5 pages) — RÉDIGÉE
+- **10.1 Démarche de veille** : veille continue personnelle (Korben, DailyDev, podcasts) + veille projet (docs, articles comparatifs). Choix stack front valorisés : Zustand vs Redux/Context (benchmarks), shadcn/ui vs MUI/Chakra (légèreté, éco-conception), TanStack (maturité confirmée par veille)
+- **10.2 Audit OWASP** : récit authentique (podcast → Top 10:2025 → audit structuré front/back avec IA → priorisation coût/risque → corrections), renvois §8
+- **10.3 Résultats concrets** : cycles veille→action (HttpOnly, tokens hashés), npm audit en CI (critical bloquant, vulnérabilités transitives documentées), Mozilla Observatory identifié (pas scanné, reformulé honnêtement), posture quasi prod-ready
+- **Décisions rédaction** : 3 sous-sections (fusionné vs 4 initiales), pas de tableau catalogue d'outils, récit authentique plutôt que liste, §8 = implémentations / §10 = démarche
 
 ## Liste des évolutions implémentées avant le passage
 Voir `docs/CONSIGNES-REDACTION.md` pour le détail complet avec priorités.

@@ -62,7 +62,7 @@ GreenRoots est une plateforme e-commerce permettant à des particuliers et entre
 ### Infrastructure
 | Techno | Rôle |
 |--------|------|
-| Docker Compose | Conteneurisation (8 services) |
+| Docker Compose | Conteneurisation (7 services) |
 | Nginx | Reverse proxy |
 | GitHub Actions | CI/CD (3 workflows) |
 | Hetzner + Coolify | Hébergement production |
