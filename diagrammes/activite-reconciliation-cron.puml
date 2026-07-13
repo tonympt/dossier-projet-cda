@@ -1,41 +1,32 @@
 @startuml
 ' Diagramme d'ACTIVITE UML - reconciliation des commandes (CRON horaire)
 ' Rendu : https://www.planttext.com  ou  https://www.plantuml.com/plantuml
-' Couloirs : CRON | API Stripe | Base de donnees
+' Systeme responsable indique par prefixe : [CRON] | [Stripe] | [BDD]
 skinparam defaultTextAlignment center
 title Réconciliation des commandes — CRON horaire (OrdersCleanupService)
 
-|CRON|
 start
-:Récupérer les commandes bloquées\n(inactives depuis plus de 30 min);
+:[CRON] Récupérer les commandes bloquées\n(inactives depuis plus de 30 min);
 if (Statut de paiement ?) then (PENDING / FAILED)
-  |BDD|
-  :Restaurer le stock (si réservé)\ncommande CANCELLED / FAILED;
-  |Stripe|
-  :Annuler le PaymentIntent (best-effort);
+  :[BDD] Restaurer le stock (si réservé)\ncommande CANCELLED / FAILED;
+  :[Stripe] Annuler le PaymentIntent (best-effort);
   stop
 else (PROCESSING)
-  |CRON|
   if (PaymentIntent présent ?) then (non)
-    :Ignorer (log d'avertissement);
+    :[CRON] Ignorer (log d'avertissement);
     stop
   else (oui)
   endif
-  |Stripe|
-  :Interroger l'état réel du PaymentIntent;
-  |CRON|
+  :[Stripe] Interroger l'état réel du PaymentIntent;
   switch (État renvoyé par Stripe ?)
   case ( succeeded )
-    |BDD|
-    :Finaliser : PAID / CONFIRMED\n+ générer la facture;
+    :[BDD] Finaliser : PAID / CONFIRMED\n+ générer la facture;
     stop
   case ( canceled / failed )
-    |BDD|
-    :Annuler la commande\n+ restaurer le stock;
+    :[BDD] Annuler la commande\n+ restaurer le stock;
     stop
   case ( requires_action / processing )
-    |CRON|
-    :Ne rien faire\n(prochain CRON réessaiera);
+    :[CRON] Ne rien faire\n(prochain CRON réessaiera);
     stop
   endswitch
 endif
