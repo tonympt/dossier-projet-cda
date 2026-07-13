@@ -566,11 +566,18 @@
   - **PENDING** = le client n'a pas (fini de) payer ; un PaymentIntent peut exister (créé à l'init) mais rien n'est capturé.
   - **FAILED** = paiement tenté mais refusé (banque/Stripe) → on EST passé par Stripe, mais **aucun montant capturé**.
 - **Point clé** : dans les deux cas, **aucun argent encaissé → aucun remboursement à gérer**. Le remboursement (`stripe.refunds`) ne concerne QUE l'annulation d'une commande déjà **PAID** (cf. annulation admin).
-- **Actions** (transaction atomique) :
-  1. **Restaurer le stock** — seulement s'il avait été réservé (`stockReservedAt ≠ null`).
-  2. **`orderStatus → CANCELLED`** ET **`paymentStatus → FAILED`** (deux champs distincts).
-  3. **Annuler le PaymentIntent** s'il existe (`paymentIntents.cancel`, best-effort : erreur loguée, non bloquante).
-- Si le jury demande : "Une commande abandonnée (PENDING ou FAILED) n'a jamais donné lieu à une capture de paiement, donc pas de remboursement : on libère le stock réservé, on annule le PaymentIntent, et on passe la commande en CANCELLED côté commande / FAILED côté paiement. Le remboursement n'intervient que sur l'annulation d'une commande déjà payée."
+- **⚠️ Traitement IDENTIQUE pour PENDING et FAILED** : les deux sont récupérés par la même requête et passent dans la même fonction `handleAbandonedOrders`. La seule différence est l'**origine** (voir plus haut), pas le traitement.
+- **Ce qu'on fait, en deux temps :**
+  - **① Côté base de données** (dans une **transaction atomique**) :
+    - Si le stock avait été réservé (`stockReservedAt ≠ null`) → **ré-incrémenter `TreeStock.quantity`** pour chaque ligne de la commande.
+    - **Mettre à jour la commande** : `orderStatus = CANCELLED`, `paymentStatus = FAILED`, `stockReservedAt = null` (reset du flag).
+  - **② Côté Stripe** (APRÈS la transaction, **hors transaction**, best-effort) :
+    - Si `order.paymentIntentId` existe → **`stripe.paymentIntents.cancel(...)`**.
+    - Si pas de `paymentIntentId` → **rien côté Stripe**.
+    - Une erreur Stripe (timeout, PI déjà annulé) est **loguée mais n'annule PAS** le travail BDD déjà commité.
+- **Pourquoi BDD d'abord, Stripe ensuite ?** Ce qui compte, c'est de **libérer le stock et marquer la commande** en base. L'annulation du PaymentIntent est du « ménage » chez Stripe, tolérant à l'échec : une indispo Stripe ne doit pas empêcher de libérer le stock.
+- **Quel stock est réservé selon le cas ?** La réservation du stock a lieu à l'étape **confirm** (pas à l'init). Donc : une commande **PENDING** (abandon avant paiement) n'a souvent **pas** de stock réservé ; une commande **FAILED** (paiement tenté après confirm) a **pu** réserver du stock → d'où l'importance du « si réservé ».
+- Si le jury demande : "Une commande abandonnée (PENDING ou FAILED) n'a jamais donné lieu à une capture de paiement, donc pas de remboursement. Côté base : je libère le stock réservé et je passe la commande en CANCELLED (paiement FAILED), dans une transaction. Côté Stripe, en best-effort après la transaction, j'annule le PaymentIntent s'il existe. Le remboursement n'intervient que sur l'annulation d'une commande déjà payée."
 
 ### State machine explicite (`ORDER_STATUS_TRANSITIONS`) — pourquoi pas un if/else
 - La constante `ORDER_STATUS_TRANSITIONS` est un **dictionnaire** : pour chaque état, la liste des états autorisés
