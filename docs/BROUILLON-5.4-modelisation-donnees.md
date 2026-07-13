@@ -132,23 +132,37 @@ echo "✔ Restauration depuis : $FILE"
 
 ---
 
-## (F) Diagramme d'activité — réconciliation CRON (nouveau)
+## (F) Diagramme d'activité — réconciliation CRON
 
-Fichier : `diagrammes/activite-reconciliation-cron.md` → rendu **mermaid.live**.
+Image finale : `diagrammes/activite-reconciliation-cron.png` (PlantUML, flux vertical compact).
+Source retouchable : `diagrammes/activite-reconciliation-cron.puml` → planttext.com.
 
-**Où le placer dans le .docx** : dans **§5.6** — renommer le titre « Diagrammes de séquence et d'états » → « **Diagrammes de séquence, d'états et d'activité** », et ajouter un sous-bloc en gras après la partie « états » :
+**Où le placer** : dans **§5.6** — renommer le titre « Diagrammes de séquence et d'états » →
+« **Diagrammes de séquence, d'états et d'activité** », puis ajouter ce sous-bloc en gras après « états » :
 
-> **• Diagramme d'activité — réconciliation des commandes (CRON)**
-> Le processus automatisé `OrdersCleanupService` (déclenché toutes les heures) sert de filet de
-> sécurité pour les commandes restées incohérentes au-delà de 30 minutes. Le diagramme d'activité
-> ci-dessous, organisé en trois couloirs (CRON, API Stripe, base de données), formalise sa logique
-> de décision. Les commandes abandonnées (PENDING/FAILED) sont annulées et leur stock restauré. Les
-> commandes bloquées en PROCESSING (webhook Stripe perdu) déclenchent une interrogation directe de
-> l'API Stripe pour se synchroniser sur l'état réel du paiement : réussi → la commande est finalisée
-> (on ne perd pas une vente payée) ; annulé/échoué → annulation et libération du stock ; en attente
-> (3D Secure) → report au prochain passage. *(Détail du service en §7.2.)*
+---
+**• Diagramme d'activité — réconciliation des commandes (CRON)**
 
-*[Insérer le diagramme d'activité ici]*
+Le service `OrdersCleanupService`, déclenché toutes les heures (`@Cron`), agit comme filet de sécurité
+pour les commandes restées incohérentes au-delà de 30 minutes. Le diagramme d'activité ci-dessous
+formalise sa logique de décision.
 
-> Choix de placement : on garde tous les diagrammes comportementaux UML dans §5.6 (pas de nouvelle
-> section numérotée), et on renvoie au §7.2 qui décrit déjà la logique du CRON en prose.
+Deux cas sont traités. Les commandes **abandonnées** (paiement PENDING ou FAILED) sont annulées : leur
+stock est restauré s'il avait été réservé, et le PaymentIntent Stripe est annulé. Les commandes
+**bloquées en PROCESSING** (paiement accepté côté client mais webhook Stripe jamais reçu) font l'objet
+d'une **réconciliation** : le service interroge directement l'API Stripe pour connaître l'état réel du
+paiement. S'il a réussi, la commande est finalisée — on évite ainsi de perdre une vente pourtant payée ;
+s'il a été annulé ou a échoué, la commande est annulée et le stock libéré ; s'il est encore en cours
+(3D Secure, contrôle anti-fraude), le prochain passage du CRON réessaiera.
+
+Chaque itération est isolée par un `try/catch` : une erreur Stripe (timeout, PaymentIntent introuvable)
+est journalisée sans interrompre le traitement des autres commandes. Ce diagramme complète le diagramme
+d'états : là où celui-ci décrit *les statuts* d'une commande, le diagramme d'activité décrit
+*l'algorithme* qui les réconcilie. *(Implémentation détaillée en §7.2.)*
+
+*[Insérer diagrammes/activite-reconciliation-cron.png]*
+
+---
+
+> Choix de placement : tous les diagrammes comportementaux UML restent dans §5.6 (pas de nouvelle
+> section numérotée), avec renvoi au §7.2 qui décrit déjà la logique du CRON en prose.
