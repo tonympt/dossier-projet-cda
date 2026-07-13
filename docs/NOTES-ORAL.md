@@ -213,6 +213,20 @@
 - GreenRoots : table Role avec one-to-many. Un enum aurait suffi pour le MVP (3 rôles, pas de métadonnées), mais la table est prête pour une évolution (many-to-many si multi-rôles, ajout de permissions)
 - Si le jury demande : "La table Role permet d'ajouter des rôles sans migration et pourrait porter des métadonnées. Un enum aurait suffi pour le MVP mais la table offre plus d'extensibilité."
 
+### Sens de la relation User/Role — la FK est dans `users` (piège fréquent)
+- **Erreur à éviter** : penser que la table `roles` contient les utilisateurs. C'est l'inverse
+- **`roles`** = référentiel de 3 lignes (`id`, `name`) : user / admin / superadmin. Elle ne connaît PAS les users
+- **`users`** porte la colonne **`role_id`** (FK → `roles.id`). C'est le côté « n » qui pointe vers le « 1 »
+- Règle générale (passage MCD→MLD) : dans une relation 1:n, **la clé du côté « 1 » descend comme FK dans le côté « n »**. Ici la PK de `roles` descend dans `users`
+- Un rôle a 0..N users, un user a exactement 1 rôle → **relation Many-to-One** côté user
+
+### Rôle unique (1,1) au MCD + évolution RBAC fin — savoir défendre les deux
+- **Choix actuel assumé** : au MCD, `User (1,1) — HAS — (0,N) Role`. Un utilisateur a **un seul** rôle obligatoire (FK non-nullable). C'est fidèle au code — **ne pas prétendre 0..N au jury** (il verrait la FK unique)
+- **Justification MVP** : domaine fermé de 3 rôles, RBAC route-level suffisant → **YAGNI**
+- **Limite reconnue** : RBAC à gros grain, les droits (« qui peut faire quoi ») sont **codés en dur dans les décorateurs `@Roles()`**, pas en base. Impossible d'attribuer un droit ponctuel sans créer un rôle, ni de cumuler plusieurs rôles
+- **Évolution documentée (MCD cible en annexe)** : RBAC fin piloté par la base → `User n:n Role` (cumul de rôles) et `Role n:n Permission` (table `Permission` granulaire). Les guards interrogeraient la base au lieu de chaînes en dur
+- Si le jury demande : "Aujourd'hui un utilisateur a un rôle unique et les permissions sont dans les guards — un choix MVP assumé. L'évolution serait un RBAC fin : User n:n Role n:n Permission, avec une table Permission, pour attribuer les droits sans redéployer."
+
 ### Prix en centimes (INT)
 - Pas d'erreurs d'arrondi (0.1 + 0.2 ≠ 0.3 en float)
 - Standard Stripe (attend des centimes)
