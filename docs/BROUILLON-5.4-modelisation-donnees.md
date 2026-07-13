@@ -129,3 +129,26 @@ echo "✔ Restauration depuis : $FILE"
 - [ ] Lancer `/maj-docs` : le `docs/PLAN-DOSSIER.md` est périmé (parle de « 13 entités », Cart/CartItem, et n'inclut pas le MLD).
 - [ ] Balayer la cohérence « déployée » dans les autres sections (§6 infra, §9…) — l'app n'est pas déployée, CI prod cassée.
 - [ ] Décider du sort du 2ᵉ MCD (évolution RBAC) : annexe optionnelle ou support oral uniquement.
+
+---
+
+## (F) Diagramme d'activité — réconciliation CRON (nouveau)
+
+Fichier : `diagrammes/activite-reconciliation-cron.md` → rendu **mermaid.live**.
+
+**Où le placer dans le .docx** : dans **§5.6** — renommer le titre « Diagrammes de séquence et d'états » → « **Diagrammes de séquence, d'états et d'activité** », et ajouter un sous-bloc en gras après la partie « états » :
+
+> **• Diagramme d'activité — réconciliation des commandes (CRON)**
+> Le processus automatisé `OrdersCleanupService` (déclenché toutes les heures) sert de filet de
+> sécurité pour les commandes restées incohérentes au-delà de 30 minutes. Le diagramme d'activité
+> ci-dessous, organisé en trois couloirs (CRON, API Stripe, base de données), formalise sa logique
+> de décision. Les commandes abandonnées (PENDING/FAILED) sont annulées et leur stock restauré. Les
+> commandes bloquées en PROCESSING (webhook Stripe perdu) déclenchent une interrogation directe de
+> l'API Stripe pour se synchroniser sur l'état réel du paiement : réussi → la commande est finalisée
+> (on ne perd pas une vente payée) ; annulé/échoué → annulation et libération du stock ; en attente
+> (3D Secure) → report au prochain passage. *(Détail du service en §7.2.)*
+
+*[Insérer le diagramme d'activité ici]*
+
+> Choix de placement : on garde tous les diagrammes comportementaux UML dans §5.6 (pas de nouvelle
+> section numérotée), et on renvoie au §7.2 qui décrit déjà la logique du CRON en prose.
