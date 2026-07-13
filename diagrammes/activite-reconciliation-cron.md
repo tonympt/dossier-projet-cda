@@ -2,74 +2,76 @@
 
 > Processus **automatisé** `OrdersCleanupService`, déclenché toutes les heures (`@Cron(EVERY_HOUR)`).
 > Filet de sécurité pour les commandes « zombies » restées incohérentes au-delà de 30 min.
-> Couloirs : **CRON** (orchestration/décisions) · **API Stripe** · **Base de données**.
 
-## Version 1 — Mermaid `swimlane-beta` (recommandée : vrais couloirs)
+## Version A — `flowchart` stylisé (recommandée pour un rendu propre)
 
-> ⚠️ Type **beta** (Mermaid v11.16.0+). Se rend sur **mermaid.live** (à jour). GitHub / anciens
-> renderers peuvent ne pas encore le supporter → exporter l'image depuis mermaid.live pour le Word.
-
-```
-swimlane-beta TB
-  subgraph CRON[CRON · OrdersCleanupService · horaire]
-    start([Déclenchement horaire])
-    scan[Récupérer les commandes bloquées depuis plus de 30 min]
-    dtype{Statut de paiement ?}
-    sdec{État réel renvoyé par Stripe ?}
-    wait[Ne rien faire · prochain CRON réessaiera]
-    stop([Fin])
-  end
-  subgraph STRIPE[API Stripe]
-    queryPI[Interroger l'état du PaymentIntent]
-    cancelPI[Annuler le PaymentIntent]
-  end
-  subgraph BDD[Base de données · transaction]
-    abandon[Restaurer le stock réservé · commande CANCELLED/FAILED]
-    finalize[Commande PAID/CONFIRMED · génération facture]
-    cancelFree[Commande CANCELLED · restauration du stock]
-  end
-
-  start --> scan --> dtype
-  dtype -->|PENDING / FAILED| abandon
-  abandon --> cancelPI --> stop
-  dtype -->|PROCESSING| queryPI
-  queryPI --> sdec
-  sdec -->|succeeded| finalize --> stop
-  sdec -->|canceled / failed| cancelFree --> stop
-  sdec -->|requires_action / processing| wait --> stop
-```
-
-## Version 2 — fallback `flowchart` (rendu partout, couloirs approximés)
+> Code couleur = système responsable : 🔵 **CRON** · 🟣 **Stripe** · 🔴 **Base de données**.
+> Losanges jaunes = décisions, stades verts = début/fin. Rendu fiable partout (mermaid.live, VS Code, GitHub).
 
 ```mermaid
 flowchart TD
-    subgraph CRON["CRON · OrdersCleanupService · horaire"]
-        start([Déclenchement horaire]) --> scan[Récupérer les commandes bloquées &gt; 30 min]
-        scan --> dtype{Statut de paiement ?}
-        sdec{État réel renvoyé par Stripe ?}
-        wait[Ne rien faire · prochain CRON]
-        stop([Fin])
-    end
-    subgraph STRIPE["API Stripe"]
-        queryPI[Interroger le PaymentIntent]
-        cancelPI[Annuler le PaymentIntent]
-    end
-    subgraph BDD["Base de données · transaction"]
-        abandon[Restaurer le stock · CANCELLED/FAILED]
-        finalize[PAID/CONFIRMED · facture]
-        cancelFree[CANCELLED · restaurer le stock]
-    end
-    dtype -->|"PENDING / FAILED"| abandon --> cancelPI --> stop
-    dtype -->|"PROCESSING"| queryPI --> sdec
-    sdec -->|succeeded| finalize --> stop
-    sdec -->|"canceled / failed"| cancelFree --> stop
-    sdec -->|"requires_action / processing"| wait --> stop
+    classDef se fill:#d3f9d8,stroke:#2b8a3e,color:#111,font-weight:bold
+    classDef dec fill:#ffec99,stroke:#e8590c,color:#111
+    classDef cron fill:#e7f5ff,stroke:#1971c2,color:#111
+    classDef stripe fill:#f3d9fa,stroke:#9c36b5,color:#111
+    classDef db fill:#ffdeeb,stroke:#c2255c,color:#111
+
+    S([Déclenchement horaire]):::se
+    SCAN["Récupérer les commandes<br/>bloquées depuis plus de 30 min"]:::cron
+    D1{"Statut de<br/>paiement ?"}:::dec
+    AB["Restaurer le stock réservé<br/>commande CANCELLED / FAILED"]:::db
+    CP["Annuler le PaymentIntent"]:::stripe
+    QP["Interroger l'état réel<br/>du PaymentIntent"]:::stripe
+    D2{"État renvoyé<br/>par Stripe ?"}:::dec
+    FIN["Commande PAID / CONFIRMED<br/>génération de la facture"]:::db
+    CF["Commande CANCELLED<br/>restauration du stock"]:::db
+    W["Ne rien faire<br/>prochain CRON réessaiera"]:::cron
+    E([Fin]):::se
+
+    S --> SCAN --> D1
+    D1 -->|"PENDING / FAILED"| AB --> CP --> E
+    D1 -->|"PROCESSING"| QP --> D2
+    D2 -->|"succeeded"| FIN --> E
+    D2 -->|"canceled / failed"| CF --> E
+    D2 -->|"requires_action / processing"| W --> E
 ```
 
-## Version 3 — PlantUML (UML activité authentique)
+## Version B — `swimlane-beta` (vrais couloirs, Mermaid natif)
 
-Voir `activite-reconciliation-cron.puml` (rendu sur planttext.com) : notation UML stricte
-(start/stop, losanges, vrais couloirs `|CRON| |Stripe| |BDD|`).
+> ⚠️ Beta (v11.16.0+) : exporter depuis **mermaid.live**. Libellés volontairement courts pour la lisibilité.
+
+```
+swimlane-beta TB
+  subgraph CRON[CRON · horaire]
+    S([Déclenchement])
+    SCAN[Commandes bloquées > 30 min]
+    D1{Statut paiement ?}
+    D2{État Stripe ?}
+    W[Attendre prochain CRON]
+    E([Fin])
+  end
+  subgraph STRIPE[API Stripe]
+    QP[Interroger PaymentIntent]
+    CP[Annuler PaymentIntent]
+  end
+  subgraph BDD[Base de données]
+    AB[Stock restauré + CANCELLED/FAILED]
+    FIN[PAID/CONFIRMED + facture]
+    CF[CANCELLED + stock restauré]
+  end
+
+  S --> SCAN --> D1
+  D1 -->|PENDING / FAILED| AB --> CP --> E
+  D1 -->|PROCESSING| QP --> D2
+  D2 -->|succeeded| FIN --> E
+  D2 -->|canceled / failed| CF --> E
+  D2 -->|requires_action| W --> E
+```
+
+## Version C — PlantUML (UML activité authentique)
+
+Voir `activite-reconciliation-cron.puml` (rendu sur planttext.com) : notation UML stricte,
+vrais couloirs `|CRON| |Stripe| |BDD|`, start/stop.
 
 ---
 
