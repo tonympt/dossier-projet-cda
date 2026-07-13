@@ -65,20 +65,21 @@ Un **seed Prisma** fournit un jeu de données de test couvrant les scénarios cl
 
 ## (B) Scripts sauvegarde / restauration
 
-> À placer dans `scripts/` du sous-module `projet-greenroots` (via branche → PR `develop`).
-> Valeurs réelles confirmées au test : user `root`, base `greenroot` (surchargées par `.env`).
-> `pg_dump` embarque le PostGIS sans souci. **Procédure testée le 13/07/2026** : restore complet
-> dans une base vierge, 14 tables + données restaurées, exit 0, zéro erreur.
+> À placer dans `scripts/` du sous-module `projet-greenroots` (via branche → PR `develop`),
+> à exécuter depuis la racine du repo (les fichiers compose sont `compose.dev.yml` / `compose.prod.yml`,
+> d'où le `-f`). Valeurs réelles confirmées : user `root`, base `greenroot`, service `database` (surchargées par `.env`/env).
+> `pg_dump` embarque le PostGIS sans souci. **Testé le 13/07/2026** : `backup.sh` réel exécuté (dump OK)
+> + restore complet dans une base vierge (14 tables + données, exit 0, zéro erreur).
 
 `scripts/backup.sh`
 ```bash
 #!/usr/bin/env bash
 # Sauvegarde PostgreSQL GreenRoots (format compressé pg_dump)
 set -euo pipefail
-SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
+COMPOSE_FILE="${COMPOSE_FILE:-compose.dev.yml}"; SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
 OUT="${BACKUP_DIR:-./backups}"; mkdir -p "$OUT"
 FILE="$OUT/greenroots_$(date +%Y%m%d_%H%M%S).dump"
-docker compose exec -T "$SERVICE" pg_dump -U "$DB_USER" -Fc "$DB_NAME" > "$FILE"
+docker compose -f "$COMPOSE_FILE" exec -T "$SERVICE" pg_dump -U "$DB_USER" -Fc "$DB_NAME" > "$FILE"
 echo "✔ Sauvegarde : $FILE"
 ```
 
@@ -87,9 +88,9 @@ echo "✔ Sauvegarde : $FILE"
 #!/usr/bin/env bash
 # Restauration PostgreSQL GreenRoots
 set -euo pipefail
-SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
+COMPOSE_FILE="${COMPOSE_FILE:-compose.dev.yml}"; SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
 FILE="${1:?Usage: ./restore.sh <fichier.dump>}"
-docker compose exec -T "$SERVICE" pg_restore -U "$DB_USER" -d "$DB_NAME" --clean --if-exists < "$FILE"
+docker compose -f "$COMPOSE_FILE" exec -T "$SERVICE" pg_restore -U "$DB_USER" -d "$DB_NAME" --clean --if-exists < "$FILE"
 echo "✔ Restauration depuis : $FILE"
 ```
 
