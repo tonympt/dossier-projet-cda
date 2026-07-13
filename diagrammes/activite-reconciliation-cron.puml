@@ -1,0 +1,35 @@
+@startuml
+' Diagramme d'ACTIVITÉ UML — réconciliation des commandes (CRON horaire)
+' Rendu : coller sur https://www.planttext.com ou https://www.plantuml.com/plantuml
+' Couloirs (swimlanes) : CRON · API Stripe · Base de données
+title Réconciliation des commandes — CRON horaire (OrdersCleanupService)
+
+|CRON|
+start
+:Récupérer les commandes bloquées\n(inactives depuis plus de 30 min);
+if (Statut de paiement ?) then (PENDING / FAILED\n— abandonnée)
+  |BDD|
+  :Restaurer le stock réservé\net passer la commande à CANCELLED / FAILED;
+  |Stripe|
+  :Annuler le PaymentIntent;
+  stop
+else (PROCESSING\n— webhook perdu)
+  |Stripe|
+  :Interroger l'état réel\ndu PaymentIntent;
+  |CRON|
+  switch (État renvoyé par Stripe ?)
+  case ( succeeded )
+    |BDD|
+    :Finaliser la commande : PAID / CONFIRMED\net générer la facture;
+    stop
+  case ( canceled / failed )
+    |BDD|
+    :Annuler la commande\net restaurer le stock;
+    stop
+  case ( requires_action / processing )
+    |CRON|
+    :Ne rien faire\n(le prochain CRON réessaiera);
+    stop
+  endswitch
+endif
+@enduml
