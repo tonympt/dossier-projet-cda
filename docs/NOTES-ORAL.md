@@ -560,6 +560,18 @@
 - Le cron est un **filet de sécurité** : le webhook gère 99% des cas, le cron rattrape le 1% restant
 - Si le jury demande : "Le cron gère la résilience entre deux infrastructures indépendantes — si le webhook se perd entre Stripe et notre serveur, le cron réconcilie en interrogeant directement l'API Stripe."
 
+### Commandes abandonnées (PENDING/FAILED) — pourquoi aucun remboursement
+- **Fréquence** : le cron tourne **toutes les heures** (`@Cron(EVERY_HOUR)`), PAS toutes les 30 min. Les **30 min** sont le **seuil d'inactivité** (`updatedAt`) au-delà duquel une commande PENDING est considérée abandonnée.
+- **Cible** : `orderStatus = PENDING` + `paymentStatus ∈ {PENDING, FAILED}` + inactive > 30 min.
+  - **PENDING** = le client n'a pas (fini de) payer ; un PaymentIntent peut exister (créé à l'init) mais rien n'est capturé.
+  - **FAILED** = paiement tenté mais refusé (banque/Stripe) → on EST passé par Stripe, mais **aucun montant capturé**.
+- **Point clé** : dans les deux cas, **aucun argent encaissé → aucun remboursement à gérer**. Le remboursement (`stripe.refunds`) ne concerne QUE l'annulation d'une commande déjà **PAID** (cf. annulation admin).
+- **Actions** (transaction atomique) :
+  1. **Restaurer le stock** — seulement s'il avait été réservé (`stockReservedAt ≠ null`).
+  2. **`orderStatus → CANCELLED`** ET **`paymentStatus → FAILED`** (deux champs distincts).
+  3. **Annuler le PaymentIntent** s'il existe (`paymentIntents.cancel`, best-effort : erreur loguée, non bloquante).
+- Si le jury demande : "Une commande abandonnée (PENDING ou FAILED) n'a jamais donné lieu à une capture de paiement, donc pas de remboursement : on libère le stock réservé, on annule le PaymentIntent, et on passe la commande en CANCELLED côté commande / FAILED côté paiement. Le remboursement n'intervient que sur l'annulation d'une commande déjà payée."
+
 ### State machine explicite (`ORDER_STATUS_TRANSITIONS`) — pourquoi pas un if/else
 - La constante `ORDER_STATUS_TRANSITIONS` est un **dictionnaire** : pour chaque état, la liste des états autorisés
 - Avantages par rapport à un if/else ou switch :
