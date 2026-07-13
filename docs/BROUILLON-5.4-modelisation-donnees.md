@@ -59,21 +59,23 @@ Au niveau du modèle : les mots de passe sont stockés **hashés (bcrypt)**, les
 Les droits sont gérés au **niveau applicatif** via les guards NestJS (JWT + rôles USER/ADMIN/SUPERADMIN) plutôt que par des rôles PostgreSQL. Ce choix découle de l'architecture : Prisma utilise une connexion unique à la base, et une gestion des permissions à la couche API est plus fine, plus testable, et constitue le pattern standard des API REST modernes.
 
 **• Jeu d'essai, sauvegarde et migrations**
-Un **seed Prisma** fournit un jeu de données de test couvrant les scénarios clés (utilisateurs aux rôles variés, arbres à stocks différents, commandes dans chaque statut). La **sauvegarde/restauration** repose sur une procédure `pg_dump`/`pg_restore` (scripts `backup.sh`/`restore.sh` versionnés), exécutable en local sur l'environnement Docker Compose. Son **automatisation planifiée** (sauvegardes managées Coolify vers stockage externe) est prévue lors de la finalisation du déploiement.
+Un **seed Prisma** fournit un jeu de données de test couvrant les scénarios clés (utilisateurs aux rôles variés, arbres à stocks différents, commandes dans chaque statut). La **sauvegarde/restauration** repose sur une procédure `pg_dump`/`pg_restore` (scripts `backup.sh`/`restore.sh`), **testée et validée en local** : restauration complète d'une sauvegarde dans une base vierge, sans erreur, avec l'intégralité des tables et des données. Son **automatisation planifiée** (sauvegardes managées Coolify vers stockage externe) est prévue lors de la finalisation du déploiement.
 
 ---
 
 ## (B) Scripts sauvegarde / restauration
 
 > À placer dans `scripts/` du sous-module `projet-greenroots` (via branche → PR `develop`).
-> Ajuster `POSTGRES_USER` / `POSTGRES_DB` selon le `.env`. `pg_dump` embarque le PostGIS sans souci.
+> Valeurs réelles confirmées au test : user `root`, base `greenroot` (surchargées par `.env`).
+> `pg_dump` embarque le PostGIS sans souci. **Procédure testée le 13/07/2026** : restore complet
+> dans une base vierge, 14 tables + données restaurées, exit 0, zéro erreur.
 
 `scripts/backup.sh`
 ```bash
 #!/usr/bin/env bash
 # Sauvegarde PostgreSQL GreenRoots (format compressé pg_dump)
 set -euo pipefail
-SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-postgres}"; DB_NAME="${POSTGRES_DB:-greenroots}"
+SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
 OUT="${BACKUP_DIR:-./backups}"; mkdir -p "$OUT"
 FILE="$OUT/greenroots_$(date +%Y%m%d_%H%M%S).dump"
 docker compose exec -T "$SERVICE" pg_dump -U "$DB_USER" -Fc "$DB_NAME" > "$FILE"
@@ -85,7 +87,7 @@ echo "✔ Sauvegarde : $FILE"
 #!/usr/bin/env bash
 # Restauration PostgreSQL GreenRoots
 set -euo pipefail
-SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-postgres}"; DB_NAME="${POSTGRES_DB:-greenroots}"
+SERVICE="${DB_SERVICE:-database}"; DB_USER="${POSTGRES_USER:-root}"; DB_NAME="${POSTGRES_DB:-greenroot}"
 FILE="${1:?Usage: ./restore.sh <fichier.dump>}"
 docker compose exec -T "$SERVICE" pg_restore -U "$DB_USER" -d "$DB_NAME" --clean --if-exists < "$FILE"
 echo "✔ Restauration depuis : $FILE"
@@ -121,8 +123,8 @@ echo "✔ Restauration depuis : $FILE"
 
 ## (E) TODO ultérieurs
 
-- [ ] Tester `restore.sh` sur Docker local → alors seulement écrire « testée et validée » dans le dossier.
-- [ ] Ajouter `scripts/backup.sh` + `restore.sh` au sous-module `projet-greenroots` (branche → PR `develop`).
+- [x] ~~Tester `restore.sh` sur Docker local~~ **FAIT le 13/07/2026** (restore validé, 14 tables, exit 0) → « testée et validée » désormais autorisé dans le dossier.
+- [ ] Ajouter `scripts/backup.sh` + `restore.sh` au sous-module `projet-greenroots` (branche → PR `develop`) — défauts corrigés : user `root`, base `greenroot`.
 - [ ] Lancer `/maj-docs` : le `docs/PLAN-DOSSIER.md` est périmé (parle de « 13 entités », Cart/CartItem, et n'inclut pas le MLD).
 - [ ] Balayer la cohérence « déployée » dans les autres sections (§6 infra, §9…) — l'app n'est pas déployée, CI prod cassée.
 - [ ] Décider du sort du 2ᵉ MCD (évolution RBAC) : annexe optionnelle ou support oral uniquement.
