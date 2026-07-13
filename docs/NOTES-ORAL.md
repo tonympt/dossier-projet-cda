@@ -473,6 +473,12 @@
 - C'est aussi un argument **éco-conception** : on évite un transfert réseau supplémentaire (frontend → backend → Cloudinary serait deux transferts au lieu d'un)
 - Si le jury demande : "Le backend ne touche jamais l'image. Il signe une autorisation, le frontend upload directement vers Cloudinary. Ça économise la bande passante serveur et réduit la surface d'attaque."
 
+## UML — Choix des diagrammes (pourquoi pas de diagramme de classes)
+- **Diagrammes retenus** : cas d'utilisation, séquence (×2), états + modélisation données Merise (MCD/MLD/MPD). Jeu cohérent avec une app **orientée services** (NestJS) + **front fonctionnel** (React/hooks/Zustand).
+- **Pas de diagramme de classes = choix assumé** : aucun **modèle objet métier conçu from scratch**. Les données sont des **types générés par Prisma** ; les classes backend (Services/Guards/Strategies) n'ont que des **héritages imposés par le framework** (`PassportStrategy`, `CanActivate`, `AuthGuard`, `NestInterceptor`). Un diagramme de classes ne montrerait que de la **plomberie framework** → faible valeur et indéfendable comme « conception objet personnelle ».
+- **Si le jury demande « pourquoi pas de diagramme de classes ? »** : "L'application est orientée services (NestJS) et fonctionnelle côté front (React/hooks/Zustand) ; il n'y a pas de modèle objet métier conçu qui le justifierait. La structure des données est modélisée en Merise (MCD/MLD/MPD), et les patterns objets réellement appliqués — **Strategy** (Passport : `LocalStrategy`/`JwtStrategy` héritent de `PassportStrategy`) et **injection de dépendances / IoC** — sont décrits en architecture et sécurité."
+- **À matérialiser dans le dossier** (§ architecture/sécurité) : nommer explicitement le **pattern Strategy** (Passport) et l'**injection de dépendances** — ça prouve la compétence POO sans diagramme dédié.
+
 ## UML — Diagramme de cas d'utilisation
 
 ### Notation de base
