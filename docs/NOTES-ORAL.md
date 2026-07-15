@@ -722,46 +722,53 @@
 - **Validation aussi de type** : `PORT: Joi.number().default(3000)` → si quelqu'un met `PORT=abc`, rejeté. `.default()` fournit une valeur par défaut si absente
 - Si le jury demande : "Joi valide toutes les variables d'environnement au démarrage. Si une variable critique manque ou est invalide, l'application refuse de démarrer — c'est le pattern fail-fast. Ça évite de planter silencieusement en production sur une config manquante."
 
-### CI/CD — Les 3 workflows GitHub Actions (+ Husky en amont)
+### CI/CD — Les 3 workflows GitHub Actions
 
-**4 niveaux de qualité** : Husky (pre-commit) → pr-checks (feature branch) → develop-ci (intégration) → production-deploy (production)
+**3 workflows GitHub Actions**, alignés GitFlow : pr-checks (branches de travail) → develop-ci (intégration) → production-deploy (production). *(Husky pre-commit = évolution **prévue, pas encore en place** — voir plus bas.)*
+
+### CI vs CD — la distinction (question fréquente)
+- **CI = Intégration Continue** = **valider** chaque changement (build, lint, tests, audit) → « le code est-il sain, sans régression ? » → `pr-checks` + `develop-ci`
+- **CD = Déploiement Continu** = **livrer/déployer** le code validé, puis vérifier → « ça tourne en prod ? » → `production-deploy` (webhook Coolify + health-check)
+- **Nuance vocabulaire** : la mise en prod passe par une **promotion manuelle** `develop → main` (PR) → on est plus proche du **Continuous *Delivery*** (livrable en 1 clic, avec **porte humaine**) que du **Continuous *Deployment*** pur (tout push part en prod sans intervention). Une fois sur `main`, le déploiement est automatique
+- **Les 3 workflows font des choses distinctes, pas redondantes** : pr-checks = feedback rapide (branches, mocks) ; develop-ci = contrôle approfondi + migrations/seed sur vraie base ; production-deploy = barrière tests → déploie → vérifie. Le seul recouvrement (tests unitaires dans pr-checks ET develop-ci) est **volontaire** : filet rapide vs porte d'entrée sérieuse
+- Si le jury demande : "La CI valide en continu (pr-checks, develop-ci), la CD déploie en continu (production-deploy). Comme on promeut develop→main manuellement par PR, c'est du *continuous delivery* : la mise en prod finale reste déclenchée par une action humaine."
 
 ### pr-checks — feedback rapide (~5 min)
 - **Déclencheur** : push/PR sur **toutes les branches sauf main et develop** (feature, fix, chore)
 - **2 jobs en parallèle** :
-  - Backend : `npm audit --audit-level=critical` + lint + tests unitaires **sans BDD** (mocks)
-  - Frontend : `npm audit` + lint + **build complet** (vérifie que TypeScript compile)
+  - Backend : `npm audit --omit=dev --audit-level=critical` (deps de **prod** uniquement) + lint + tests unitaires **sans BDD** (mocks)
+  - Frontend : `npm audit --omit=dev` + lint + **build complet** (vérifie que TypeScript compile)
 - **Pas de BDD, pas de coverage** — c'est un check rapide
 - Si le jury demande : "pr-checks donne un retour rapide en ~5 min : audit sécurité, lint et tests unitaires sans base de données."
 
 ### develop-ci — suite complète avec vraie BDD
 - **Déclencheur** : push/PR sur `develop`
-- **Différence clé** : lance un **service PostgreSQL** dans GitHub Actions (vrai conteneur PostGIS)
+- **Différence clé** : lance un **service PostgreSQL/PostGIS** éphémère dans GitHub Actions
+- ⚠️ **Piège à ne pas dire de travers** : la base **ne sert PAS aux tests** (les tests unitaires mockent Prisma → ils l'ignorent). Elle valide `prisma migrate deploy` (les migrations passent) + le **seed** (+ son idempotence, rejoué 2×) — l'opération **exacte que la prod exécute à chaque déploiement**
 - **3 jobs** :
-  - Backend : `prisma migrate deploy` (vérifie les migrations) → seed → lint → tests avec vraie BDD → **coverage** (lignes, branches, fonctions)
+  - Backend : migrations → seed → lint → tests unitaires (**mockés**) → **coverage** (lignes, branches, fonctions)
   - Frontend : lint + build
   - **Test idempotence seed** : lance le seed 2 fois de suite → si le 2e échoue, le seed n'est pas idempotent
-- Si le jury demande : "develop-ci va plus loin avec une vraie PostgreSQL — on vérifie les migrations, le seed idempotent, et on mesure la couverture."
+- **Origine (git)** : Vincent (Lead Back) a créé cette CI le 04/02/2026 avec des **tests e2e ACTIFS** contre cette base, puis les a **commentés le jour même** — l'e2e n'a jamais dépassé le stub NestJS (`GET /`). La base a donc été montée **pour l'e2e** ; l'e2e a été dépriorisé (4 sprints d'1 semaine, documenté en évolution §9). Elle garde une vraie valeur : migrations + seed idempotent
+- Si le jury demande : "La vraie PostgreSQL valide que migrations et seed idempotent s'appliquent — ce que la prod refait à chaque déploiement. Les tests unitaires, eux, sont mockés. Des tests e2e sur cette base étaient prévus mais dépriorisés : c'est une évolution identifiée, pas un oubli."
 
 ### production-deploy — déploiement en production
 - **Déclencheur** : push sur `main` (uniquement si fichiers app/, compose, nginx ou workflows modifiés) + déclenchement manuel possible
-- **3 jobs séquentiels** :
-  1. **test-and-lint** : mêmes tests qu'en develop-ci (avec BDD) — on ne déploie jamais sans retester
-  2. **deploy** : trigger webhook Coolify → Coolify pull le code, rebuild les images, redémarre les conteneurs → attente 30s → **health check API** (10 tentatives, 10s entre chaque) → health check frontend
-  3. **notify-failure** : notification Slack si échec (optionnel, si webhook configuré)
-- Si le jury demande : "Le déploiement refait tous les tests puis trigger Coolify via webhook. Des health checks vérifient que l'API et le frontend répondent après déploiement."
+- **2 jobs séquentiels** — le job `deploy` a `needs: test-and-lint` → **ne part que si les tests passent** (barrière qualité) :
+  1. **test-and-lint** : mêmes validations qu'en develop-ci (migrations + seed sur BDD, lint, tests, build) — on ne déploie jamais sans retester
+  2. **deploy** : appel **authentifié** du webhook Coolify (`Authorization: Bearer` + token API) → Coolify pull `main`, rebuild les images, redémarre → attente 30s → **health check API** (jusqu'à 10 tentatives, 10s d'intervalle, exige HTTP 200) → health check frontend (non bloquant)
+- ⚠️ Le job `notify-failure` (echo/Slack) a été **retiré** au nettoyage du 15/07 (théâtre sans secret Slack). L'URL de prod pointe désormais sur la bonne instance (sslip.io), plus sur `vincent-trahin.dev`
+- Si le jury demande : "Le déploiement refait les tests, puis déclenche Coolify via un webhook **authentifié par token**. Des health checks HTTP vérifient que l'app répond réellement après déploiement — sinon le workflow échoue."
 
 ### Seed idempotent — pourquoi c'est testé en CI
 - Le seed garantit un **état de départ connu et reproductible** — chaque run de CI repart des mêmes données
 - Idempotent = on peut le lancer N fois, même résultat (pas de doublons, pas d'erreurs)
 - Testé explicitement en develop-ci : 2 runs consécutifs, le 2e ne doit pas échouer
 
-### Husky + lint-staged (pre-commit hook)
-- **Husky** intercepte les commandes Git (hook `pre-commit`) — avant chaque `git commit`, il exécute un script
-- **lint-staged** exécute ESLint + Prettier **uniquement sur les fichiers modifiés** (pas tout le projet → rapide)
-- Si le lint échoue → le commit est **bloqué**
-- Résultat : du code mal formaté ne rentre jamais dans le repo — qualité garantie dès le développeur
-- Si le jury demande : "Husky bloque le commit si le code n'est pas propre. Ça garantit la qualité en amont, avant même la CI."
+### Husky + lint-staged (pre-commit hook) — ⚠️ ÉVOLUTION PRÉVUE, PAS IMPLÉMENTÉE
+- **État réel** : aucun dossier `.husky/`, ni husky/lint-staged dans les `package.json`. Le dossier le présente (à juste titre) comme une **évolution prévue** → **ne pas prétendre que c'est en place** (le jury verrait l'absence)
+- **Le principe (à formuler au conditionnel)** : Husky intercepterait le hook Git `pre-commit` ; lint-staged lancerait ESLint + Prettier sur les seuls fichiers modifiés ; un lint en échec **bloquerait le commit** → qualité garantie côté développeur, avant même la CI
+- Si le jury demande : "Husky n'est pas encore en place, c'est une évolution identifiée : un hook pre-commit qui lancerait le lint sur les fichiers modifiés pour bloquer un commit non conforme avant le push."
 
 ### Swagger — pourquoi désactivé en prod
 - Swagger génère une **documentation interactive complète** de l'API (toutes les routes, paramètres, types de réponse)

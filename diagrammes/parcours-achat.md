@@ -23,6 +23,7 @@ flowchart LR
     class Catalogue,Fiche,Panier public
     class Login auth
     class Checkout,Confirmation checkout
-```
 
-> **Legende** : 🟢 Pages publiques — 🔵 Authentification — 🟠 Tunnel d'achat (authentifie)
+    Legende["<span style='white-space:nowrap'><span style='color:#2e7d32'>■</span> Pages publiques &nbsp; <span style='color:#1565c0'>■</span> Authentification &nbsp; <span style='color:#e65100'>■</span> Tunnel d'achat</span>"]
+    style Legende fill:none,stroke:none
+```

@@ -1,7 +1,7 @@
 # Arborescence du site - GreenRoots
 
 ```mermaid
-graph TD
+graph LR
     classDef public fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
     classDef auth fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
     classDef admin fill:#fce4ec,stroke:#c62828,color:#b71c1c
@@ -46,6 +46,8 @@ graph TD
     class Checkout,OrderConfirm checkout
     class Profile,Orders,OrderDetail auth
     class Admin,AdminTrees,AdminTreeNew,AdminTreeEdit,AdminCategories,AdminLocations,AdminOrders,AdminOrderDetail admin
-```
 
-> **Legende** : 🟢 Public — 🔵 Authentifie — 🟠 Tunnel d'achat (authentifie) — 🔴 Admin — ⚪ Pages legales
+    Legende["<span style='white-space:nowrap'><span style='color:#2e7d32'>■</span> Public &nbsp; <span style='color:#1565c0'>■</span> Authentifié &nbsp; <span style='color:#e65100'>■</span> Tunnel d'achat &nbsp; <span style='color:#c62828'>■</span> Admin &nbsp; <span style='color:#757575'>■</span> Pages légales</span>"]
+    style Legende fill:none,stroke:none
+    TreeDetail ~~~ Legende
+```
