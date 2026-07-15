@@ -15,10 +15,12 @@ La base de données PostgreSQL a été conçue selon la **méthode Merise**, en 
 
 **• Modèle conceptuel des données (MCD)**
 *[Insérer le diagramme MCD — version agrandie en Annexe X]*
-Le MCD décrit le métier indépendamment de toute technologie :
-- **Catalogue** : un `Arbre` appartient à une `Catégorie` (0,n–1,1) et est planté dans un `Lieu` (0,n–1,1) rattaché à un `Pays` (0,n–1,1).
-- **Commande** : un `Utilisateur` passe des `Commandes` (0,n–1,1) ; une commande *contient* des arbres via une **association porteuse** (quantité, prix unitaire, TVA) et *possède* une à deux adresses typées (facturation, livraison).
-- **Utilisateur** : un `Utilisateur` détient un `Rôle` (0,n–1,1). Le panier est géré côté client (Zustand) ; sa persistance serveur est une évolution envisagée.
+Le MCD décrit le métier au niveau conceptuel, indépendamment de tout choix d'implémentation. Il compte **8 entités** réparties en trois domaines. Chaque association porte, à ses deux extrémités, une paire de cardinalités notée `(min, max)`.
+- **Catalogue** : un `Tree` appartient à une et une seule `Category` `(1,1)` et est planté dans un unique `Location` `(1,1)`, lui-même rattaché à un unique `Country` `(1,1)` ; réciproquement, une `Category`, un `Location` ou un `Country` peuvent regrouper plusieurs occurrences `(0,n)`.
+- **Commande** : un `User` passe zéro à plusieurs `Order` `(0,n)`, chaque `Order` appartenant à un seul `User` `(1,1)`. Une `Order` *contient* un à plusieurs `Tree` `(1,n)` via une **association porteuse** (quantité, prix unitaire, taux de TVA) et *possède* une à deux `OrderAddress` typées (`billing`, `delivery`).
+- **Utilisateur** : un `User` détient un et un seul `Role` `(1,1)`, un même `Role` pouvant être partagé par plusieurs `User` `(0,n)`.
+
+Le panier n'apparaît **pas** dans le MCD : c'est un état transitoire géré côté client, non persisté en base ; sa persistance serveur (entités `Cart`/`CartItem`, en 1:1 avec `User`) constitue une évolution envisagée.
 
 **• Modèle logique des données (MLD)**
 Le passage du MCD au modèle relationnel applique trois règles systématiques : (1) chaque entité devient une table dont l'identifiant est la clé primaire ; (2) chaque association *un-à-plusieurs* fait « descendre » une clé étrangère du côté « plusieurs » ; (3) chaque association *plusieurs-à-plusieurs* porteuse de propriétés devient une table de liaison. Appliquées à GreenRoots, elles produisent les **9 relations** suivantes *(clé primaire en gras, `#` = clé étrangère)* :

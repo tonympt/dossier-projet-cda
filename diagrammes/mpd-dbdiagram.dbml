@@ -1,0 +1,141 @@
+// ============================================================
+// MPD GreenRoots — source DBML pour dbdiagram.io
+// Rendu : coller l'intégralité sur https://dbdiagram.io  (Export PNG/PDF possible)
+// Vérifié contre le DDL réel des 24 migrations prisma/migrations/*/migration.sql
+// created_at / updated_at = colonnes d'audit (TIMESTAMP(3), defaut now()) présentes sur chaque table.
+// Toutes les FK sont ON UPDATE CASCADE ; ON DELETE précisé par relation.
+// ============================================================
+
+Enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+Enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PLANTED
+  CANCELLED
+}
+
+Enum AddressType {
+  BILLING
+  DELIVERY
+}
+
+Table roles {
+  id   integer     [pk, increment]
+  name varchar(100) [not null, unique]
+}
+
+Table users {
+  id                              integer      [pk, increment]
+  email                           varchar(255) [not null, unique]
+  password                        varchar(255) [not null, note: 'hash bcrypt']
+  first_name                      varchar(64)  [not null]
+  last_name                       varchar(64)  [not null]
+  avatar_url                      varchar(500) [null]
+  role_id                         integer      [not null, ref: > roles.id]
+  is_email_verified               boolean      [not null, default: false]
+  email_verification_token_hash   varchar(64)  [unique, null, note: 'SHA-256']
+  email_verification_token_expiry timestamp    [null]
+  password_reset_token_hash       varchar(64)  [unique, null, note: 'SHA-256']
+  password_reset_token_expiry     timestamp    [null]
+}
+
+Table countries {
+  id                    integer     [pk, increment]
+  code                  varchar(5)  [not null, unique, note: 'ISO 3166-1 alpha-2']
+  name                  varchar(100) [not null]
+  currency              varchar(3)  [not null, default: 'EUR']
+  is_billing_available  boolean     [not null, default: false]
+  is_planting_available boolean     [not null, default: false]
+}
+
+Table locations {
+  id          integer     [pk, increment]
+  name        varchar(64) [not null]
+  region      varchar(64) [null]
+  coordinates geometry    [not null, note: 'PostGIS']
+  description text        [not null]
+  image_url   varchar(255) [null]
+  country_id  integer     [not null, ref: > countries.id]
+}
+
+Table categories {
+  id   integer     [pk, increment]
+  name varchar(64) [not null, unique]
+}
+
+Table trees {
+  id              integer     [pk, increment]
+  name            varchar(64) [not null]
+  scientific_name varchar(64) [not null]
+  description     text        [not null]
+  image_url       varchar(255) [not null]
+  price           integer     [not null, note: 'centimes']
+  category_id     integer     [not null, ref: > categories.id]
+  location_id     integer     [not null, ref: > locations.id]
+  height_max      integer     [null]
+
+  indexes {
+    (name, location_id) [unique, name: 'unique_tree_per_location']
+  }
+}
+
+Table stock {
+  id                  integer [pk, increment]
+  tree_id             integer [not null, unique, ref: - trees.id, note: 'ON DELETE CASCADE, relation 1:1']
+  quantity            integer [not null, default: 0]
+  low_stock_threshold integer [not null, default: 10]
+}
+
+Table orders {
+  id                integer       [pk, increment]
+  user_id           integer       [not null, ref: > users.id]
+  total_amount      integer       [not null, note: 'centimes']
+  currency          varchar(3)    [not null, default: 'EUR']
+  total_excl_tax    integer       [not null, default: 0]
+  total_vat_amount  integer       [not null, default: 0]
+  invoice_number    text          [unique, null]
+  invoice_date      timestamp     [null]
+  payment_status    PaymentStatus [not null, default: 'PENDING']
+  order_status      OrderStatus   [not null, default: 'PENDING']
+  payment_intent_id text          [unique, null]
+  contact_email     varchar(255)  [null]
+  stock_reserved_at timestamp     [null]
+}
+
+Table order_items {
+  id         integer [pk, increment]
+  order_id   integer [not null, ref: > orders.id]
+  tree_id    integer [not null, ref: > trees.id]
+  quantity   integer [not null]
+  unit_price integer [not null, note: 'centimes, fige a l achat']
+  vat_rate   integer [not null, default: 2000, note: '20,00 %']
+
+  indexes {
+    (order_id, tree_id) [unique]
+  }
+}
+
+Table order_addresses {
+  id           integer     [pk, increment]
+  order_id     integer     [not null, ref: > orders.id, note: 'ON DELETE CASCADE']
+  type         AddressType [not null]
+  first_name   varchar(64) [not null]
+  last_name    varchar(64) [not null]
+  street       varchar(255) [not null]
+  street_line_2 varchar(255) [null]
+  postal_code  varchar(20) [not null]
+  city         varchar(100) [not null]
+  country_code varchar(5)  [not null, note: 'snapshot, SANS FK']
+  phone        varchar(20) [null]
+
+  indexes {
+    (order_id, type) [unique]
+  }
+}
