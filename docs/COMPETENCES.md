@@ -155,7 +155,7 @@
 
 **Mots-clés :** MCD, MLD, MPD, SQL, contraintes (clés étrangères, unicité…), gestion des droits, jeu d'essai, backup/restore, RGPD
 
-**Dans GreenRoots :** PostgreSQL + PostGIS, Prisma (13 modèles, 25 migrations), contraintes d'intégrité (FK, unicité), seed de données de test, enums (PaymentStatus, OrderStatus, AddressType), droits via rôles applicatifs
+**Dans GreenRoots :** PostgreSQL + PostGIS, Prisma (10 modèles, 24 migrations), contraintes d'intégrité (FK, unicité), seed de données de test, enums (PaymentStatus, OrderStatus, AddressType), droits via rôles applicatifs
 
 ---
 

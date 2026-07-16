@@ -1,0 +1,42 @@
+flowchart LR
+  subgraph PRES["Couche présentation"]
+    SPA["SPA React 19<br/>TanStack Router/Query, Zustand<br/>consomme l'API via requêtes HTTP"]
+  end
+
+  NGINX["Nginx<br/>serveur web / reverse proxy<br/>sert le SPA, route /api"]
+
+  subgraph METIER["Couche logique métier"]
+    API["API REST NestJS<br/>règles métier, authentification,<br/>validation des données"]
+  end
+
+  subgraph DONNEES["Couche données"]
+    PRISMA["Prisma ORM"]
+    PG[("PostgreSQL<br/>stockage relationnel")]
+    REDIS[("Redis<br/>cache et données éphémères")]
+  end
+
+  subgraph EXT["Services externes (intégrations)"]
+    STRIPE["Stripe, paiement"]
+    CLOUD["Cloudinary, images"]
+    RESEND["Resend, emails"]
+  end
+
+  SPA -->|HTTP| NGINX
+  NGINX -->|"/api (REST, cookies JWT)"| API
+  API --> PRISMA --> PG
+  API --> REDIS
+  API --> STRIPE
+  API --> CLOUD
+  API --> RESEND
+
+  classDef pres fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a;
+  classDef metier fill:#dcfce7,stroke:#22c55e,color:#14532d;
+  classDef data fill:#ffedd5,stroke:#f97316,color:#7c2d12;
+  classDef ext fill:#e5e7eb,stroke:#6b7280,color:#111827;
+  classDef proxy fill:#ede9fe,stroke:#8b5cf6,color:#4c1d95;
+
+  class SPA pres;
+  class API metier;
+  class PRISMA,PG,REDIS data;
+  class STRIPE,CLOUD,RESEND ext;
+  class NGINX proxy;

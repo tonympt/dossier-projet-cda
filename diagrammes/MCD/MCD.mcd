@@ -1,0 +1,25 @@
+% MCD GreenRoots
+
+Role: id, name
+:
+CONTAINS, 1N Order, 0N Tree: quantity, unitPrice, vatRate
+Tree: id, name, scientificName, description, imageUrl, price, heightMax, stockQuantity, lowStockThreshold
+PLANTED_AT, 11 Tree, 0N Location
+
+HAS, 11 User, 0N Role
+PLACES, 0N User, 11 Order
+HAS_ADDRESS, 1N Order, 11 OrderAddress
+BELONGS_TO, 11 Tree, 0N Category
+Location: id, name, region, coordinates, description, imageUrl
+
+User: id, email, password, firstName, lastName, avatarUrl, isEmailVerified
+Order: id, totalAmount, totalExclTax, totalVatAmount, currency, contactEmail, invoiceNumber, invoiceDate, paymentStatus, orderStatus
+OrderAddress: id, type, firstName, lastName, street, streetLine2, postalCode, city, countryCode, phone
+Category: id, name
+LOCATED_IN, 11 Location, 0N Country
+
+:
+:
+:
+:
+Country: id, code, name, currency, isBillingAvailable, isPlantingAvailable

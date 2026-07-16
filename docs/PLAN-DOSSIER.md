@@ -28,8 +28,8 @@
 | CP7 | Concevoir et mettre en place une BDD relationnelle | Oui | §5.4 |
 | CP8 | Développer des composants d'accès aux données SQL et NoSQL | Oui | §7.3 |
 | CP9 | Préparer et exécuter les plans de tests | Oui | §9 |
-| CP10 | Préparer et documenter le déploiement | Oui | §6.2, Annexe D |
-| CP11 | Contribuer à la mise en production (DevOps) | Oui | §6.2, §6.4, Annexe D |
+| CP10 | Préparer et documenter le déploiement | Oui | §6.2, §6.5 |
+| CP11 | Contribuer à la mise en production (DevOps) | Oui | §6.2, §6.4 |
 
 **Réf. :** `docs/COMPETENCES.md`
 
@@ -98,14 +98,14 @@
   - Backend : Injection de dépendances, Repository, Module, Guards/Decorators, State machine (statuts commandes)
   - Frontend : Atomic Design, Feature-based architecture, Store pattern (Zustand)
 - **Diagramme d'architecture** : schéma des couches et flux (à créer en Mermaid)
-- **Sécurité dans l'architecture (DICP)** : analyse selon les indicateurs DICP (Disponibilité, Intégrité, Confidentialité, Preuve) — **Disponibilité** : healthchecks Docker sur chaque service, cron de réconciliation commandes (résilience webhooks perdus), dégradation gracieuse Redis (cache indisponible → fallback BDD) ; **Intégrité** : transactions Prisma atomiques (stock/paiement), validation DTOs class-validator, contraintes BDD (FK, unicité, enums) ; **Confidentialité** : JWT HttpOnly+Secure+SameSite, bcrypt 10 rounds, RBAC guards (USER/ADMIN/SUPERADMIN), safeSelect (exclusion password/tokens) ; **Preuve** : numéros de facture uniques, dates de facturation, historique commandes conservé (anonymisation sans suppression). Sécurité à chaque couche (validation client Zod → validation API DTOs → ORM paramétré Prisma), conformément aux recommandations ANSSI (guide de sécurisation des sites web) et au référentiel OWASP Top 10:2025
+- **Sécurité dans l'architecture (DICP)** : analyse selon les indicateurs DICP (Disponibilité, Intégrité, Confidentialité, Preuve) — **Disponibilité** : healthchecks Docker sur chaque service, cron de réconciliation commandes (résilience webhooks perdus), dégradation gracieuse Redis (cache indisponible → fallback BDD) ; **Intégrité** : transactions Prisma atomiques (stock/paiement), validation DTOs class-validator, contraintes BDD (FK, unicité, enums) ; **Confidentialité** : JWT HttpOnly+Secure+SameSite, bcrypt 10 rounds, RBAC guards (USER/ADMIN), safeSelect (exclusion password/tokens) ; **Preuve** : numéros de facture uniques, dates de facturation, historique commandes conservé (anonymisation sans suppression). Sécurité à chaque couche (validation client Zod → validation API DTOs → ORM paramétré Prisma), conformément aux recommandations ANSSI (guide de sécurisation des sites web) et au référentiel OWASP Top 10:2025
 - **Éco-conception** : choix architecturaux (Vite build léger, Tailwind purge CSS, shadcn/ui import sélectif, Cloudinary optimisation images, code splitting lazy loading 25 routes, Redis cache API implémenté sur countries/categories — réduction requêtes SQL redondantes), cohérence avec la mission GreenRoots (plateforme de reforestation), référentiels utilisés (WSG W3C, RGESN 2024, RWEB GreenIT v5)
 - **Conteneurisation** : Docker Compose (7 services) comme partie intégrante de l'architecture — détail en §6
 
 #### 5.3 Maquettes et enchaînement des maquettes (~2-3 pages)
 > **CP5** - Maquetter une application
 - **Wireframes / Zoning** (~0,5 page) : zoning des pages clés (landing, catalogue, fiche arbre, checkout) — à créer, montre la démarche de conception progressive
-- **Maquettes Figma** (~0,5-1 page) : sélection des maquettes les plus représentatives (3-4 captures), conformité avec le CDC. Ensemble complet → Annexe A
+- **Maquettes Figma** (~0,5-1 page) : sélection des maquettes les plus représentatives (3-4 captures), conformité avec le CDC. Ensemble complet Figma → **annexe à intégrer** (absente du dossier livré)
 - **Arborescence du site** (~0,5 page) : diagramme Mermaid de la structure des pages (publiques / authentifiées / admin)
 - **Enchaînement des écrans** (~0,5 page) : 1-2 parcours utilisateur clés (parcours d'achat, authentification) en flowchart Mermaid
 
@@ -113,7 +113,7 @@
 > **CP7** - Concevoir et mettre en place une BDD relationnelle
 
 - **MCD / Modèle entités-associations** (~1 page) :
-  - Diagramme des 13 entités et leurs relations avec cardinalités (1-N, N-N)
+  - Diagramme des 8 entités et leurs relations avec cardinalités (1-N, N-N)
   - Relations clés : User → Cart → CartItem → Tree, User → Order → OrderItem → Tree, Tree → Category, Tree → Location → Country
   - À créer (Mermaid erDiagram ou outil dédié)
 
@@ -122,7 +122,7 @@
   - Conventions de nommage : camelCase Prisma → snake_case PostgreSQL via `@map`/`@@map`
   - Types remarquables : enums (OrderStatus, PaymentStatus, AddressType), Int pour les prix (centimes — standard Stripe, évite les erreurs de floating point), PostGIS pour les coordonnées
   - Facturation : champs `totalExclTax`, `totalVatAmount`, `currency`, `invoiceNumber`, `invoiceDate` sur Order — conformité comptable e-commerce
-  - Schéma Prisma complet → Annexe D
+  - Schéma Prisma complet → **annexe à intégrer** (source : diagrammes/annexe-3-mpd.dbml)
 
 - **Contraintes d'intégrité** (~0,25 page) :
   - Clés étrangères (relations Prisma)
@@ -132,7 +132,7 @@
   - Stratégie de suppression (cascade vs protection)
 
 - **Gestion des droits d'accès** (~0,25 page) :
-  - Choix des droits au niveau applicatif (guards NestJS : USER/ADMIN/SUPERADMIN) plutôt qu'au niveau BDD (rôles PostgreSQL)
+  - Choix des droits au niveau applicatif (guards NestJS : USER/ADMIN) plutôt qu'au niveau BDD (rôles PostgreSQL)
   - Justification : Prisma utilise une connexion unique, la gestion par guards est plus fine et testable, pattern moderne pour les API REST
   - Select sécurisé : exclusion systématique du password dans les requêtes
 
@@ -143,12 +143,12 @@
 
 - **Jeu d'essai et restauration** (~0,25 page) :
   - Seed Prisma : données de test reproductibles et cohérentes
-  - 25 migrations versionnées (historique complet de l'évolution du schéma)
+  - 24 migrations versionnées (historique complet de l'évolution du schéma)
   - Procédure de restauration dev : `prisma migrate reset` + `prisma db seed`
   - Procédure de sauvegarde/restauration prod : `pg_dump`/`pg_restore` (à documenter)
 
 - **Éléments complémentaires (annexes)** :
-  - Dictionnaire de données pour 2-3 entités clés (Order, User, Tree) → Annexe D
+  - Dictionnaire de données pour 2-3 entités clés (Order, User, Tree) → **annexe à intégrer** (source : diagrammes/annexe-3-mpd-dictionnaire.md)
   - Index Prisma (`@@index`) sur les colonnes fréquemment requêtées (userId, categoryId, paymentStatus) — optimisation performance à implémenter
 
 #### 5.5 Diagramme de cas d'utilisation (~1 page)
@@ -194,7 +194,7 @@
 - Frontend : React 19 + Vite (HMR, build rapide, ES modules natifs), TanStack Router/Query (type-safe, cache intelligent), Zustand (léger vs Redux), Tailwind + shadcn/ui (éco-conception, accessibilité Radix UI, flexibilité)
 - Backend : NestJS 11 (architecture modulaire, DI native, décorateurs, 14 modules dans `app.module.ts`)
 - BDD : PostgreSQL 16 + PostGIS (données géospatiales localisation arbres)
-- ORM : Prisma 7 (type-safety, migrations versionnées, 25 migrations)
+- ORM : Prisma 7 (type-safety, migrations versionnées, 24 migrations)
 - Cache/Protection : Redis (cache API countries/categories pattern cache-aside + brute force login + JWT blacklist)
 - Reverse proxy : Nginx (routing frontend/API, gzip, cache assets 1 an)
 - Paiement : Stripe (webhooks source de vérité)
@@ -212,7 +212,7 @@
   - nginx (reverse proxy : frontend :5173 + backend /api → :3000, gestion CORS)
   - stripe-cli (écoute webhooks, forward vers backend)
   - prisma-studio (exploration BDD visuelle, port 5555)
-- **Docker Compose prod** (`compose.prod.yml`) : 3 services épurés (frontend, backend, database), `expose` au lieu de `ports`, healthchecks
+- **Docker Compose prod** (`compose.prod.yml`) : 4 services épurés (frontend, backend, database, redis), `expose` au lieu de `ports`, healthchecks
   - ⚠️ **Déploiement prod (Coolify/Hetzner)** : mis entre parenthèses pour l'instant — pas géré par le candidat. À approfondir avant rédaction (§10/Annexes F-G)
 - **Makefile** (~20 commandes documentées) : standardisation du workflow équipe
   - Cycle de vie : `make dev`, `make up`, `make down`, `make clean`
@@ -236,7 +236,7 @@
 - **Couche application** :
   - ValidationPipe global (`whitelist: true` + `forbidNonWhitelisted: true`) : sanitization automatique des entrées
   - ThrottlerGuard global (rate limiting via `@nestjs/throttler`)
-  - Guards par rôle (USER, ADMIN, SUPERADMIN) via Passport.js
+  - Guards par rôle (USER, ADMIN) via Passport.js
   - JWT stocké en cookie HttpOnly+Secure+SameSite=Lax (migration réalisée — élimine le risque XSS sur le token)
   - Bcrypt (10 rounds) pour hash mots de passe
   - Protection brute force login via Redis (compteur tentatives)
@@ -258,12 +258,12 @@
 - **Tests** : Vitest + Testing Library (front), Jest (back) — détail en §9
 - **Swagger** : documentation API auto-générée, activée en dev uniquement (`NODE_ENV` check dans `main.ts`)
 - **Conventions** : document partagé (naming, Git flow, PR rules, code review obligatoire)
-- **Husky + lint-staged** : pre-commit hook qui exécute ESLint + Prettier automatiquement avant chaque commit (qualité garantie dès le développeur)
+- **Husky + lint-staged** *(évolution prévue — non encore en place)* : hook pre-commit destiné à exécuter ESLint + Prettier avant chaque commit ; à ce jour le lint est vérifié en CI (workflow pr-checks), pas côté développeur
 - **Prisma Studio** : outil d'exploration BDD intégré en dev (service Docker dédié)
 
 **Observations issues de l'exploration du code :**
 - Le Makefile est un vrai atout DX (Developer Experience) : onboarding simplifié, workflow reproductible
-- La différence dev/prod est clairement marquée (7 vs 3 services, volumes montés vs multi-stage, ports vs expose)
+- La différence dev/prod est clairement marquée (7 vs 4 services, volumes montés vs multi-stage, ports vs expose)
 - La validation Joi au démarrage garantit le fail-fast si une variable d'environnement est manquante
 - `vite.config.ts` : manual chunks configurés + plugin Critters (CSS critique inline) + target ES2020
 
@@ -412,7 +412,7 @@
 - **XSS** : Helmet (Content-Security-Policy, X-XSS-Protection et autres headers), React échappe par défaut, validation côté client Zod
 - **CSRF** : CORS restrictif (origin unique configurable via `FRONTEND_URL`, `credentials: true`), cookie SameSite=Lax (implémenté — les requêtes cross-site POST/PUT/DELETE n'envoient pas le cookie)
 - **Brute force** : ThrottlerGuard global (`@nestjs/throttler`) + compteur Redis par IP/email spécifique au login
-- **Broken Access Control** : Guards par rôle (USER/ADMIN/SUPERADMIN), vérification propriétaire systématique (`order.userId === userId`), SUPER_ADMIN bypass, `@CurrentUser()` decorator
+- **Broken Access Control** : Guards par rôle (USER/ADMIN), vérification propriétaire systématique (`order.userId === userId`), SUPER_ADMIN bypass, `@CurrentUser()` decorator
 - Extraits de code concrets pour chaque menace
 
 #### 8.3 Sécurité des intégrations tierces (~0.5-1 page)
@@ -564,6 +564,13 @@
 
 ### ANNEXES (40 pages max, hors comptage)
 
+> **⚠️ État réel dans le dossier livré (Word)** — les annexes effectivement présentes sont **7 annexes numérotées, toutes des diagrammes** :
+> 1. Architecture logicielle 3 tiers · 2. Arborescence du site · 3. Modèle physique des données (MPD) · 4. Diagramme de cas d'utilisation · 5. Diagramme de séquence (processus de commande) · 6. Diagramme de séquence (authentification) · 7. Diagramme d'activité (réconciliation CRON).
+>
+> Les PNG sources sont dans `diagrammes/`, nommés de façon cohérente : `annexe-1-*` … `annexe-7-*` pour les annexes, et `corps-*` pour les diagrammes insérés dans le corps (MCD, MLD, états-commande, parcours-achat). Chaque PNG a une source au même nom (`.mmd`/`.puml`/`.mcd`/`.dbml`).
+>
+> Les annexes A–F ci-dessous constituaient le **plan cible** ; celles marquées *« annexe à intégrer »* renforceraient les preuves (recommandé — cf. revue : sorties de tests, schéma Prisma + dictionnaire, captures d'écran) mais **ne figurent pas encore** dans le dossier livré.
+
 #### Annexe A — Maquettes Figma (~5-8 pages)
 - Ensemble complet des maquettes (le corps §5.3 n'en montre que 3-4 représentatives)
 - Organisées par parcours : visiteur, utilisateur authentifié, admin
@@ -571,7 +578,7 @@
 
 #### Annexe B — Schéma Prisma complet + Dictionnaire de données (~3-5 pages)
 > **CP7**
-- `schema.prisma` complet (13 modèles, enums, relations) — référencé depuis §5.4
+- `schema.prisma` complet (10 modèles, 3 enums, relations) — référencé depuis §5.4
 - Dictionnaire de données pour les entités clés : Order (+ OrderItem, OrderAddress), User, Tree (+ TreeStock)
 - Colonnes : nom du champ, type, contraintes, description
 

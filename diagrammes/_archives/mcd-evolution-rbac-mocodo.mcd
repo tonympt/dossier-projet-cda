@@ -1,0 +1,12 @@
+% EVOLUTION MCD - fine-grained RBAC (for the ANNEX / critique & evolutions section)
+% OPTIONAL diagram. Purpose: show the shift from a coarse-grained RBAC (1 user = 1 role,
+% permissions hard-coded in the guards) to a fine-grained, database-driven RBAC:
+%   - User n:n Role       (a user can hold several roles)
+%   - Role n:n Permission (a role aggregates granular permissions)
+% The guards would then query the database instead of hard-coded role strings.
+
+User: id, email, firstName, lastName
+HOLDS, 0N User, 0N Role
+Role: id, name, description
+GRANTS, 0N Role, 0N Permission
+Permission: id, code, label
