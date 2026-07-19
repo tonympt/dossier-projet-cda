@@ -48,10 +48,13 @@
 - Argument principal : séparation des responsabilités + architecture qu'on maîtrisait déjà
 - Si le jury demande : "On a choisi une SPA pure pour avoir une architecture découplée — le frontend et le backend évoluent indépendamment, chacun avec son framework dédié."
 
-### Architecture hexagonale vs modulaire NestJS
-- Hexagonale = ports & adapters, interfaces intermédiaires strictes entre métier et infrastructure
-- GreenRoots = architecture modulaire NestJS classique (Controller → Service → Prisma directement)
-- Pas d'interfaces intermédiaires = pas hexagonale au sens strict, et c'est OK
+### Architecture hexagonale vs Clean vs modulaire en couches
+- **Hexagonale (ports & adapters)** : le métier est au centre, isolé. Il expose des **ports** (interfaces = contrats), et des **adapters** concrets s'y branchent (Postgres, Stripe, REST, mock de test). Règle d'or : le domaine ne dépend QUE d'interfaces → **inversion de dépendance**. On change de BDD/API sans toucher le métier.
+- **Clean architecture (Uncle Bob)** : couches concentriques Entities → Use Cases → Adapters → Frameworks/DB, avec LA règle « les dépendances pointent vers l'intérieur ». **Même idée que l'hexagonal** (protéger le domaine par inversion de dépendance) — ce sont des cousines. Hexagonal insiste sur la symétrie ports/adapters ; Clean sur les couches concentriques + une couche use-case explicite.
+- **Piège à éviter** : Clean/Hexagonal ≠ « juste des couches séparées ». `Controller → Service → Repository`, c'est de l'**architecture en couches (layered/n-tier)** — ce que NestJS donne naturellement. Ce qui bascule en clean/hexagonal, c'est l'**inversion de dépendance au bord de l'infra** : le service dépend d'une **interface** `OrderRepository` (côté domaine), et c'est l'implémentation Prisma qui dépend de cette interface, pas l'inverse.
+- **« Repository au lieu d'ORM » ne suffit pas** : on peut GARDER Prisma. Le vrai ingrédient = `interface OrderRepository` dans le domaine + `PrismaOrderRepository implements OrderRepository` dans l'infra, injecté par DI → le service n'importe jamais Prisma.
+- **GreenRoots réellement** : `Service → PrismaService` directement → **architecture modulaire en couches**, PAS hexagonale/clean au sens strict. Le métier est couplé à l'ORM. Choix pragmatique assumé : sur 4 semaines à 5, l'hexagonal aurait été du sur-engineering (boilerplate d'interfaces) ; Prisma est déjà une bonne abstraction du SQL → YAGNI.
+- **Réponse jury** : « Le CDC visait une archi hexagonale. En pratique on a fait du modulaire en couches — Controller, Service, Prisma. Choix pragmatique : l'hexagonal impose des interfaces ports/adapters pour découpler totalement le métier de l'infra ; sur 4 semaines c'était disproportionné. Le pas pour y basculer serait d'introduire des interfaces de repository pour inverser la dépendance vers Prisma. » (voir aussi la note « Architecture hexagonale — Prisma est votre repository ? » plus bas)
 
 ### Injection de dépendances
 - Ne pas instancier soi-même ses dépendances — le conteneur IoC de NestJS s'en charge
@@ -1084,3 +1087,8 @@
 - Ces scores sont favorisés par : code splitting (35+ routes lazy-loaded), CSS critique inline (plugin Critters), polices locales préchargées, images Cloudinary optimisées, manual chunks Vite
 - **Limite honnête** : un score en preview ne reflète pas exactement la production (latence réseau, serveur, CDN). En production réelle, le score dépendrait aussi de l'infrastructure
 - Si le jury demande : "Les scores ont été mesurés en build preview. Les optimisations sont dans le code — code splitting, CSS critique, polices locales. En production, les scores dépendraient aussi de l'infrastructure serveur."
+
+### Lighthouse — 4 catégories + nuances a11y & SEO
+- **Un seul run Lighthouse = 4 scores** : **Performance** (LCP, TBT, CLS…), **Accessibilité** (audits automatisés basés sur axe-core : contrastes, labels, ARIA, alt), **Best Practices** (HTTPS, erreurs console, images dimensionnées), **SEO** (hygiène technique : `<title>`, meta description, viewport, liens crawlables). → **une seule capture couvre les 4 points**. (La catégorie PWA a été retirée des versions récentes.)
+- **Nuance accessibilité** : un score **100 ≠ RGAA/WCAG complet**. Lighthouse ne teste que la partie **automatisable** (~30-40 % des critères WCAG). Un audit RGAA complet nécessite des tests **manuels** (navigation clavier, lecteur d'écran). → dire « les bases sont couvertes, pas d'audit RGAA formel ».
+- **Nuance SEO (SPA/CSR)** : le score SEO reflète l'**hygiène technique**, mais GreenRoots est une **SPA en client-side rendering** → limites SEO intrinsèques (contenu généré en JS, indexé plus lentement/moins fiablement que du SSR). Googlebot exécute le JS mais c'est moins fiable. → « Bonne hygiène SEO validée par Lighthouse ; pour un vrai enjeu de référencement il faudrait du SSR (Next.js) — c'est un axe d'évolution. » (voir aussi la note SPA/CSR vs SSR)

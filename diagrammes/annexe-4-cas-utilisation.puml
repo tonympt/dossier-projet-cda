@@ -24,6 +24,8 @@ rectangle "GreenRoots" {
 
     package "Fonctionnalites utilisateur" {
         usecase "Passer commande" as UC7
+        usecase "Verifier le stock" as UC16
+        usecase "Payer via Stripe" as UC17
         usecase "Consulter ses commandes" as UC8
         usecase "Gerer son profil" as UC9
         usecase "Supprimer son compte" as UC10
@@ -35,11 +37,8 @@ rectangle "GreenRoots" {
         usecase "Gerer les categories" as UC13
         usecase "Gerer les localisations" as UC14
         usecase "Gerer les commandes" as UC15
+        usecase "Rembourser via Stripe" as UC18
     }
-
-    usecase "Verifier le stock" as UC16
-    usecase "Payer via Stripe" as UC17
-    usecase "Rembourser via Stripe" as UC18
 }
 
 V -- UC1
@@ -62,6 +61,6 @@ A -- UC15
 
 UC7 ..> UC16 : <<include>>
 UC7 ..> UC17 : <<include>>
-UC15 ..> UC18 : <<extend>>
+UC18 ..> UC15 : <<extend>>
 
 @enduml

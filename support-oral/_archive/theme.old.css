@@ -1,0 +1,289 @@
+/* ===========================================================
+   Thème GreenRoots - présentation orale CDA (reveal.js)
+   Charte reprise de l'app : Montserrat + palette verte.
+   Thème clair unique (deck projeté, lisibilité maxi - ligne Benoît).
+
+   RÈGLES DE DESIGN (strictes) :
+   - Aérer : chercher la respiration, ne PAS remplir tout l'espace.
+   - Tirets : jamais de "—" (cadratin) dans le contenu, toujours "-".
+   - Pas de tags CP sur les slides (le jury décide des compétences).
+   - Pas d'emojis : icônes SVG Lucide (jeu de shadcn/ui) en vert (.ico).
+   - Logo réel (assets/logo.png) pour la garde et le footer. Pas de blob.
+   =========================================================== */
+
+/* ---- Polices (réutilisées de l'app, offline) ---- */
+@font-face{font-family:"Montserrat";src:url("fonts/montserrat-v31-latin-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"Montserrat";src:url("fonts/montserrat-v31-latin-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:"Montserrat";src:url("fonts/montserrat-v31-latin-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:"Montserrat";src:url("fonts/montserrat-v31-latin-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Montserrat";src:url("fonts/montserrat-v31-latin-300italic.woff2") format("woff2");font-weight:300;font-style:italic;font-display:swap;}
+
+:root{
+  /* — Couleurs (charte GreenRoots) — */
+  --ink:#14261C;          /* vert quasi-noir : texte principal + fond intercalaires */
+  --green:#2E7D4F;        /* vert primaire : accent */
+  --green-deep:#265247;   /* vert profond */
+  --green-soft:#E7F3E1;   /* vert très clair : fonds/tints */
+  --green-softer:#F1F8EE; /* vert quasi-blanc */
+  --green-glow:#8FD6A8;   /* vert lumineux : accents sur fond sombre */
+  --paper:#FBFDFB;        /* fond : blanc à biais vert imperceptible */
+  --muted:#5C6B61;        /* gris teinté vert : texte secondaire */
+  --line:#D7E6D9;         /* filet clair */
+  --danger:#C7443A;       /* rouge (destructive) */
+  --danger-soft:#FBEAE8;
+  --warn:#B9770E;         /* ambre (attention) */
+  --warn-soft:#FBF3E3;
+  --mono:"SFMono-Regular",Menlo,"JetBrains Mono",ui-monospace,monospace;
+
+  /* — Système typographique (une seule famille : Montserrat, comme l'app) —
+     Poids : 700 titres · 600 sous-titres/labels · 500 chapô/footer · 400 corps.
+     Tailles relatives à .reveal (32px). */
+  --fs-h1:2.15em; --fs-h2:1.5em; --fs-h3:1.05em;
+  --fs-lead:.86em;   /* chapô / phrase d'accroche */
+  --fs-body:.82em;   /* corps de carte / colonne */
+  --fs-small:.72em;  /* texte secondaire */
+  --fs-cap:.5em;     /* légende de figure / code */
+  --fs-micro:.42em;  /* eyebrow, labels mono */
+
+  /* — Espacement — */
+  --sp-1:.4em; --sp-2:.7em; --sp-3:1.1em; --sp-4:1.6em; --sp-5:2.2em;
+
+  /* — Rayons & ombres — */
+  --radius:14px; --radius-sm:8px; --radius-lg:18px;
+  --shadow-card:0 1px 0 rgba(20,38,28,.04),0 10px 24px -18px rgba(20,38,28,.25);
+  --shadow-fig:0 20px 50px -28px rgba(20,38,28,.4);
+  --shadow-code:0 14px 34px -22px rgba(20,38,28,.4);
+}
+
+/* ---- Base ---- */
+html,body,.reveal-viewport{background:var(--paper);}
+.reveal{font-family:"Montserrat",system-ui,sans-serif;color:var(--ink);font-size:32px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.reveal .slides{text-align:left;}
+.reveal .slides section{padding:0 8px;}
+
+/* ---- Titres & hiérarchie ---- */
+.reveal h1,.reveal h2,.reveal h3{font-family:"Montserrat";color:var(--ink);font-weight:700;line-height:1.08;text-wrap:balance;margin:0 0 .35em;letter-spacing:-.01em;}
+.reveal h1{font-size:var(--fs-h1);}
+.reveal h2{font-size:var(--fs-h2);}
+.reveal h3{font-size:var(--fs-h3);font-weight:600;}
+.reveal p{line-height:1.5;margin:.35em 0;}
+.reveal strong{font-weight:700;color:var(--green-deep);}
+.reveal em{color:var(--muted);font-style:italic;}
+
+/* ---- Eyebrow (label de section, SANS tag CP) ---- */
+.eyebrow{display:inline-flex;align-items:center;gap:.5em;font-size:var(--fs-micro);font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;color:var(--green);margin-bottom:.9em;}
+.eyebrow::before{content:"";width:1.7em;height:2px;background:var(--green);border-radius:2px;}
+
+/* ---- Icônes Lucide (mêmes que shadcn/ui) : <svg class="ico" viewBox="0 0 24 24">…</svg> ----
+   Par défaut = trait (stroke) vert. .ico.fill pour les icônes pleines. */
+.ico{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:0 0 auto;
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:var(--green);}
+.ico.fill{fill:currentColor;stroke:none;}
+
+/* ---- Listes ---- */
+.reveal ul{list-style:none;margin:.4em 0;padding:0;}
+.reveal ul li{position:relative;padding-left:1.3em;margin:.5em 0;line-height:1.45;}
+.reveal ul li::before{content:"";position:absolute;left:0;top:.52em;width:.5em;height:.5em;
+  background:var(--green);border-radius:2px;transform:rotate(45deg);}
+.reveal ol{padding-left:1.2em;}
+.reveal ol li{margin:.5em 0;}
+
+/* ---- Cartes ---- */
+.cards{display:grid;gap:22px;margin-top:.5em;}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;
+  box-shadow:var(--shadow-card);}
+.card .card-ico{width:1.7em;height:1.7em;color:var(--green);margin-bottom:.35em;display:block;
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.card .num{font-size:.7em;font-weight:700;color:var(--green);letter-spacing:.05em;}
+.card h3{margin:.2em 0 .25em;}
+.card p{font-size:var(--fs-small);color:var(--muted);margin:0;line-height:1.4;}
+.card .role{font-size:.6em;text-transform:uppercase;letter-spacing:.12em;color:var(--green);font-weight:600;}
+
+/* ===========================================================
+   ARCHÉTYPE — Code : fenêtre éditeur (onglet arbo + code)
+   Largeur/hauteur stables. S'inspire du rendu de revealjs.com :
+   focus par étapes via data-line-numbers="1|2-3" → lignes hors
+   focus estompées (natif reveal), la fenêtre garde sa taille.
+     <figure class="code-window">
+       <figcaption class="code-file"><span class="dot"></span>chemin/fichier.ts</figcaption>
+       <pre><code class="language-ts" data-trim data-line-numbers="1|3-4">…</code></pre>
+     </figure>
+   =========================================================== */
+.code-window{width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;box-shadow:var(--shadow-code);margin:.5em 0;}
+.code-window .code-file{display:flex;align-items:center;gap:.6em;background:var(--green-softer);
+  border-bottom:1px solid var(--line);padding:.75em 1.1em;font-family:var(--mono);font-size:var(--fs-micro);
+  font-weight:600;color:var(--muted);letter-spacing:.01em;}
+.code-window .code-file .dot{width:.7em;height:.7em;border-radius:50%;background:var(--green);flex:0 0 auto;}
+.code-window pre{margin:0;border:0;border-radius:0;box-shadow:none;width:100%;font-size:.5em;background:none;}
+.code-window pre code{padding:20px 24px;background:#fff;border-radius:0;line-height:1.55;
+  -webkit-font-smoothing:auto;max-height:52vh;}
+/* Variante hauteur fixe (fenêtre constante d'une slide à l'autre) */
+.code-window.fixed pre code{height:9.5em;overflow:auto;}
+/* Focus pas-à-pas : dimming natif reveal (.4) ; on garde les n° de ligne discrets */
+.reveal .hljs-ln-numbers{color:var(--muted);opacity:.55;}
+
+/* Code inline */
+.reveal code:not(pre code){font-family:var(--mono);font-size:.86em;background:var(--green-soft);
+  color:var(--green-deep);padding:.08em .35em;border-radius:5px;}
+.code-cap{font-size:var(--fs-cap);color:var(--muted);margin:.2em 0 .4em;}
+
+/* Légende de code : puces ①②③ synchronisées avec les étapes (aimé par Tony pour z.infer) */
+.code-steps{display:flex;flex-wrap:wrap;gap:1.1em;margin-top:.7em;font-size:.6em;}
+.code-steps li{list-style:none;padding-left:0;margin:0;color:var(--muted);display:flex;align-items:center;}
+.code-steps li::before{display:none;}
+.code-steps .step-badge{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;
+  border-radius:50%;background:var(--green);color:#fff;font-weight:700;margin-right:.5em;font-size:.85em;flex:0 0 auto;}
+
+/* ---- Chiffre clé ---- */
+.kpi{font-size:2.3em;font-weight:700;color:var(--green);line-height:1;letter-spacing:-.02em;}
+.kpi small{font-size:.32em;font-weight:600;color:var(--muted);display:block;letter-spacing:.02em;margin-top:.4em;}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:28px;margin-top:.6em;align-items:start;}
+.kpi-row .kpi{text-align:left;}
+.kpi-row .kpi + .kpi{border-left:1px solid var(--line);padding-left:28px;}
+
+/* ---- Diagramme / figure ---- */
+.figure{display:flex;align-items:center;justify-content:center;height:100%;}
+.figure img{max-height:72vh;max-width:100%;border-radius:10px;box-shadow:var(--shadow-fig);background:#fff;}
+
+/* ===========================================================
+   ARCHÉTYPE — Cover (page de garde)
+   Habillage éditorial : barre d'accent verte pleine hauteur à
+   gauche (signature) + logo réel. Pas de blob. Côté droit aéré.
+   =========================================================== */
+#cover,.cover{height:100%;}
+.cover-wrap{display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;padding-left:.5em;}
+.cover-wrap::before{content:"";position:absolute;left:-8px;top:8%;bottom:8%;width:7px;
+  background:linear-gradient(180deg,var(--green),var(--green-glow));border-radius:6px;}
+.cover-mark{display:flex;align-items:center;gap:.55em;font-weight:700;font-size:.55em;color:var(--ink);margin-bottom:1.5em;}
+.cover-mark img{width:2em;height:2em;border-radius:9px;display:block;}
+.cover h1{font-size:3.1em;margin:0;letter-spacing:-.02em;}
+.cover .baseline{font-size:.85em;color:var(--muted);margin:.4em 0 0;font-weight:500;max-width:60%;}
+.cover .accent{width:2.6em;height:5px;background:var(--green);border-radius:3px;margin:1em 0 1.6em;}
+.cover .meta{font-size:.5em;color:var(--muted);line-height:1.9;max-width:64%;}
+.cover .meta b{color:var(--ink);font-weight:600;}
+
+/* ---- Pied de page (logo réel + libellé) ---- */
+.deck-footer{position:absolute;bottom:14px;left:24px;right:24px;display:flex;justify-content:space-between;
+  align-items:center;font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.02em;z-index:30;}
+.deck-footer .brand{display:flex;align-items:center;gap:.5em;}
+.deck-footer .brand img{width:18px;height:18px;border-radius:5px;display:block;}
+.reveal .slide-number{background:transparent;color:var(--muted);font-family:"Montserrat";font-size:13px;right:24px;bottom:14px;}
+
+/* Slides « nues » (cover, intercalaires, clôture) : pas de footer ni n°.
+   Classe .bare posée par le JS ; !important pour battre le style inline de reveal. */
+.reveal.bare .deck-footer{display:none;}
+.reveal.bare .slide-number{display:none!important;}
+
+/* ---- Progression / contrôles ---- */
+.reveal .progress{color:var(--green);height:4px;}
+.reveal .controls{color:var(--green);}
+.reveal.has-dark-background .controls{color:var(--green-glow);}
+.reveal.has-dark-background .slide-number{color:rgba(255,255,255,.6);}
+
+/* center:false → pleine hauteur pour les slides qui centrent leur contenu */
+.reveal .slides section.divider,
+.reveal .slides section:has(.statement){height:100%;}
+
+/* ---- Divers ---- */
+.muted{color:var(--muted);}
+
+/* ===========================================================
+   ARCHÉTYPE — Intercalaire de bloc (section-divider)
+   Fond vert foncé (data-background-color="#14261C").
+   Comble le vide : index géant en filigrane + sommaire du bloc.
+   Fil d'Ariane agrandi en bas (6 blocs, courant en évidence).
+   =========================================================== */
+.reveal section.divider{height:100%;position:relative;overflow:hidden;}
+.divider-wrap{display:flex;flex-direction:column;height:100%;padding:2.2em 0 .4em;position:relative;z-index:1;}
+.divider .block-kicker{font-size:.5em;font-weight:600;text-transform:uppercase;letter-spacing:.2em;
+  color:var(--green-glow);margin:0 0 .5em;}
+.divider h2{color:#fff;font-size:2em;line-height:1.05;margin:0;max-width:13em;}
+.divider .accent{width:2.6em;height:5px;background:var(--green-glow);border-radius:3px;margin:1em 0 0;}
+/* index géant en filigrane, à droite */
+.divider .ghost-index{position:absolute;right:1%;top:44%;transform:translateY(-50%);
+  font-size:15em;font-weight:800;line-height:1;color:rgba(143,214,168,.1);letter-spacing:-.05em;z-index:0;}
+/* sommaire du bloc : ce que couvre le bloc */
+.divider .block-toc{list-style:none;margin:1.5em 0 0;padding:0;display:flex;flex-direction:column;gap:.6em;}
+.divider .block-toc li{display:flex;align-items:center;gap:.65em;color:rgba(255,255,255,.82);
+  font-size:.6em;font-weight:500;padding-left:0;margin:0;}
+.divider .block-toc li::before{display:none;}
+.divider .block-toc .ico{color:var(--green-glow);width:1.15em;height:1.15em;}
+/* fil d'Ariane AGRANDI, en bas */
+.divider .toc{list-style:none;display:flex;flex-wrap:wrap;gap:1.9em;margin:auto 0 0;padding:0;
+  font-size:.56em;color:rgba(255,255,255,.45);font-weight:500;counter-reset:toc;}
+.divider .toc li{position:relative;padding-left:2em;margin:0;}
+.divider .toc li::before{content:counter(toc);counter-increment:toc;position:absolute;left:0;top:-.15em;
+  width:1.4em;height:1.4em;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;font-size:.78em;font-weight:700;}
+.divider .toc li.current{color:#fff;font-weight:700;}
+.divider .toc li.current::before{background:var(--green-glow);border-color:var(--green-glow);color:var(--ink);}
+.divider .toc li.done{color:rgba(255,255,255,.72);}
+.divider .toc li.done::before{border-color:var(--green-glow);color:var(--green-glow);}
+
+/* ===========================================================
+   ARCHÉTYPE — 2 colonnes
+   =========================================================== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;margin-top:.4em;}
+.split.wide-left{grid-template-columns:1.2fr .8fr;}
+.split.wide-right{grid-template-columns:.8fr 1.2fr;}
+.split > .col{min-width:0;}
+.split h3{margin-top:0;}
+
+/* ===========================================================
+   ARCHÉTYPE — Tableau de comparaison
+   =========================================================== */
+.reveal table{width:100%;border-collapse:collapse;font-size:.62em;margin-top:.5em;}
+.reveal table th{background:var(--green-soft);color:var(--green-deep);font-weight:700;text-align:left;
+  padding:.6em .8em;border:1px solid var(--line);}
+.reveal table th .ico{width:1.05em;height:1.05em;margin-right:.35em;color:var(--green);}
+.reveal table td{padding:.55em .8em;border:1px solid var(--line);vertical-align:top;line-height:1.35;}
+.reveal table tr:nth-child(even) td{background:var(--green-softer);}
+.reveal table code{font-size:.9em;}
+
+/* ===========================================================
+   ARCHÉTYPE — Callout (info / attention / danger)
+   =========================================================== */
+.callout{border-radius:var(--radius-sm);padding:.7em 1em;font-size:.66em;line-height:1.45;margin:.6em 0;
+  border-left:4px solid var(--green);background:var(--green-softer);color:var(--ink);}
+.callout .callout-title{font-weight:700;color:var(--green-deep);display:flex;align-items:center;gap:.4em;margin-bottom:.25em;}
+.callout .callout-title .ico{width:1.05em;height:1.05em;}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft);}
+.callout.warn .callout-title{color:var(--warn);}
+.callout.danger{border-left-color:var(--danger);background:var(--danger-soft);}
+.callout.danger .callout-title{color:var(--danger);}
+
+/* ===========================================================
+   ARCHÉTYPE — Statement (phrase forte)
+   =========================================================== */
+.statement{display:flex;flex-direction:column;justify-content:center;height:100%;}
+.statement blockquote{border:0;background:none;box-shadow:none;margin:0;padding:0;font-style:normal;}
+.statement p{font-size:1.7em;font-weight:700;line-height:1.2;color:var(--ink);max-width:15em;text-wrap:balance;}
+.statement p strong{color:var(--green);}
+.statement cite{display:block;font-size:.6em;font-weight:600;color:var(--muted);font-style:normal;margin-top:1em;}
+
+/* ===========================================================
+   ARCHÉTYPE — Tunnel (frise d'étapes, construit en auto-animate)
+   =========================================================== */
+.tunnel{display:flex;align-items:stretch;gap:16px;margin-top:1.4em;}
+.tunnel .step{flex:1;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:22px 18px;display:flex;flex-direction:column;align-items:flex-start;gap:.4em;}
+.tunnel .step .ico{width:1.9em;height:1.9em;color:var(--green);}
+.tunnel .step .step-name{font-weight:700;font-size:.8em;color:var(--ink);}
+.tunnel .step .step-sub{font-size:.6em;color:var(--muted);}
+.tunnel .chev{display:flex;align-items:center;color:var(--green);}
+.tunnel .chev .ico{width:1.3em;height:1.3em;}
+
+/* ===========================================================
+   UTILITAIRES
+   =========================================================== */
+.lead{font-size:var(--fs-lead);color:var(--muted);font-weight:500;line-height:1.4;margin:.2em 0 .6em;}
+.pill{display:inline-flex;align-items:center;gap:.35em;font-size:.6em;font-weight:600;padding:.15em .6em;
+  border-radius:999px;background:var(--green-soft);color:var(--green-deep);letter-spacing:.02em;}
+.pill.ok{background:var(--green);color:#fff;}
+.pill.danger{background:var(--danger-soft);color:var(--danger);}
+.center{text-align:center;}
+.stack-tight > * + *{margin-top:.35em;}

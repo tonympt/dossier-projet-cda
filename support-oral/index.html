@@ -1,0 +1,2096 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenRoots - Présentation CDA</title>
+  <!-- Ordre officiel reveal.js : reset → reveal → thème(white) → highlight → surcouche marque -->
+  <link rel="stylesheet" href="vendor/reset.css">
+  <link rel="stylesheet" href="vendor/reveal.css">
+  <link rel="stylesheet" href="vendor/white.css">
+  <link rel="stylesheet" href="vendor/code-light.css">
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- COVER / page de garde -->
+    <section id="cover">
+      <header class="cover-brand">
+        <img class="brand-logo" src="assets/logo.png" alt="">
+        <span class="brand-word">GreenRoots</span>
+      </header>
+
+      <div class="cover-leaf">
+        <!-- motif : FaLeaf (react-icons/fa6), icone pleine, faible opacite -->
+        <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
+          <path d="M272 96c-78.6 0-145.1 51.5-167.7 122.5c33.6-17 71.5-26.5 111.7-26.5l88 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-16 0-72 0s0 0 0 0c-16.6 0-32.7 1.9-48.3 5.4c-25.9 5.9-49.9 16.4-71.4 30.7c0 0 0 0 0 0C38.3 298.8 0 364.9 0 440l0 16c0 13.3 10.7 24 24 24s24-10.7 24-24l0-16c0-48.7 20.7-92.5 53.8-123.2C121.6 392.3 190.3 448 272 448l1 0c132.1-.7 239-130.9 239-291.4c0-42.6-7.5-83.1-21.1-119.6c-2.6-6.9-12.7-6.6-16.2-.1C455.9 72.1 418.7 96 376 96L272 96z"/>
+        </svg>
+      </div>
+
+      <div class="cover-main">
+        <h1 class="cover-title">PRÉSENTATION<br>DE PROJET</h1>
+        <p class="cover-sub">Soutenance - Titre professionnel Concepteur Développeur d'Applications</p>
+        <p class="cover-meta-row cover-name">
+          <!-- Phosphor "User" (fill) inline -->
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+            <path d="M172,120a44,44,0,1,1-44-44A44.05,44.05,0,0,1,172,120Zm60,104a8,8,0,0,1-6.93,4H30.93a8,8,0,0,1-6.93-12c15.23-26.33,38.7-45.21,66.09-54.16a68,68,0,1,1,75.82,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,232,224Z"/>
+          </svg>
+          Tony Memponteil
+        </p>
+        <p class="cover-meta-row cover-date">
+          <!-- Phosphor "CalendarBlank" (fill) inline -->
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+            <path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,32H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/>
+          </svg>
+          24/07/2026
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================= BLOC 1 - INTRODUCTION ========================= -->
+
+    <!-- Intercalaire bloc 1 : INTRODUCTION -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Introduction</h2>
+          <ul class="divider-summary">
+            <li>Mon parcours</li>
+            <li>Le projet GreenRoots</li>
+            <li>Périmètre & acteurs</li>
+            <li>Organisation & méthode</li>
+          </ul>
+        </div>
+        <div class="divider-index">01</div>
+      </div>
+      <ol class="toc">
+        <li class="current">Introduction</li>
+        <li>Conception</li>
+        <li>Tunnel de vente</li>
+        <li>Sécurité, tests & conformité</li>
+        <li>Déploiement</li>
+        <li>Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « Dans cette introduction : qui je suis · le projet · son périmètre · la méthode. »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 2 - Mon parcours (frise) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Introduction</span>
+        <h2>Mon parcours</h2>
+      </header>
+      <div class="slide-body spread">
+        <div class="timeline">
+          <div class="tl-step">
+            <div class="tl-icon">
+              <!-- PiBank (react-icons) -->
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></svg>
+            </div>
+            <div class="tl-year">Avant 2023</div>
+            <div class="tl-title">Secteur bancaire</div>
+            <div class="tl-desc">9 ans en centre d'affaires bancaires.</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-icon">
+              <!-- PiCode (react-icons) -->
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></svg>
+            </div>
+            <div class="tl-year">2023</div>
+            <div class="tl-title">Le déclic</div>
+            <div class="tl-desc">Formation DWWM - une vocation confirmée.</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-icon">
+              <!-- PiGraduationCap (react-icons) -->
+              <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188.19,113l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,122l-43,22.93L25,90l103-54.93L231,90Z"/></svg>
+            </div>
+            <div class="tl-year">2024 - 2026</div>
+            <div class="tl-title">Alternance CDA</div>
+            <div class="tl-desc">Groupe LDLC - 2 ans sur l'ERP interne (Delphi), transverse à tous les métiers.</div>
+          </div>
+        </div>
+        <p class="tl-quote">« Concevoir, construire, et être fier de voir tourner ce qu'on a imaginé. »</p>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Origine finance</strong> → reconversion assumée</li>
+          <li><strong>Déclic</strong> → DWWM 2023, vocation confirmée</li>
+          <li><strong>Alternance LDLC</strong> → 2 ans sur l'ERP interne (Delphi), transverse aux métiers</li>
+          <li><strong>Fil rouge</strong> → « concevoir puis construire »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 3 - Le projet GreenRoots -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Introduction</span>
+        <h2>Le projet GreenRoots</h2>
+      </header>
+      <div class="slide-body">
+        <p class="tagline">
+          Transformer ses intentions en actions concrètes, <strong>un arbre à la fois</strong>.
+        </p>
+        <div class="cards c3">
+          <div class="card">
+            <div class="card-icon">
+              <!-- FaCartShopping (react-icons/fa6) -->
+              <svg viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+            </div>
+            <h3>Passer à l'acte</h3>
+            <p>Agir pour le climat, aussi simplement qu'un achat en ligne.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <!-- FaMagnifyingGlass (react-icons/fa6) -->
+              <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+            </div>
+            <h3>Un impact traçable</h3>
+            <p>Quelle essence, quel lieu : chaque arbre planté est identifiable.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <!-- FaUsers (react-icons/fa6) -->
+              <svg viewBox="0 0 640 512" fill="currentColor" aria-hidden="true"><path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z"/></svg>
+            </div>
+            <h3>Ouvert à tous</h3>
+            <p>Des particuliers aux entreprises engagées dans une démarche RSE.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Accroche</strong> → « pas juste un e-commerce d'arbres, c'est plus »</li>
+          <li><strong>Constat</strong> → beaucoup veulent agir, sans savoir comment ni à qui se fier</li>
+          <li><strong>Le quoi</strong> → reforestation aussi simple qu'un achat en ligne</li>
+          <li><strong>Différenciateur</strong> → traçabilité (quelle essence, quel lieu) : intention → action vérifiable</li>
+          <li><strong>Signature</strong> → « transformer ses intentions en actions concrètes, un arbre à la fois »</li>
+          <li><strong>Cible</strong> → particuliers (MVP) puis entreprises RSE</li>
+          <li><strong>Cadre</strong> → cas d'école CDA, ambition production-ready</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 4 - Périmètre & acteurs -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Introduction</span>
+        <h2>Périmètre & acteurs</h2>
+      </header>
+      <div class="slide-body">
+        <div class="split wide-right">
+          <div>
+            <div class="col-label">Une hiérarchie des acteurs</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers="1-3|5-8|10-12">👤 Visiteur
+    consulterCatalogue()
+    ajouterAuPanier()
+
+🔑 Utilisateur extends Visiteur
+    passerCommande()
+    gererProfil()
+    voirHistorique()
+
+🛠️ Admin extends Utilisateur
+    gererArbres()   // CRUD
+    gererCommandes()
+</code></pre>
+          </div>
+          <div class="fragment">
+            <div class="col-label">Un périmètre maîtrisé</div>
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>MVP livré</th>
+                    <th><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>Évolutions (hors périmètre)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Catalogue + fiche arbre</td><td>Carte interactive de plantation</td></tr>
+                  <tr><td>Authentification complète</td><td>Suivi de la pousse</td></tr>
+                  <tr><td>Panier → Stripe → Confirmation</td><td>Multilingue</td></tr>
+                  <tr><td>Espace utilisateur</td><td>Parrainage</td></tr>
+                  <tr><td>Back-office admin</td><td>Portail partenaires</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Entrée</strong> → à qui s'adresse la plateforme ? jusqu'où va le MVP ?</li>
+          <li><strong>3 acteurs</strong> → hiérarchie d'accès (chacun hérite du précédent)</li>
+          <li><strong>Visiteur</strong> → catalogue · fiches · panier · pages publiques</li>
+          <li><strong>Utilisateur</strong> → + tunnel d'achat Stripe · espace perso (profil, historique)</li>
+          <li><strong>Admin</strong> → back-office : CRUD arbres · suivi des commandes</li>
+          <li><strong>Cœur du MVP</strong> → parcours d'achat de bout en bout, vrai paiement (Stripe dans le MVP, pas simulé)</li>
+          <li><strong>Évolutions</strong> (carte · suivi pousse · multilingue · parrainage) → écartées volontairement = priorisation</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 5 - Organisation & méthode -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Introduction</span>
+        <h2>Organisation & méthode</h2>
+      </header>
+      <div class="slide-body spread">
+
+        <div class="band fragment fade-up">
+          <div class="band-label">Une équipe de 5</div>
+          <div class="team-line">
+            <span class="team-chip">Marie <em>PO</em></span>
+            <span class="team-chip">Léo <em>Scrum Master</em></span>
+            <span class="team-chip">Vincent <em>Lead Dev Back</em></span>
+            <span class="team-chip is-me">Tony <em>Lead Dev Front · moi</em></span>
+            <span class="team-chip">Naomi <em>Full-stack</em></span>
+          </div>
+        </div>
+
+        <div class="band fragment fade-up">
+          <div class="band-label">Agile - 4 sprints d'une semaine</div>
+          <div class="sprints">
+            <div class="sprint"><div class="sprint-num">0</div><div class="sprint-title">Conception</div><div class="sprint-sub">CDC, maquettes, archi, BDD</div></div>
+            <div class="sprint"><div class="sprint-num">1</div><div class="sprint-title">Fondations</div><div class="sprint-sub">React, NestJS, Docker</div></div>
+            <div class="sprint"><div class="sprint-num">2</div><div class="sprint-title">MVP complet</div><div class="sprint-sub">E-commerce de bout en bout</div></div>
+            <div class="sprint"><div class="sprint-num">3</div><div class="sprint-title">Qualité & prod</div><div class="sprint-sub">Refactor, CI/CD, audits</div></div>
+          </div>
+        </div>
+
+        <div class="band fragment fade-up">
+          <div class="band-label">Outils & conventions</div>
+          <div class="tools-row">
+            <div class="tool"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.147 0H2.853A2.86 2.86 0 000 2.853v18.294A2.86 2.86 0 002.853 24h18.294A2.86 2.86 0 0024 21.147V2.853A2.86 2.86 0 0021.147 0zM10.34 17.287a.953.953 0 01-.953.953h-4a.954.954 0 01-.954-.953V5.38a.953.953 0 01.954-.953h4a.954.954 0 01.953.953zm9.233-5.467a.944.944 0 01-.953.947h-4a.947.947 0 01-.953-.947V5.38a.953.953 0 01.953-.953h4a.954.954 0 01.953.953z"/></svg><span>Trello</span></div>
+            <div class="tool"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span>GitHub</span></div>
+            <div class="tool"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.727 6.727H14V0H4.91c-.905 0-1.637.732-1.637 1.636v20.728c0 .904.732 1.636 1.636 1.636h14.182c.904 0 1.636-.732 1.636-1.636V6.727h-6zm-.545 10.455H7.09v-1.364h7.09v1.364zm2.727-3.273H7.091v-1.364h9.818v1.364zm0-3.273H7.091V9.273h9.818v1.363zM14.727 6h6l-6-6v6z"/></svg><span>Google Docs</span></div>
+            <div class="tool"><svg viewBox="0 0 640 512" fill="currentColor" aria-hidden="true"><path d="M320 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm156.8-48C462 361 397.4 416 320 416s-142-55-156.8-128L32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l131.2 0C178 151 242.6 96 320 96s142 55 156.8 128L608 224c17.7 0 32 14.3 32 32s-14.3 32-32 32l-131.2 0z"/></svg><span>Conventional Commits</span></div>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Équipe de 5</strong> → Marie PO · Léo SM · Vincent Lead Back · moi Lead Front · Naomi Full-stack</li>
+          <li><strong>Méthode</strong> → Agile/Scrum · sprints d'1 semaine · cérémonies (daily · revue · rétro)</li>
+          <li><strong>Les sprints racontent une histoire</strong> → sprint 0 conception → fondations → MVP → sprint 3 qualité/prod</li>
+          <li><strong>Outils</strong> → Trello (backlog) · GitHub (versioning + PR relues) · Google Docs (doc)</li>
+          <li><strong>Conventions</strong> → Conventional Commits · ESLint + Prettier</li>
+          <li><strong>Transition</strong> → « entrons dans la conception : du besoin à l'architecture »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- ========================= BLOC 2 - CONCEPTION ========================= -->
+
+    <!-- Intercalaire bloc 2 : CONCEPTION -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Conception</h2>
+          <ul class="divider-summary">
+            <li>Analyse des besoins, cas d'utilisation & conception de l'interface</li>
+            <li>Architecture 3 tiers, stack & sécurité by design (DICP)</li>
+            <li>Architecture applicative</li>
+            <li>Modélisation des données (MERISE)</li>
+          </ul>
+        </div>
+        <div class="divider-index">02</div>
+      </div>
+      <ol class="toc">
+        <li class="done">Introduction</li>
+        <li class="current">Conception</li>
+        <li>Tunnel de vente</li>
+        <li>Sécurité, tests & conformité</li>
+        <li>Déploiement</li>
+        <li>Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « On entre en conception : du besoin à l'architecture. »</li>
+          <li>Au programme → besoins · cas d'utilisation · maquettes · archi &amp; stack · sécurité (DICP) · MERISE</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 6 - Analyse des besoins -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Du besoin aux user stories</h2>
+      </header>
+      <div class="slide-body spread">
+
+        <div class="flow fragment fade-up">
+          <div class="flow-node">
+            <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+            <div class="flow-title">Cahier des charges</div>
+            <div class="flow-sub">Rédigé en Sprint 0</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node flow-node--hl">
+            <div class="flow-big">28</div>
+            <div class="flow-title">user stories</div>
+            <div class="flow-sub">6 Visiteur · 14 Utilisateur · 7 Admin · 1 transverse</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.147 0H2.853A2.86 2.86 0 000 2.853v18.294A2.86 2.86 0 002.853 24h18.294A2.86 2.86 0 0024 21.147V2.853A2.86 2.86 0 0021.147 0zM10.34 17.287a.953.953 0 01-.953.953h-4a.954.954 0 01-.954-.953V5.38a.953.953 0 01.954-.953h4a.954.954 0 01.953.953zm9.233-5.467a.944.944 0 01-.953.947h-4a.947.947 0 01-.953-.947V5.38a.953.953 0 01.953-.953h4a.954.954 0 01.953.953z"/></svg>
+            <div class="flow-title">Backlog Trello</div>
+          </div>
+          <div class="flow-shot"><img src="assets/trello.png" alt="Board Trello GreenRoots"></div>
+        </div>
+
+        <div class="us-format fragment fade-up">
+          <span class="us-kw">En tant que</span> <span class="us-slot">rôle</span>,
+          <span class="us-kw">je veux</span> <span class="us-slot">une action</span>
+          <span class="us-kw">afin de</span> <span class="us-slot">un bénéfice</span>.
+        </div>
+
+        <div class="cards c3 fragment fade-up">
+          <div class="card">
+            <div class="role">En tant que visiteur</div>
+            <p>je veux <strong>consulter le catalogue</strong> afin de <strong>voir les arbres disponibles à l'achat</strong>.</p>
+          </div>
+          <div class="card">
+            <div class="role">En tant qu'utilisateur</div>
+            <p>je veux <strong>compléter mes informations bancaires</strong> afin de <strong>payer mes produits</strong>.</p>
+          </div>
+          <div class="card">
+            <div class="role">En tant qu'admin</div>
+            <p>je veux <strong>ajouter un arbre au stock</strong> afin qu'il soit <strong>mis en vente</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Départ</strong> → cahier des charges (sprint 0)</li>
+          <li><strong>Formalisation</strong> → 28 user stories, format « En tant que… je veux… afin de… »</li>
+          <li><strong>Pont</strong> → alimentent le backlog Trello</li>
+          <li><strong>Transition</strong> → regroupées par acteur, elles donnent le diagramme de cas d'utilisation</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 7 - Diagramme de cas d'usage -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Diagramme de cas d'utilisation</h2>
+      </header>
+      <div class="slide-body">
+        <div class="split wide-right v-center">
+          <div>
+            <ul class="uml-legend">
+              <li class="fragment fade-up"><strong>3 acteurs en héritage d'accès</strong> : l'Utilisateur hérite du Visiteur, l'Admin hérite de l'Utilisateur.</li>
+              <li class="fragment fade-up"><span class="tag">include</span> - un cas toujours appelé : <strong>« Passer commande »</strong> inclut <strong>« Vérifier le stock »</strong> et <strong>« Payer via Stripe »</strong>.</li>
+              <li class="fragment fade-up"><span class="tag">extend</span> - un cas optionnel : <strong>« Rembourser via Stripe »</strong> étend <strong>« Gérer les commandes »</strong>.</li>
+            </ul>
+          </div>
+          <div class="diagram">
+            <img src="../diagrammes/annexe-4-cas-utilisation.svg" alt="Diagramme de cas d'utilisation GreenRoots">
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>3 acteurs</strong> → héritage d'accès (Visiteur ⊂ Utilisateur ⊂ Admin)</li>
+          <li><strong>include</strong> → cas toujours appelé (« Passer commande » include « Vérifier le stock » + « Payer »)</li>
+          <li><strong>extend</strong> → cas optionnel (« Rembourser » extend « Gérer commandes »)</li>
+          <li><strong>Pont code</strong> → « include Vérifier le stock » = confirmCheckout</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide - Maquettage : du wireframe à la maquette HF (conception UI) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Du wireframe à la maquette</h2>
+      </header>
+      <div class="slide-body">
+        <div class="mockup-compare">
+          <figure class="mockup fragment fade-up">
+            <figcaption class="mockup-cap"><span class="mockup-num">1</span>Wireframe<em>Balsamiq</em></figcaption>
+            <div class="mockup-frame">
+              <img src="../diagrammes/corps-wireframe-catalogue.png" alt="Wireframe du catalogue (structure, zoning)">
+            </div>
+          </figure>
+          <span class="mockup-arrow fragment fade-up" aria-hidden="true">
+            <svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+          </span>
+          <figure class="mockup fragment fade-up">
+            <figcaption class="mockup-cap"><span class="mockup-num">2</span>Maquette haute-fidélité<em>Figma</em></figcaption>
+            <div class="mockup-frame">
+              <img src="assets/maquette-catalog-HF.png" alt="Maquette haute-fidélité du catalogue (rendu final)">
+            </div>
+          </figure>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Démarche</strong> → structure d'abord (wireframe Balsamiq), rendu ensuite (maquette Figma)</li>
+          <li><strong>Wireframe</strong> → zoning · hiérarchie · parcours</li>
+          <li><strong>Maquette HF</strong> → charte · couleurs · composants réels</li>
+          <li><strong>Responsive</strong> → pensé dès la maquette (desktop + mobile)</li>
+          <li><strong>Conformité</strong> → on le verra à la démo</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 19 - Qualité front (Lighthouse / Responsive / Atomic Design / Accessibilité) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Qualité de l'interface</h2>
+      </header>
+      <div class="slide-body">
+        <div class="quality-grid">
+
+          <!-- 1. Lighthouse -->
+          <div class="q-card fragment fade-up">
+            <div class="q-head">
+              <span class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3.5 17a9 9 0 0 1 17 0"/><line x1="12" y1="17" x2="16" y2="10.5"/><circle cx="12" cy="17" r="1.4" fill="currentColor"/></svg></span>
+              Lighthouse <em>audit automatisé</em>
+            </div>
+            <div class="q-body q-lh">
+              <img src="assets/lightouse.png" alt="Scores Lighthouse : Performance 87, Accessibilité 96, Best Practices 77, SEO 100">
+            </div>
+          </div>
+
+          <!-- 2. Responsive adaptatif -->
+          <div class="q-card fragment fade-up">
+            <div class="q-head">
+              <span class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="13" height="10" rx="1.5"/><rect x="16.5" y="8" width="5.5" height="12" rx="1.5" fill="currentColor" stroke="none"/></svg></span>
+              Responsive adaptatif
+            </div>
+            <div class="q-body q-resp">
+              <img class="resp-desk" src="assets/order-table-dekstop.png" alt="Tableau des commandes en version desktop">
+              <span class="resp-arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span>
+              <img class="resp-mob" src="assets/order-table-mobile.png" alt="Cartes des commandes en version mobile">
+            </div>
+            <div class="q-note">Tableau (desktop) → cartes (mobile) via <b>useMediaQuery</b> - changement de composant, pas juste du CSS</div>
+          </div>
+
+          <!-- 3. Atomic Design (recréé en charte verte) -->
+          <div class="q-card fragment fade-up">
+            <div class="q-head">
+              <span class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><ellipse cx="12" cy="12" rx="10" ry="4.4"/><ellipse cx="12" cy="12" rx="10" ry="4.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.4" transform="rotate(120 12 12)"/></svg></span>
+              Atomic Design
+            </div>
+            <div class="q-body q-atomic">
+              <div class="atom-node"><span class="atom-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="16" cy="16" r="3.5" fill="currentColor"/><circle cx="16" cy="16" r="11"/><circle cx="26" cy="11" r="2.4" fill="currentColor" stroke="none"/></svg></span>Atoms</div>
+              <span class="atom-sep" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span>
+              <div class="atom-node"><span class="atom-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="16" y1="11" x2="9" y2="22"/><line x1="16" y1="11" x2="23" y2="22"/><line x1="9" y1="22" x2="23" y2="22"/><circle cx="16" cy="10" r="4" fill="currentColor" stroke="none"/><circle cx="9" cy="23" r="4" fill="currentColor" stroke="none"/><circle cx="23" cy="23" r="4" fill="currentColor" stroke="none"/></svg></span>Molecules</div>
+              <span class="atom-sep" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span>
+              <div class="atom-node"><span class="atom-ico"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><circle cx="24" cy="8" r="2.4"/><circle cx="8" cy="16" r="2.4"/><circle cx="16" cy="16" r="2.4"/><circle cx="24" cy="16" r="2.4"/><circle cx="8" cy="24" r="2.4"/><circle cx="16" cy="24" r="2.4"/><circle cx="24" cy="24" r="2.4"/></svg></span>Organisms</div>
+            </div>
+          </div>
+
+          <!-- 4. Accessibilité -->
+          <div class="q-card fragment fade-up">
+            <div class="q-head">
+              <span class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2.2" fill="currentColor" stroke="none"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="12" y1="9" x2="12" y2="15"/><line x1="12" y1="15" x2="8" y2="21"/><line x1="12" y1="15" x2="16" y2="21"/></svg></span>
+              Accessibilité
+            </div>
+            <div class="q-body q-a11y">
+              <ul>
+                <li>Radix / shadcn : <b>ARIA natif</b> (label, erreurs, focus)</li>
+                <li><b>QuantityInput</b> : role <code>spinbutton</code> (aria-valuemin / max / now)</li>
+                <li>Composants <b>testés</b> - Vitest + Testing Library</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Lighthouse</strong> → audit outillé au sprint 3 (perf · a11y · best practices · SEO)</li>
+          <li><strong>Responsive</strong> → Tailwind + useMediaQuery = changement de composant (tableau↔cartes), pas que du CSS</li>
+          <li><strong>Atomic Design</strong> → réutilisabilité · cohérence des composants</li>
+          <li><strong>Accessibilité</strong> → QuantityInput = spinbutton annoncé au lecteur d'écran (valeur + bornes)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 8 - Architecture 3 tiers -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Une architecture 3 tiers découplée</h2>
+      </header>
+      <div class="slide-body">
+        <div class="arch-block">
+          <div class="tiers-line">
+            <div class="tier"><span class="tier-num">1</span><span class="tier-txt">Présentation <em>SPA React</em></span></div>
+            <div class="tier"><span class="tier-num">2</span><span class="tier-txt">Logique métier <em>API NestJS</em></span></div>
+            <div class="tier"><span class="tier-num">3</span><span class="tier-txt">Données <em>PostgreSQL · Redis</em></span></div>
+          </div>
+          <img src="../diagrammes/annexe-1-architecture.svg" alt="Architecture 3 tiers GreenRoots">
+          <div class="dicp-strip">
+            <div class="dicp-lead">Sécurité <em>by design</em> (DICP) - conforme ANSSI / OWASP Top 10:2025</div>
+            <div class="dicp-items">
+              <span class="dicp-item"><span class="dicp-badge">D</span><b>Disponibilité</b> cron · healthchecks</span>
+              <span class="dicp-item"><span class="dicp-badge">I</span><b>Intégrité</b> transactions · contraintes BDD</span>
+              <span class="dicp-item"><span class="dicp-badge">C</span><b>Confidentialité</b> JWT HttpOnly · bcrypt · rôle relu</span>
+              <span class="dicp-item"><span class="dicp-badge">P</span><b>Preuve</b> factures n° · anonymisation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>3 tiers</strong> → Présentation (SPA React) · Métier (API NestJS) · Données (PostgreSQL + Redis)</li>
+          <li><strong>Découplage</strong> → SPA + API REST, pas de techno SSR (adapté à une app derrière login ; SSR = SEO d'un vitrine)</li>
+          <li><strong>Nginx</strong> → reverse proxy : le navigateur ne parle jamais à la BDD</li>
+          <li><strong>DICP (by design)</strong> → D cron/healthchecks · I transactions/contraintes · C JWT HttpOnly/bcrypt/rôle relu · P factures/anonymisation</li>
+          <li><strong>Référentiels</strong> → ANSSI · OWASP Top 10:2025</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 9 - Justification de la stack -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Justification de la stack</h2>
+      </header>
+      <div class="slide-body">
+        <div class="principles fragment fade-up">
+          <div class="principle"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8l0 378.1C394 378 431.1 230.1 432 141.4L256 66.8s0 0 0 0z"/></svg>Type-safety de bout en bout</div>
+          <div class="principle"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M272 96c-78.6 0-145.1 51.5-167.7 122.5c33.6-17 71.5-26.5 111.7-26.5l88 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-16 0-72 0s0 0 0 0c-16.6 0-32.7 1.9-48.3 5.4c-25.9 5.9-49.9 16.4-71.4 30.7c0 0 0 0 0 0C38.3 298.8 0 364.9 0 440l0 16c0 13.3 10.7 24 24 24s24-10.7 24-24l0-16c0-48.7 20.7-92.5 53.8-123.2C121.6 392.3 190.3 448 272 448l1 0c132.1-.7 239-130.9 239-291.4c0-42.6-7.5-83.1-21.1-119.6c-2.6-6.9-12.7-6.6-16.2-.1C455.9 72.1 418.7 96 376 96L272 96z"/></svg>Éco-conception & performance</div>
+          <div class="principle"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>Accessibilité</div>
+        </div>
+        <div class="table-card compact fragment fade-up">
+          <table>
+            <thead>
+              <tr><th>Techno</th><th>Rôle</th><th>Pourquoi ce choix</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z"/></svg>React + Vite</span></td>
+                <td>Front (SPA)</td>
+                <td>Écosystème mature, build rapide, faible CPU</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.9297 13.6875c.164-.0938.375-.0352.4687.1328l.0625.1055c.4805.8515.9805 1.6601 1.5 2.4258.6133.9023 1.3047 1.8164 2.0743 2.7421a.3455.3455 0 0 1-.0391.4844l-.0742.0664c-2.543 2.2227-4.1914 2.664-4.9532 1.332-.746-1.3046-.4765-3.6718.8086-7.1093a.3437.3437 0 0 1 .1524-.1797ZM17.75 16.3008c.1836-.0313.3594.086.3945.2695l.0196.1016c.6289 3.2851.1875 4.9297-1.3243 4.9297-1.4804 0-3.3593-1.4024-5.6484-4.2032a.3271.3271 0 0 1-.0742-.2226c0-.1875.1562-.3399.3437-.3399h.1211a32.9838 32.9838 0 0 0 2.8086-.0976c1.0703-.086 2.1914-.2305 3.3594-.4375zm.871-6.9766a.3528.3528 0 0 1 .4454-.211l.1016.0352c3.2617 1.1094 4.5039 2.332 3.7187 3.6641-.7656 1.3047-2.9922 2.254-6.6836 2.8477-.082.0117-.168-.004-.2383-.047-.168-.0976-.2265-.3085-.125-.4765l.0625-.1054c.504-.8438.957-1.6836 1.3672-2.5235.4766-.9883.9297-2.0508 1.3516-3.1836zM7.797 8.3398c.082-.0117.168.004.2383.047.168.0976.2265.3085.125.4765l-.0625.1054a34.0882 34.0882 0 0 0-1.3672 2.5235c-.4766.9883-.9297 2.0508-1.3516 3.1836a.3528.3528 0 0 1-.4453.211l-.1016-.0352c-3.2617-1.1094-4.5039-2.332-3.7187-3.6641.7656-1.3047 2.9922-2.254 6.6836-2.8477Zm5.2812-3.9843c2.543-2.2227 4.1914-2.664 4.9532-1.332.746 1.3046.4765 3.6718-.8086 7.1093a.3436.3436 0 0 1-.1524.1797c-.164.0938-.375.0352-.4687-.1328l-.0625-.1055c-.4805-.8515-.9805-1.6601-1.5-2.4258-.6133-.9023-1.3047-1.8164-2.0743-2.7421a.3455.3455 0 0 1 .0391-.4844Zm-5.793-2.082c1.4805 0 3.3633 1.4023 5.6485 4.203a.3488.3488 0 0 1 .0781.2188c-.0039.1914-.1562.3438-.3476.3438l-.1172-.004a34.5835 34.5835 0 0 0-2.8086.1016c-1.0742.086-2.1953.2305-3.3633.4375a.343.343 0 0 1-.3945-.2734l-.0196-.0977c-.629-3.2851-.1876-4.9297 1.3242-4.9297Zm4.7148 6.3906a1.6172 1.6172 0 1 0 0 3.2344 1.6172 1.6172 0 0 0 0-3.2344z"/></svg>TanStack Query / Router</span></td>
+                <td>Données & routing</td>
+                <td>Cache intelligent, routing type-safe</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.219 11.784 11.784 22.219c-.407.407-.407 1.068 0 1.476.407.407 1.068.407 1.476 0L23.695 13.26c.407-.408.407-1.069 0-1.476-.408-.407-1.069-.407-1.476 0ZM20.132.305.305 20.132c-.407.407-.407 1.068 0 1.476.408.407 1.069.407 1.476 0L21.608 1.781c.407-.407.407-1.068 0-1.476-.408-.407-1.069-.407-1.476 0Z"/></svg>Tailwind + shadcn/ui</span></td>
+                <td>UI & design system</td>
+                <td>Import sélectif (éco) + Radix accessible</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.131.047c-.173 0-.334.037-.483.087.316.21.49.49.576.806.007.043.019.074.025.117a.681.681 0 0 1 .013.112c.024.545-.143.614-.26.936-.18.415-.13.861.086 1.22a.74.74 0 0 0 .074.137c-.235-1.568 1.073-1.803 1.314-2.293.019-.428-.334-.713-.613-.911a1.37 1.37 0 0 0-.732-.21zM16.102.4c-.024.143-.006.106-.012.18-.006.05-.006.112-.012.161-.013.05-.025.1-.044.149-.012.05-.03.1-.05.149l-.067.142c-.02.025-.031.05-.05.075l-.037.055a2.152 2.152 0 0 1-.093.124c-.037.038-.068.081-.112.112v.006c-.037.031-.074.068-.118.1-.13.099-.278.173-.415.266-.043.03-.087.056-.124.093a.906.906 0 0 0-.118.099c-.043.037-.074.074-.111.118-.031.037-.068.08-.093.124a1.582 1.582 0 0 0-.087.13c-.025.05-.043.093-.068.142-.019.05-.037.093-.05.143a2.007 2.007 0 0 0-.043.155c-.006.025-.006.056-.012.08-.007.025-.007.05-.013.075 0 .05-.006.105-.006.155 0 .037 0 .074.006.111 0 .05.006.1.019.155.006.05.018.1.03.15.02.049.032.098.05.148.013.03.031.062.044.087l-1.426-.552c-.241-.068-.477-.13-.719-.186l-.39-.093c-.372-.074-.75-.13-1.128-.167-.013 0-.019-.006-.031-.006A11.082 11.082 0 0 0 8.9 2.855c-.378.025-.756.074-1.134.136a12.45 12.45 0 0 0-.837.174l-.279.074c-.092.037-.18.08-.266.118l-.205.093c-.012.006-.024.006-.03.012-.063.031-.118.056-.174.087a2.738 2.738 0 0 0-.236.118c-.043.018-.086.043-.124.062a.559.559 0 0 1-.055.03c-.056.032-.112.063-.162.094a1.56 1.56 0 0 0-.148.093c-.044.03-.087.055-.124.086-.006.007-.013.007-.019.013-.037.025-.08.056-.118.087l-.012.012-.093.074c-.012.007-.025.019-.037.025-.031.025-.062.056-.093.08-.006.013-.019.02-.025.025-.037.038-.074.069-.111.106-.007 0-.007.006-.013.012a1.742 1.742 0 0 0-.111.106c-.007.006-.007.012-.013.012a1.454 1.454 0 0 0-.093.1c-.012.012-.03.024-.043.036a1.374 1.374 0 0 1-.106.112c-.006.012-.018.019-.024.03-.05.05-.093.1-.143.15l-.018.018c-.1.106-.205.211-.317.304-.111.1-.229.192-.347.273a3.777 3.777 0 0 1-.762.421c-.13.056-.267.106-.403.149-.26.056-.527.161-.756.18-.05 0-.105.012-.155.018l-.155.037-.149.056c-.05.019-.099.044-.148.068-.044.031-.093.056-.137.087a1.011 1.011 0 0 0-.124.106c-.043.03-.087.074-.124.111-.037.043-.074.08-.105.124-.031.05-.068.093-.093.143a1.092 1.092 0 0 0-.087.142c-.025.056-.05.106-.068.161-.019.05-.037.106-.056.161-.012.05-.025.1-.03.15 0 .005-.007.012-.007.018-.012.056-.012.13-.019.167C.006 7.95 0 7.986 0 8.03a.657.657 0 0 0 .074.31v.006c.019.037.044.075.069.112.024.037.05.074.08.111.031.031.068.069.106.1a.906.906 0 0 0 .117.099c.149.13.186.173.378.272.031.019.062.031.1.05.006 0 .012.006.018.006 0 .013 0 .019.006.031a1.272 1.272 0 0 0 .08.298c.02.037.032.074.05.111.007.013.013.025.02.031.024.05.049.093.073.137l.093.13c.031.037.069.08.106.118.037.037.074.068.118.105 0 0 .006.006.012.006.037.031.074.062.112.087a.986.986 0 0 0 .136.08c.043.025.093.05.142.069a.73.73 0 0 0 .124.043c.007.006.013.006.025.012.025.007.056.013.08.019-.018.335-.024.65.026.762.055.124.328-.254.6-.688-.036.428-.061.93 0 1.079.069.155.44-.329.763-.862 4.395-1.016 8.405 2.02 8.826 6.31-.08-.67-.905-1.041-1.283-.948-.186.458-.502 1.047-1.01 1.413.043-.41.025-.83-.062-1.24a4.009 4.009 0 0 1-.769 1.562c-.588.043-1.177-.242-1.487-.67-.025-.018-.031-.055-.05-.08-.018-.043-.037-.087-.05-.13a.515.515 0 0 1-.037-.13c-.006-.044-.006-.087-.006-.137v-.093a.992.992 0 0 1 .031-.13c.013-.043.025-.086.044-.13.024-.043.043-.087.074-.13.105-.298.105-.54-.087-.682a.706.706 0 0 0-.118-.062c-.024-.006-.055-.018-.08-.025l-.05-.018a.847.847 0 0 0-.13-.031.472.472 0 0 0-.13-.019 1.01 1.01 0 0 0-.136-.012c-.031 0-.062.006-.093.006a.484.484 0 0 0-.137.019c-.043.006-.086.012-.13.024a1.068 1.068 0 0 0-.13.044c-.043.018-.08.037-.124.056-.037.018-.074.043-.118.062-1.444.942-.582 3.148.403 3.787-.372.068-.75.148-.855.229l-.013.012c.267.161.546.298.837.416.397.13.818.247 1.004.297v.006a5.996 5.996 0 0 0 1.562.112c2.746-.192 4.996-2.281 5.405-5.033l.037.161c.019.112.043.23.056.347v.006c.012.056.018.112.025.162v.024c.006.056.012.112.012.162.006.068.012.136.012.204v.1c0 .03.007.067.007.098 0 .038-.007.075-.007.112v.087c0 .043-.006.08-.006.124 0 .025 0 .05-.006.08 0 .044-.006.087-.006.137-.006.018-.006.037-.006.055l-.02.143c0 .019 0 .037-.005.056-.007.062-.019.118-.025.18v.012l-.037.174v.018l-.037.167c0 .007-.007.02-.007.025a1.663 1.663 0 0 1-.043.168v.018c-.019.062-.037.118-.05.174-.006.006-.006.012-.006.012l-.056.186c-.024.062-.043.118-.068.18-.025.062-.043.124-.068.18-.025.062-.05.117-.074.18h-.007c-.024.055-.05.117-.08.173a.302.302 0 0 1-.019.043c-.006.006-.006.013-.012.019a5.867 5.867 0 0 1-1.742 2.082c-.05.031-.099.069-.149.106-.012.012-.03.018-.043.03a2.603 2.603 0 0 1-.136.094l.018.037h.007l.26-.037h.006c.161-.025.322-.056.483-.087.044-.006.093-.019.137-.031l.087-.019c.043-.006.086-.018.13-.024.037-.013.074-.02.111-.031.62-.15 1.221-.354 1.798-.595a9.926 9.926 0 0 1-3.85 3.142c.714-.05 1.426-.167 2.114-.366a9.903 9.903 0 0 0 5.857-4.68 9.893 9.893 0 0 1-1.667 3.986 9.758 9.758 0 0 0 1.655-1.376 9.824 9.824 0 0 0 2.61-5.268c.21.98.272 1.99.18 2.987 4.474-6.241.371-12.712-1.346-14.416-.006-.013-.012-.019-.012-.031-.006.006-.006.006-.006.012 0-.006 0-.006-.007-.012 0 .074-.006.148-.012.223a8.34 8.34 0 0 1-.062.415c-.03.136-.068.273-.105.41-.044.13-.093.266-.15.396a5.322 5.322 0 0 1-.185.378 4.735 4.735 0 0 1-.477.688c-.093.111-.192.21-.292.31a3.994 3.994 0 0 1-.18.155l-.142.124a3.459 3.459 0 0 1-.347.241 4.295 4.295 0 0 1-.366.211c-.13.062-.26.118-.39.174a4.364 4.364 0 0 1-.818.223c-.143.025-.285.037-.422.05a4.914 4.914 0 0 1-.297.012 4.66 4.66 0 0 1-.422-.025 3.137 3.137 0 0 1-.421-.062 3.136 3.136 0 0 1-.415-.105h-.007c.137-.013.273-.025.41-.05a4.493 4.493 0 0 0 .818-.223c.136-.05.266-.112.39-.174.13-.062.248-.13.372-.204.118-.08.235-.161.347-.248.112-.087.217-.18.316-.279.105-.093.198-.198.291-.304.093-.111.18-.223.26-.334.013-.019.026-.044.038-.062.062-.1.124-.199.18-.298a4.272 4.272 0 0 0 .334-.775c.044-.13.075-.266.106-.403.025-.142.05-.278.062-.415.012-.142.025-.285.025-.421 0-.1-.007-.199-.013-.298a6.726 6.726 0 0 0-.05-.415 4.493 4.493 0 0 0-.092-.415c-.044-.13-.087-.267-.137-.397-.05-.13-.111-.26-.173-.384-.069-.124-.137-.248-.211-.366a6.843 6.843 0 0 0-.248-.34c-.093-.106-.186-.212-.285-.317a3.878 3.878 0 0 0-.161-.155c-.28-.217-.57-.421-.862-.607a1.154 1.154 0 0 0-.124-.062 2.415 2.415 0 0 0-.589-.26Z"/></svg>NestJS</span></td>
+                <td>API backend</td>
+                <td>Modulaire, injection de dépendances, TypeScript</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8068 18.2848L13.5528.7565c-.207-.4382-.639-.7273-1.1286-.7541-.5023-.0293-.9523.213-1.2062.6253L2.266 15.1271c-.2773.4518-.2718 1.0091.0158 1.4555l4.3759 6.7786c.2608.4046.7127.6388 1.1823.6388.1332 0 .267-.0188.3987-.0577l12.7019-3.7568c.3891-.1151.7072-.3904.8737-.7553s.1633-.7828-.0075-1.1454zm-1.8481.7519L9.1814 22.2242c-.3292.0975-.6448-.1873-.5756-.5194l3.8501-18.4386c.072-.3448.5486-.3996.699-.0803l7.1288 15.138c.1344.2856-.019.6224-.325.7128z"/></svg>PostgreSQL + Prisma</span></td>
+                <td>Base de données</td>
+                <td>SQL robuste + PostGIS, ORM type-safe, migrations</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.71 13.145c-1.66 2.092-3.452 4.483-7.038 4.483-3.203 0-4.397-2.825-4.48-5.12.701 1.484 2.073 2.685 4.214 2.63 4.117-.133 6.94-3.852 6.94-7.239 0-4.05-3.022-6.972-8.268-6.972-3.752 0-8.4 1.428-11.455 3.685C2.59 6.937 3.885 9.958 4.35 9.626c2.648-1.904 4.748-3.13 6.784-3.744C8.12 9.244.886 17.05 0 18.425c.1 1.261 1.66 4.648 2.424 4.648.232 0 .431-.133.664-.365a100.49 100.49 0 0 0 5.54-6.765c.222 3.104 1.748 6.898 6.014 6.898 3.819 0 7.604-2.756 9.33-8.965.2-.764-.73-1.361-1.261-.73z"/></svg>Redis</span></td>
+                <td>Cache & sécurité</td>
+                <td>Cache, anti-brute-force, blacklist JWT</td>
+              </tr>
+              <tr>
+                <td><span class="tech"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"/></svg>Stripe</span></td>
+                <td>Paiement</td>
+                <td>Webhook source de vérité, zéro donnée bancaire stockée</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Aucun choix au hasard</strong> → 3 fils : type-safety · éco-conception · accessibilité</li>
+          <li><strong>Pragmatisme</strong> → technos déjà connues de l'équipe · délai court (montée en compétence maîtrisée)</li>
+          <li><strong>shadcn/ui</strong> → coche les 3 (Radix accessible · import sélectif · typé)</li>
+          <li><strong>Découplage</strong> → SPA pure + API REST</li>
+          <li><strong>Redis</strong> → choix d'architecture, pas une « V2 »</li>
+          <li><strong>Stripe</strong> → zéro donnée bancaire chez nous</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 10 - Architecture applicative -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Architecture applicative</h2>
+      </header>
+      <div class="slide-body">
+        <div class="split">
+          <div class="fragment fade-up">
+            <div class="col-label">Backend - NestJS</div>
+            <div class="fe-block">
+              <div class="fe-sub">Le trajet d'une requête</div>
+              <div class="layers">
+                <div class="layer">Controller <em>reçoit la requête HTTP</em></div>
+                <div class="layer-arrow">▼</div>
+                <div class="layer">Service <em>règles métier</em></div>
+                <div class="layer-arrow">▼</div>
+                <div class="layer">Prisma <em>accès à la base</em></div>
+              </div>
+            </div>
+            <div class="fe-block">
+              <div class="fe-sub">Modularité & patterns</div>
+              <p class="layers-note">Injection de dépendances · ~14 modules par domaine · Guards / Decorators / State machine</p>
+            </div>
+          </div>
+          <div class="fragment fade-up">
+            <div class="col-label">Frontend - React</div>
+            <div class="fe-block">
+              <div class="fe-sub">Atomic Design</div>
+              <div class="pyramid">
+                <div class="pyr-row pyr-1">Organisms</div>
+                <div class="pyr-row pyr-2">Molecules</div>
+                <div class="pyr-row pyr-3">Atoms</div>
+              </div>
+            </div>
+            <div class="fe-block">
+              <div class="fe-sub">Trois natures d'état, séparées</div>
+              <div class="states">
+                <div class="state"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M432 64L208 64c-8.8 0-16 7.2-16 16l0 16-64 0 0-16c0-44.2 35.8-80 80-80L432 0c44.2 0 80 35.8 80 80l0 224c0 44.2-35.8 80-80 80l-16 0 0-64 16 0c8.8 0 16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zM0 192c0-35.3 28.7-64 64-64l256 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192zm64 32c0 17.7 14.3 32 32 32l192 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 192c-17.7 0-32 14.3-32 32z"/></svg><b>Local</b>Zustand</div>
+                <div class="state"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg><b>Serveur</b>TanStack Query</div>
+                <div class="state"><svg viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm16 64l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16l224 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-224 0c-8.8 0-16-7.2-16-16l0-32zM272 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM368 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM464 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"/></svg><b>Formulaire</b>RHF + Zod</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>NestJS</strong> → injection de dépendances · modulaire (~14 modules) · découplé &amp; testable (mock Prisma)</li>
+          <li><strong>Trajet requête</strong> → Controller (HTTP) → Service (métier) → Prisma (données)</li>
+          <li><strong>Honnêteté</strong> → couches, pas hexagonal strict (Service → Prisma direct = pragmatique)</li>
+          <li><strong>Front</strong> → Atomic Design (réutilisabilité · cohérence) · découpage par fonctionnalité</li>
+          <li><strong>3 états séparés</strong> → chaque état son bon outil, pas un store global fourre-tout (Zustand · TanStack Query · React Hook Form + Zod)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 12 - MERISE : MCD & MLD -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>Modélisation MERISE : MCD → MLD</h2>
+      </header>
+      <div class="slide-body">
+        <div class="split wide-left">
+          <div class="fragment fade-up">
+            <div class="col-label">MCD - le métier (conceptuel)</div>
+            <div class="diagram diagram-mcd">
+              <img src="../diagrammes/MCD/MCD.svg" alt="MCD GreenRoots">
+            </div>
+          </div>
+          <div class="fragment fade-up">
+            <div class="col-label">MLD - dérivé par les règles de passage</div>
+            <div class="mld">
+              <div class="rel"><span class="rel-name">Role</span> (<span class="pk">id</span>, name)</div>
+              <div class="rel"><span class="rel-name">User</span> (<span class="pk">id</span>, email, <span class="fk">#roleId</span>, …)</div>
+              <div class="rel"><span class="rel-name">Country</span> (<span class="pk">id</span>, code, name, …)</div>
+              <div class="rel"><span class="rel-name">Location</span> (<span class="pk">id</span>, name, <span class="fk">#countryId</span>, …)</div>
+              <div class="rel"><span class="rel-name">Category</span> (<span class="pk">id</span>, name)</div>
+              <div class="rel"><span class="rel-name">Tree</span> (<span class="pk">id</span>, name, price, stockQuantity, <span class="fk">#categoryId</span>, <span class="fk">#locationId</span>, …)</div>
+              <div class="rel"><span class="rel-name">Order</span> (<span class="pk">id</span>, paymentStatus, orderStatus, <span class="fk">#userId</span>, …)</div>
+              <div class="rel"><span class="rel-name">OrderItem</span> (<span class="pk">id</span>, <span class="fk">#orderId</span>, <span class="fk">#treeId</span>, quantity, …) - <span class="uniq">UNIQUE(orderId, treeId)</span></div>
+              <div class="rel"><span class="rel-name">OrderAddress</span> (<span class="pk">id</span>, <span class="fk">#orderId</span>, type, city, <span class="fk">#countryCode</span>, …) - <span class="uniq">UNIQUE(orderId, type)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>MERISE 3 niveaux</strong> → MCD (métier) → MLD (règles de passage) → MPD (physique)</li>
+          <li><strong>Passage MCD→MLD</strong> → associations = tables/FK (ex. CONTAINS → OrderItem)</li>
+          <li><strong>Ne pas tout lire</strong> → 1-2 exemples de transformation</li>
+          <li><strong>Teaser MPD</strong> → types · enums · split Tree/TreeStock</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 13 - MPD / Prisma (modèle physique) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conception</span>
+        <h2>MPD - le passage au physique</h2>
+      </header>
+      <div class="slide-body">
+        <div class="diagram diagram-mpd fragment fade-up">
+          <img src="../diagrammes/annexe-3-mpd.png" alt="MPD GreenRoots (schéma physique PostgreSQL)">
+        </div>
+        <div class="choices fragment fade-up">
+          <span class="choice-chip"><b>Int</b>centimes (Stripe)</span>
+          <span class="choice-chip"><b>Enums</b>statuts commande</span>
+          <span class="choice-chip"><b>PostGIS</b>geometry</span>
+          <span class="choice-chip"><b>Split</b>Tree → TreeStock</span>
+          <span class="choice-chip"><b>@map</b>snake_case</span>
+          <span class="choice-chip"><b>@@unique</b>contraintes métier</span>
+          <span class="choice-chip"><b>24</b>migrations versionnées</span>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>MPD physique</strong> → dépend de PostgreSQL (types réels, enums)</li>
+          <li><strong>@map</strong> → pont camelCase (code) ↔ snake_case (BDD)</li>
+          <li><strong>Int/centimes</strong> → standard Stripe, pas de flottants</li>
+          <li><strong>Enums</strong> → supports des state machines</li>
+          <li><strong>Split Tree/TreeStock</strong> → le stock change souvent, on l'isole de la fiche arbre</li>
+          <li><strong>@@unique</strong> = intégrité métier · <strong>24 migrations</strong> = traçabilité</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- ========================= INTERCALAIRES restants (blocs 3-6, à replacer dans l'ordre final) ========================= -->
+
+    <!-- Intercalaire bloc 3 : TUNNEL DE VENTE -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Le tunnel de vente</h2>
+          <ul class="divider-summary">
+            <li>Démo live + vue d'ensemble</li>
+            <li>Front : formulaire & gestion d'état</li>
+            <li>Back : transaction, webhook Stripe</li>
+            <li>Données : SQL & Redis</li>
+          </ul>
+        </div>
+        <div class="divider-index">03</div>
+      </div>
+      <ol class="toc">
+        <li class="done">Introduction</li>
+        <li class="done">Conception</li>
+        <li class="current">Tunnel de vente</li>
+        <li>Sécurité, tests & conformité</li>
+        <li>Déploiement</li>
+        <li>Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « Le cœur du projet : le fil rouge. »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 14 - Démo live : le parcours d'achat -->
+    <section class="content demo-slide">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Démo - le parcours d'achat</h2>
+      </header>
+      <div class="slide-body spread">
+
+        <div class="demo-hero">
+          <span class="demo-play" aria-hidden="true">
+            <!-- Phosphor "Play" (fill) inline -->
+            <svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>
+          </span>
+          <div class="demo-caption">
+            <span class="demo-kicker">Démo live</span>
+            <span class="demo-sub">Parcours en conditions réelles, sur l'application déployée en production</span>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Ouverture</strong> → montrer le produit fini avant de décortiquer</li>
+          <li><strong>Script</strong> → catalogue → fiche → panier → checkout (carte test 4242) → confirmation PAID</li>
+          <li><strong>Cadre</strong> → déjà connecté · Stripe mode test · ~2-3 min</li>
+          <li><strong>Filet</strong> → captures/vidéo en secours</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 15 - Vue d'ensemble du tunnel -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Vue d'ensemble du tunnel</h2>
+      </header>
+      <div class="slide-body spread">
+
+        <!-- Vue 1 : fonctionnelle -->
+        <div class="tunnelview fragment fade-up">
+          <div class="tv-head"><span class="tv-badge">1</span>Côté utilisateur<em>- le parcours d'achat</em></div>
+          <div class="tv-func">
+            <span class="tvf-track" aria-hidden="true"></span>
+            <span class="tv-user" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg></span>
+            <div class="fnode" style="left:8%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48ZM200,40H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48ZM104,136H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48Z"/></svg></span><span class="flab">Catalogue</span></div>
+            <div class="fnode" style="left:24.4%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C143.34,28.24,79.74,50,52.42,90.79c-16.06,24-19.3,54.61-9.28,88.16C21.06,204.61,15.68,239.32,15.32,241.71a8,8,0,0,0,15.68,3.24c.09-.55,4.42-27.79,20.44-51,15.15,10.15,34.36,15.29,55,15.29,16.36,0,33.87-3.22,50.24-9.75C197.68,171.87,227.36,101.75,223.45,40.07Z"/></svg></span><span class="flab">Fiche arbre</span></div>
+            <div class="fnode" style="left:40.8%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M239.89,198.12l-14.26-120a16,16,0,0,0-16-14.12H180a52,52,0,0,0-104,0H46.33a16,16,0,0,0-16,14.12l-14.26,120a16,16,0,0,0,16,17.88H223.88a16,16,0,0,0,16-17.88ZM128,36a28,28,0,0,1,28,28H100A28,28,0,0,1,128,36Z"/></svg></span><span class="flab">Panier</span></div>
+            <div class="fnode" style="left:57.2%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M200,32H163.74a47.92,47.92,0,0,0-71.48,0H56A16,16,0,0,0,40,48V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm40,152H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Zm0-32H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"/></svg></span><span class="flab">Checkout</span></div>
+            <div class="fnode" style="left:73.6%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64ZM32,192V120H224v72Z"/><path d="M180,160H140a8,8,0,0,0,0,16h40a8,8,0,0,0,0-16Z"/></svg></span><span class="flab">Paiement</span></div>
+            <div class="fnode fnode-final" style="left:90%"><span class="fico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span><span class="flab">Confirmation</span></div>
+          </div>
+        </div>
+
+        <!-- Vue 2 : technique, la donnee traverse les couches (animation) -->
+        <div class="tunnelview fragment fade-up">
+          <div class="tv-head"><span class="tv-badge tv-badge-tech">2</span>Côté technique<em>- le voyage de la donnée</em></div>
+          <div class="tv-tech">
+            <span class="tvt-track" aria-hidden="true"></span>
+            <span class="tv-packet" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg></span>
+            <div class="tstation" style="left:12.5%">
+              <span class="tsnode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg></span>
+              <span class="tslab"><b>React</b><span>Front</span></span>
+            </div>
+            <div class="tstation" style="left:37.5%">
+              <span class="tsnode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.131.047c-.173 0-.334.037-.483.087.316.21.49.49.576.806.007.043.019.074.025.117a.681.681 0 0 1 .013.112c.024.545-.143.614-.26.936-.18.415-.13.861.086 1.22a.74.74 0 0 0 .074.137c-.235-1.568 1.073-1.803 1.314-2.293.019-.428-.334-.713-.613-.911a1.37 1.37 0 0 0-.732-.21zM16.102.4c-.024.143-.006.106-.012.18-.006.05-.006.112-.012.161-.013.05-.025.1-.044.149-.012.05-.03.1-.05.149l-.067.142c-.02.025-.031.05-.05.075l-.037.055a2.152 2.152 0 0 1-.093.124c-.037.038-.068.081-.112.112v.006c-.037.031-.074.068-.118.1-.13.099-.278.173-.415.266-.043.03-.087.056-.124.093a.906.906 0 0 0-.118.099c-.043.037-.074.074-.111.118-.031.037-.068.08-.093.124a1.582 1.582 0 0 0-.087.13c-.025.05-.043.093-.068.142-.019.05-.037.093-.05.143a2.007 2.007 0 0 0-.043.155c-.006.025-.006.056-.012.08-.007.025-.007.05-.013.075 0 .05-.006.105-.006.155 0 .037 0 .074.006.111 0 .05.006.1.019.155.006.05.018.1.03.15.02.049.032.098.05.148.013.03.031.062.044.087l-1.426-.552c-.241-.068-.477-.13-.719-.186l-.39-.093a11.082 11.082 0 0 0-2.234-.238c-.378.025-.756.074-1.134.136a12.45 12.45 0 0 0-.837.174l-.279.074c-.092.037-.18.08-.266.118l-.205.093c-.063.031-.118.056-.174.087a2.738 2.738 0 0 0-.236.118c-.043.018-.086.043-.124.062-.056.032-.112.063-.162.094a1.56 1.56 0 0 0-.148.093c-.044.03-.087.055-.124.086-.037.025-.08.056-.118.087l-.093.074c-.031.025-.062.056-.093.08-.037.038-.074.069-.111.106a1.742 1.742 0 0 0-.111.106 1.454 1.454 0 0 0-.093.1c-.043.036-.093.075-.13.118-.05.05-.093.1-.143.15-.1.106-.205.211-.317.304-.111.1-.229.192-.347.273a3.777 3.777 0 0 1-.762.421c-.13.056-.267.106-.403.149-.26.056-.527.161-.756.18l-.155.018-.155.037-.149.056c-.05.019-.099.044-.148.068-.044.031-.093.056-.137.087a1.011 1.011 0 0 0-.124.106c-.043.03-.087.074-.124.111-.037.043-.074.08-.105.124-.031.05-.068.093-.093.143a1.092 1.092 0 0 0-.087.142c-.025.056-.05.106-.068.161-.019.05-.037.106-.056.161-.012.05-.025.1-.03.15-.012.056-.012.13-.019.167C.006 7.95 0 7.986 0 8.03a.657.657 0 0 0 .074.31c.019.037.044.075.069.112.024.037.05.074.08.111.031.031.068.069.106.1a.906.906 0 0 0 .117.099c.149.13.186.173.378.272.031.019.062.031.1.05 0 .013 0 .019.006.031a1.272 1.272 0 0 0 .08.298c.02.037.032.074.05.111.024.05.049.093.073.137l.093.13c.031.037.069.08.106.118.037.037.074.068.118.105.037.031.074.062.112.087a.986.986 0 0 0 .136.08c.043.025.093.05.142.069a.73.73 0 0 0 .124.043c.025.007.056.013.08.019-.018.335-.024.65.026.762.055.124.328-.254.6-.688-.036.428-.061.93 0 1.079.069.155.44-.329.763-.862 4.395-1.016 8.405 2.02 8.826 6.31-.08-.67-.905-1.041-1.283-.948-.186.458-.502 1.047-1.01 1.413.043-.41.025-.83-.062-1.24a4.009 4.009 0 0 1-.769 1.562c-.588.043-1.177-.242-1.487-.67-.025-.018-.031-.055-.05-.08-.018-.043-.037-.087-.05-.13a.515.515 0 0 1-.037-.13c-.006-.044-.006-.087-.006-.137v-.093c.012-.043.025-.086.044-.13.024-.043.043-.087.074-.13.105-.298.105-.54-.087-.682a.706.706 0 0 0-.118-.062c-.024-.006-.055-.018-.08-.025l-.05-.018a.847.847 0 0 0-.13-.031.472.472 0 0 0-.13-.019 1.01 1.01 0 0 0-.136-.012c-.031 0-.062.006-.093.006a.484.484 0 0 0-.137.019c-.043.006-.086.012-.13.024a1.068 1.068 0 0 0-.13.044c-.043.018-.08.037-.124.056-.037.018-.074.043-.118.062-1.444.942-.582 3.148.403 3.787-.372.068-.75.148-.855.229l-.013.012c.267.161.546.298.837.416.397.13.818.247 1.004.297a5.996 5.996 0 0 0 1.562.112c2.746-.192 4.996-2.281 5.405-5.033l.037.161c.019.112.043.23.056.347.012.056.018.112.025.162.006.056.012.112.012.162.006.068.012.136.012.204v.198c0 .038-.007.075-.007.112v.087c0 .043-.006.08-.006.124 0 .025 0 .05-.006.08 0 .044-.006.087-.006.137l-.02.143c-.007.062-.019.118-.025.18l-.037.174-.037.167a1.663 1.663 0 0 1-.043.168c-.019.062-.037.118-.05.174l-.056.186c-.024.062-.043.118-.068.18-.025.062-.043.124-.068.18-.025.062-.05.117-.074.18-.024.055-.05.117-.08.173l-.019.043-.012.019a5.867 5.867 0 0 1-1.742 2.082c-.05.031-.099.069-.149.106l-.043.03a2.603 2.603 0 0 1-.136.094l.018.037.26-.037c.161-.025.322-.056.483-.087l.137-.031.087-.019c.043-.006.086-.018.13-.024l.111-.031c.62-.15 1.221-.354 1.798-.595a9.926 9.926 0 0 1-3.85 3.142c.714-.05 1.426-.167 2.114-.366a9.903 9.903 0 0 0 5.857-4.68 9.893 9.893 0 0 1-1.667 3.986 9.758 9.758 0 0 0 1.655-1.376 9.824 9.824 0 0 0 2.61-5.268c.21.98.272 1.99.18 2.987 4.474-6.241.371-12.712-1.346-14.416a8.34 8.34 0 0 1-.074.638c-.03.136-.068.273-.105.41-.044.13-.093.266-.15.396a5.322 5.322 0 0 1-.185.378 4.735 4.735 0 0 1-.477.688c-.093.111-.192.21-.292.31-.056.05-.112.099-.161.155l-.142.124a3.459 3.459 0 0 1-.347.241 4.295 4.295 0 0 1-.366.211c-.13.062-.26.118-.39.174a4.364 4.364 0 0 1-.818.223c-.143.025-.285.037-.422.05-.099.006-.198.006-.297.012a4.66 4.66 0 0 1-.422-.025 3.137 3.137 0 0 1-.421-.062 3.136 3.136 0 0 1-.415-.105c.137-.013.273-.025.41-.05a4.493 4.493 0 0 0 .818-.223c.136-.05.266-.112.39-.174.13-.062.248-.13.372-.204.118-.08.235-.161.347-.248.112-.087.217-.18.316-.279.093-.093.198-.198.291-.304.093-.111.18-.223.26-.334l.038-.062c.062-.1.124-.199.18-.298a4.272 4.272 0 0 0 .334-.775c.044-.13.075-.266.106-.403.025-.142.05-.278.062-.415.012-.142.025-.285.025-.421 0-.1-.007-.199-.013-.298a6.726 6.726 0 0 0-.05-.415 4.493 4.493 0 0 0-.092-.415c-.044-.13-.087-.267-.137-.397-.05-.13-.111-.26-.173-.384-.069-.124-.137-.248-.211-.366a6.843 6.843 0 0 0-.248-.34c-.093-.106-.186-.212-.285-.317a3.878 3.878 0 0 0-.161-.155c-.28-.217-.57-.421-.862-.607a1.154 1.154 0 0 0-.124-.062 2.415 2.415 0 0 0-.589-.26z"/></svg></span>
+              <span class="tslab"><b>NestJS</b><span>API</span></span>
+            </div>
+            <div class="tstation" style="left:62.5%">
+              <span class="tsnode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.8068 18.2848L13.5528.7565c-.207-.4382-.639-.7273-1.1286-.7541-.5023-.0293-.9523.213-1.2062.6253L2.266 15.1271c-.2773.4518-.2718 1.0091.0158 1.4555l4.3759 6.7786c.2608.4046.7127.6388 1.1823.6388.1332 0 .267-.0188.3987-.0577l12.7019-3.7568c.3891-.1151.7072-.3904.8737-.7553s.1633-.7828-.0075-1.1454zm-1.8481.7519L9.1814 22.2242c-.3292.0975-.6448-.1873-.5756-.5194l3.8501-18.4386c.072-.3448.5486-.3996.699-.0803l7.1288 15.138c.1344.2856-.019.6224-.325.7128z"/></svg></span>
+              <span class="tslab"><b>Prisma</b><span>ORM</span></span>
+            </div>
+            <div class="tstation" style="left:87.5%">
+              <span class="tsnode"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Zm-21.61-50.16C170.93,101.35,150.19,106,128,106s-42.93-4.65-58.39-12.16C55.88,86.35,48,78.62,48,72s7.88-14.35,21.61-21.84C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,10.16C200.12,57.65,208,65.38,208,72S200.12,86.35,186.39,93.84ZM208,176c0,6.62-7.88,14.35-21.61,21.84C170.93,205.35,150.19,210,128,210s-42.93-4.65-58.39-12.16C55.88,190.35,48,182.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Z"/></svg></span>
+              <span class="tslab"><b>PostgreSQL</b><span>BDD</span></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Pourquoi ce fil rouge</strong> → la fonctionnalité la plus complète · concentre les vraies décisions (transaction · paiement · sécurité · gestion d'état)</li>
+          <li><strong>Deux vues</strong> → côté utilisateur (le parcours) + côté technique (la donnée traverse les couches)</li>
+          <li><strong>Parcours</strong> → Panier → Checkout → Paiement → Confirmation</li>
+          <li><strong>La donnée descend</strong> → React → NestJS → Prisma → PostgreSQL</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide - Front : le formulaire checkout (validation typée) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Le formulaire de checkout</h2>
+      </header>
+      <div class="slide-body">
+        <div class="form-demo">
+          <figure class="form-shot fragment fade-up">
+            <img src="assets/formulaire-adresse-facturation-screenshot.png" alt="Formulaire d'adresse de facturation avec messages de validation en français">
+          </figure>
+          <div class="form-code fragment fade-up">
+            <div class="code-file">features/checkout/schemas/checkoutSchema.ts</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers="|7-10|15-16">import { z } from "zod";
+
+export const checkoutFormSchema = z.object({
+  contactEmail: z.string()
+    .min(1, "L'adresse e-mail est requise")
+    .email("Adresse e-mail invalide"),
+  street: z.string().min(1, "L'adresse est requise"),
+  city: z.string().min(1, "La ville est requise"),
+  postalCode: z.string().min(1, "Le code postal est requis"),
+  countryCode: z.string().min(1, "Le pays est requis"),
+  phone: z.string().max(20).optional(),
+});
+
+// type dérivé : le formulaire est typé automatiquement
+export type CheckoutFormValues =
+  z.infer&lt;typeof checkoutFormSchema&gt;;</code></pre>
+            <div class="form-points">
+              <span>RHF + <b>zodResolver</b></span>
+              <span>Messages <b>FR</b> dans le schéma</span>
+              <span><b>z.infer</b> : schéma ↔ form typés</span>
+              <span>Champs <b>shadcn/ui</b> accessibles (ARIA)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → front : le formulaire (adresse + paiement)</li>
+          <li><strong>Zod</strong> → validation + type (z.infer) : une seule source pour règles ET type</li>
+          <li><strong>Zod partout</strong> → tous les formulaires du site validés par un schéma Zod</li>
+          <li><strong>React Hook Form</strong> → gère champs / validation / soumission, performant (champs non contrôlés)</li>
+          <li><strong>shadcn/ui</strong> → label + erreur reliés en ARIA</li>
+          <li><strong>Défense en profondeur</strong> → revalidé côté API par les DTO</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 18 - Front (2) : état & asynchrone (3 natures d'état + réconciliation) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Trois natures d'état</h2>
+      </header>
+      <div class="slide-body spread">
+
+        <!-- 3 cartes : Local <-> Serveur reliées, Formulaire indépendant -->
+        <div class="states3 fragment fade-up">
+          <div class="state-pair">
+            <div class="state-card">
+              <span class="state-ico"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M432 64L208 64c-8.8 0-16 7.2-16 16l0 16-64 0 0-16c0-44.2 35.8-80 80-80L432 0c44.2 0 80 35.8 80 80l0 224c0 44.2-35.8 80-80 80l-16 0 0-64 16 0c8.8 0 16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zM0 192c0-35.3 28.7-64 64-64l256 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192zm64 32c0 17.7 14.3 32 32 32l192 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 192c-17.7 0-32 14.3-32 32z"/></svg></span>
+              <b class="state-name">Local</b>
+              <span class="state-tool">Zustand + persist</span>
+              <span class="state-desc">Panier · localStorage · expiration 24 h</span>
+            </div>
+            <span class="state-sync" aria-hidden="true">
+              <svg viewBox="0 0 512 512" fill="currentColor"><path d="M32 96l320 0 0-64c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-64L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 416l-320 0 0 64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64 320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+              <em>syncWithStock</em>
+            </span>
+            <div class="state-card">
+              <span class="state-ico"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg></span>
+              <b class="state-name">Serveur</b>
+              <span class="state-tool">TanStack Query</span>
+              <span class="state-desc">Stock · polling 5 min · refetch au focus</span>
+            </div>
+          </div>
+
+          <div class="state-card is-alone">
+            <span class="state-ico"><svg viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm16 64l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16l224 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-224 0c-8.8 0-16-7.2-16-16l0-32zM272 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM368 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM464 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"/></svg></span>
+            <b class="state-name">Formulaire</b>
+            <span class="state-tool">RHF + Zod</span>
+            <span class="state-desc">Checkout · validation typée</span>
+          </div>
+        </div>
+
+        <!-- réconciliation panier <-> stock -->
+        <div class="recon fragment fade-up">
+          <div class="recon-head">
+            <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M32 96l320 0 0-64c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-64L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 416l-320 0 0 64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64 320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+            <span><b>syncWithStock</b> - le panier local réconcilié avec le stock serveur</span>
+          </div>
+          <div class="recon-cases">
+            <div class="recon-case">
+              <span class="rc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,112a56,56,0,1,1-56-56A56.06,56.06,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88.11,88.11,0,1,1,11.31-11.31l50.07,50.06A8,8,0,0,1,229.66,229.66Z"/></svg></span>
+              <span class="rc-txt">Produit introuvable<em>article conservé</em></span>
+            </div>
+            <div class="recon-case">
+              <span class="rc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+              <span class="rc-txt">Stock suffisant<em>aucun changement</em></span>
+            </div>
+            <div class="recon-case">
+              <span class="rc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+              <span class="rc-txt">Stock insuffisant<em>quantité ajustée + notification</em></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → front : la gestion d'état</li>
+          <li><strong>Ne pas tout globaliser</strong> → un état par nature, le bon outil</li>
+          <li><strong>Local</strong> → Zustand + persist (panier, localStorage, expiration 24h)</li>
+          <li><strong>Serveur</strong> → TanStack Query (stock, polling 5 min + refetch focus)</li>
+          <li><strong>Formulaire</strong> → React Hook Form + Zod</li>
+          <li><strong>syncWithStock</strong> → introuvable=conservé · suffisant=inchangé · insuffisant=ajusté + dialog</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 22 - Diagramme d'états : cycle de vie de la commande -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Cycle de vie : deux dimensions d'état</h2>
+      </header>
+      <div class="slide-body">
+        <div class="statem-split">
+          <figure class="statem-img fragment fade-up">
+            <img src="../diagrammes/corps-etats-commande.svg" alt="Diagramme d'états : OrderStatus et PaymentStatus (cycle de vie de la commande)">
+          </figure>
+          <div class="sm-code fragment fade-up">
+            <div class="code-file">state machine (extrait)</div>
+            <pre><code class="language-typescript" data-trim data-noescape>// orders.constants.ts
+const ORDER_STATUS_TRANSITIONS = {
+  PENDING:   [CANCELLED],
+  CONFIRMED: [PLANTED, CANCELLED],
+  PLANTED:   [],   // final
+  CANCELLED: [],   // final
+};
+
+// orders.service.ts - le garde
+const allowed =
+  ORDER_STATUS_TRANSITIONS[order.orderStatus];
+
+if (!allowed.includes(newStatus))
+  throw new BadRequestException(
+    "Transition non autorisée");</code></pre>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → le modèle des statuts (charnière conception ↔ code)</li>
+          <li><strong>2 dimensions</strong> → avancement (OrderStatus) + paiement (PaymentStatus)</li>
+          <li><strong>OrderStatus</strong> → vraie machine à états (transitions + garde) → jamais d'état incohérent</li>
+          <li><strong>PaymentStatus</strong> → enum piloté par le webhook (transitions implicites)</li>
+          <li><strong>Pont</strong> → enums Prisma · confirmCheckout · webhook</li>
+        </ul>
+      </aside>
+    </section>
+
+
+
+    <!-- Slide 20 - Back (1) : confirmCheckout (transaction atomique) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Réserver le stock : <code>confirmCheckout</code></h2>
+      </header>
+      <div class="slide-body">
+        <div class="cc-split">
+          <div class="cc-code">
+            <div class="code-file">checkout/checkout.service.ts</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers>async confirmCheckout(userId, orderId) {
+  return this.prisma.$transaction(async (tx) => {
+    const order = await tx.order.findUnique({
+      where: { id: orderId },
+      include: { items: { include: { tree: { include: { stock: true }}}}},
+    });
+
+    if (!order) throw new NotFoundException("Commande introuvable");
+    if (order.userId !== userId)
+      throw new ForbiddenException("Accès non autorisé");
+
+    if (order.stockReservedAt ||
+        order.paymentStatus === "PROCESSING")
+      return { success: true };            // double-clic : rien à rejouer
+
+    const issues = [];
+    for (const item of order.items) {
+      const available = item.tree.stock?.quantity ?? 0;
+      if (available &lt; item.quantity) issues.push({ treeId: item.treeId });
+    }
+    if (issues.length &gt; 0) return { success: false, issues };
+
+    for (const item of order.items)                        // décrément atomique
+      await tx.treeStock.update({
+        where: { treeId: item.treeId },
+        data: { quantity: { decrement: item.quantity }},
+      });
+    await tx.order.update({
+      where: { id: orderId },
+      data: { stockReservedAt: new Date(), paymentStatus: "PROCESSING" },
+    });
+    return { success: true };
+  });
+}</code></pre>
+          </div>
+
+          <ol class="cc-reperes">
+            <li class="fragment fade-up" data-lines="2"><span class="cc-num">1</span><span class="cc-txt"><b>Transaction atomique</b><em><code>$transaction</code> : tout-ou-rien, rollback si erreur</em></span></li>
+            <li class="fragment fade-up" data-lines="9-10"><span class="cc-num">2</span><span class="cc-txt"><b>Contrôle d'accès</b><em>vérif propriétaire → 403 (OWASP A01 - Broken Access Control)</em></span></li>
+            <li class="fragment fade-up" data-lines="12-14"><span class="cc-num">3</span><span class="cc-txt"><b>Idempotence</b><em>stock déjà réservé (double-clic) → on ne rejoue pas</em></span></li>
+            <li class="fragment fade-up" data-lines="16-21"><span class="cc-num">4</span><span class="cc-txt"><b>Valider avant d'écrire</b><em>1 manque → rien n'est décrémenté</em></span></li>
+            <li class="cc-payoff fragment fade-up" data-lines="23-31"><span class="cc-num">5</span><span class="cc-txt"><b>Décrément atomique</b><em>+ <code>stockReservedAt</code> + <code>PROCESSING</code></em></span></li>
+          </ol>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → back : réserver le stock</li>
+          <li><strong>Pièce maîtresse</strong> → réserver le stock : atomique · sécurisé · idempotent, avant le paiement</li>
+          <li><strong>Transaction</strong> → tout-ou-rien (rollback)</li>
+          <li><strong>Contrôle d'accès</strong> → order.userId ≠ userId → 403 (OWASP A01)</li>
+          <li><strong>Idempotence</strong> → stockReservedAt / PROCESSING → double-clic ne rejoue pas</li>
+          <li><strong>Valider avant d'écrire</strong> → 1 manque → rien décrémenté</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 21 - Back (2) : le webhook Stripe, source de vérité -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Stripe : le webhook, source de vérité</h2>
+      </header>
+      <div class="slide-body">
+        <div class="cc-split">
+          <div class="cc-code">
+            <div class="code-file">payment.controller.ts + payment.service.ts</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers>// payment.controller.ts
+@Post("webhook") @SkipThrottle()
+handleWebhook(@Headers("stripe-signature") sig, @Req() req) {
+  return this.paymentService.handleWebhook(sig, req.rawBody);
+}
+
+// payment.service.ts
+async handleWebhook(signature, rawBody) {
+  const event = this.stripe.webhooks.constructEvent(
+    rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET,
+  );  // signature invalide -&gt; 400
+
+  const pi = event.data.object;
+  switch (event.type) {
+    case "payment_intent.succeeded":      return this.handleSuccess(pi);
+    case "payment_intent.payment_failed": return this.handleFailed(pi);
+    case "payment_intent.canceled":       return this.handleCanceled(pi);
+  }
+}
+
+private async handleSuccess(pi) {
+  const order = await prisma.order.findUnique({
+    where: { id: +pi.metadata.orderId },
+  });
+  if (order.paymentIntentId !== pi.id) return;   // anti-spoofing
+  if (order.paymentStatus === "PAID") return;    // idempotence
+
+  await prisma.$transaction(async (tx) =&gt; {
+    await tx.order.update({ where: { id: order.id }, data: {
+      paymentStatus: "PAID", orderStatus: "CONFIRMED",
+      invoiceNumber: await generateInvoiceNumber(tx),
+    }});
+  });
+  await this.emailService.sendOrderConfirmationEmail(order);
+}</code></pre>
+          </div>
+
+          <ol class="cc-reperes">
+            <li class="fragment fade-up" data-lines="2"><span class="cc-num">1</span><span class="cc-txt"><b>@SkipThrottle</b><em>un webhook ne se rate-limite jamais (Stripe rejoue)</em></span></li>
+            <li class="fragment fade-up" data-lines="9-11"><span class="cc-num">2</span><span class="cc-txt"><b>Signature HMAC</b><em><code>constructEvent</code> : seul Stripe peut signer (rawBody requis)</em></span></li>
+            <li class="fragment fade-up" data-lines="14-18"><span class="cc-num">3</span><span class="cc-txt"><b>3 événements</b><em>succeeded / failed (restaure le stock) / canceled</em></span></li>
+            <li class="fragment fade-up" data-lines="25-26"><span class="cc-num">4</span><span class="cc-txt"><b>Sécurité du traitement</b><em>anti-spoofing (paymentIntentId) + idempotence (déjà PAID)</em></span></li>
+            <li class="cc-payoff fragment fade-up" data-lines="28-34"><span class="cc-num">5</span><span class="cc-txt"><b>Confirmation</b><em>PAID + CONFIRMED + facture + email, en transaction</em></span></li>
+          </ol>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → back : encaisser (Stripe)</li>
+          <li><strong>Source de vérité</strong> → décidé par Stripe, jamais par le navigateur</li>
+          <li><strong>Signature HMAC</strong> → constructEvent (rawBody requis) · invalide → 400</li>
+          <li><strong>@SkipThrottle</strong> → un webhook ne se rate-limite jamais (Stripe rejoue)</li>
+          <li><strong>3 events</strong> → succeeded / failed (restaure stock) / canceled</li>
+          <li><strong>Sécurité</strong> → anti-spoofing (paymentIntentId) + idempotence (déjà PAID)</li>
+          <li><strong>Résilience</strong> → cron rattrape les webhooks perdus</li>
+        </ul>
+      </aside>
+    </section>
+
+
+
+    <!-- Slide 23 - Données & SQL : la transaction ORM <-> SQL -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>De l'ORM au SQL : la transaction</h2>
+      </header>
+      <div class="slide-body">
+        <div class="sqlsplit">
+          <div class="sqlcol">
+            <div class="code-file">Prisma (ORM, TypeScript)</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers>await prisma.$transaction(async (tx) =&gt; {
+
+  const order = await tx.order.findUnique({
+    where: { id: orderId },
+    include: { items: { include:
+      { tree: { include: { stock: true }}}}},
+  });
+
+  for (const item of order.items)
+    await tx.treeStock.update({
+      where: { treeId: item.treeId },
+      data: { quantity: { decrement: item.quantity }},
+    });
+
+  await tx.order.update({
+    where: { id: orderId },
+    data: { paymentStatus: "PROCESSING" },
+  });
+
+});</code></pre>
+          </div>
+          <div class="sqlcol">
+            <div class="code-file">SQL équivalent (PostgreSQL)</div>
+            <pre><code class="language-sql" data-trim data-noescape data-line-numbers>BEGIN;
+
+-- includes imbriqués = JOINs
+SELECT o.*, oi.*, t.*, s.quantity
+  FROM orders o
+  JOIN order_items oi ON oi.order_id = o.id
+  JOIN trees t        ON t.id = oi.tree_id
+  JOIN stock s        ON s.tree_id = t.id
+ WHERE o.id = $1;
+
+-- decrement = UPDATE atomique
+UPDATE stock
+   SET quantity = quantity - $2
+ WHERE tree_id = $3;
+
+UPDATE orders
+   SET payment_status = 'PROCESSING'
+ WHERE id = $1;
+
+COMMIT;</code></pre>
+          </div>
+        </div>
+        <div class="sql-points">
+          <span class="fragment fade-up" data-p="1,20" data-s="1,20"><b>$transaction</b> ↔ BEGIN … COMMIT</span>
+          <span class="fragment fade-up" data-p="3-7" data-s="4-9"><b>include</b> ↔ SELECT + JOINs</span>
+          <span class="fragment fade-up" data-p="9-13" data-s="12-14"><b>decrement</b> ↔ UPDATE atomique</span>
+          <span class="fragment fade-up" data-p="15-18" data-s="16-18"><b>order.update</b> ↔ UPDATE orders</span>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → données : la transaction, vue SQL</li>
+          <li><strong>Comprendre le SQL derrière l'ORM</strong> (attente du jury)</li>
+          <li><strong>$transaction</strong> ↔ BEGIN … COMMIT/ROLLBACK</li>
+          <li><strong>include</strong> ↔ JOINs · <strong>decrement</strong> ↔ UPDATE atomique (un par arbre, pas de race condition)</li>
+          <li><strong>Requêtes paramétrées</strong> ($1,$2) → injection SQL impossible (A05)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 24 - Données NoSQL : Redis (3 usages) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Redis : NoSQL clé / valeur, en mémoire</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="redis-lead fragment fade-up">Base <b>NoSQL clé / valeur, en mémoire</b> (~0,1 ms) - trois usages concrets couvrent l'exigence NoSQL</p>
+        <div class="redis-grid">
+
+          <div class="redis-card fragment fade-up">
+            <span class="rd-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17Z"/></svg></span>
+            <b class="rd-title">Cache (cache-aside)</b>
+            <p class="rd-desc">Miss → BDD → remplit le cache. Invalidation à l'écriture.</p>
+            <div class="rd-tags"><span>Pays <b>24 h</b></span><span>Catégories <b>1 h</b></span></div>
+          </div>
+
+          <div class="redis-card fragment fade-up">
+            <span class="rd-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Zm-32.6,64.71-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.31L104,143.68l50.34-50.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+            <b class="rd-title">Anti-brute-force</b>
+            <p class="rd-desc">Compteur d'échecs par email (<code>incr</code> + TTL).</p>
+            <div class="rd-tags"><span>≥ 5 échecs → bloqué <b>15 min</b></span></div>
+          </div>
+
+          <div class="redis-card fragment fade-up">
+            <span class="rd-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM48,128a79.9,79.9,0,0,1,129.63-62.94L65.06,177.63A79.62,79.62,0,0,1,48,128Zm80,80a79.9,79.9,0,0,1-51.63-18.94L190.94,78.37A79.9,79.9,0,0,1,128,208Z"/></svg></span>
+            <b class="rd-title">Blacklist JWT</b>
+            <p class="rd-desc">Token blacklisté au logout, vérifié à chaque requête.</p>
+            <div class="rd-tags"><span>TTL = <b>expiration restante</b></span></div>
+          </div>
+
+        </div>
+        <p class="redis-foot fragment fade-up">Le cache <b>accroît les performances mais n'est pas critique</b> : si Redis tombe, l'application continue de fonctionner (repli automatique sur la base de données).</p>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → données : le NoSQL</li>
+          <li><strong>NoSQL</strong> → couvre SQL + NoSQL (CP8), ~0,1 ms</li>
+          <li><strong>Cache cache-aside</strong> → pays 24h · catégories 1h + invalidation → moins de requêtes SQL redondantes (éco-conception)</li>
+          <li><strong>Anti-brute-force</strong> → 5 échecs/email → 15 min</li>
+          <li><strong>Blacklist JWT</strong> → révoque un token stateless au logout</li>
+          <li><strong>Dégradation gracieuse</strong> → Redis tombe → fallback BDD (pas critique)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Intercalaire bloc 4 : PASSAGES OBLIGATOIRES -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Sécurité, tests & conformité</h2>
+          <ul class="divider-summary">
+            <li>Authentification & contrôle d'accès</li>
+            <li>Injections, XSS, CSRF (OWASP)</li>
+            <li>Tests & jeu d'essai</li>
+            <li>RGPD & conformité</li>
+          </ul>
+        </div>
+        <div class="divider-index">04</div>
+      </div>
+      <ol class="toc">
+        <li class="done">Introduction</li>
+        <li class="done">Conception</li>
+        <li class="done">Tunnel de vente</li>
+        <li class="current">Sécurité, tests & conformité</li>
+        <li>Déploiement</li>
+        <li>Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « Les exigences transverses du titre : sécurité, tests, conformité. »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 26 - Sécurité : authentification (défense en profondeur) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>Authentification : défense en profondeur</h2>
+      </header>
+      <div class="slide-body">
+        <div class="auth-split">
+          <figure class="auth-diagram fragment fade-up">
+            <img src="../diagrammes/annexe-6-sequence-authentification.svg" alt="Séquence d'authentification : login (brute-force, bcrypt, JWT, cookie HttpOnly) et logout (blacklist)">
+          </figure>
+          <ul class="auth-mechs fragment fade-up">
+            <li><b>Cookie HttpOnly</b> + Secure + SameSite=Lax<em>token illisible au JS → XSS neutralisé (migration depuis localStorage)</em></li>
+            <li><b>bcrypt</b> (10 rounds)<em>mots de passe hachés avec un sel unique (irréversible)</em></li>
+            <li><b>Tokens</b> reset / vérif <b>hashés</b><em>SHA-256 (fuite BDD inexploitable)</em></li>
+            <li><b>Anti-brute-force</b><em>5 échecs / 15 min (Redis)</em></li>
+            <li><b>Blacklist JWT</b> au logout<em>révoque un token stateless (Redis)</em></li>
+            <li><b>Passport</b> - 2 stratégies<em>Local (login) / Jwt (routes protégées)</em></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Décision clé</strong> → JWT en cookie HttpOnly (illisible au JS → XSS neutralisé)</li>
+          <li><strong>bcrypt (10)</strong> → haché + salé (lent = anti-brute-force)</li>
+          <li><strong>Tokens reset/vérif</strong> → SHA-256 (fuite BDD inexploitable)</li>
+          <li><strong>Anti-brute-force</strong> → 5/15 min · <strong>Blacklist JWT</strong> au logout (Redis)</li>
+          <li><strong>Passport</strong> → 2 stratégies (Local login / JWT routes protégées)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 27 - Sécurité : injection SQL & XSS (défense en profondeur) -->
+    <section class="content">
+      <header class="slide-head owasp-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>Injection SQL & XSS : défense en profondeur</h2>
+        <span class="owasp-badge" aria-label="OWASP Top 10 2025">
+          <span class="owasp-word">OWASP</span>
+          <span class="owasp-sub">Top 10 : 2025</span>
+        </span>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Deux failles majeures neutralisées à <b>plusieurs niveaux</b> - si une couche cède, une autre protège</p>
+        <div class="threat-split">
+
+          <div class="threat-card fragment fade-up">
+            <div class="tc-head">
+              <span class="tc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Zm0,48c0,9.62-7.88,19.43-21.61,26.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM128,120c-22.19,0-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80s7.88-19.43,21.61-26.92C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120Z"/></svg></span>
+              <span class="tc-name">Injection SQL</span>
+            </div>
+            <span class="tc-tag">OWASP A05 · Injection</span>
+            <ul class="tc-layers">
+              <li><b>Prisma</b> - requêtes paramétrées ($1, $2), aucune concaténation</li>
+              <li><b>ValidationPipe</b> - whitelist + forbidNonWhitelisted</li>
+              <li><b>DTO class-validator</b> - typage + règles au bord de l'API</li>
+            </ul>
+          </div>
+
+          <div class="threat-card fragment fade-up">
+            <div class="tc-head">
+              <span class="tc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></svg></span>
+              <span class="tc-name">XSS</span>
+            </div>
+            <span class="tc-tag">OWASP A05 · Injection (famille XSS)</span>
+            <ul class="tc-layers">
+              <li><b>React</b> - échappe le HTML par défaut (pas de <code>dangerouslySetInnerHTML</code>)</li>
+              <li><b>Helmet</b> - headers de sécurité + CSP</li>
+              <li><b>Zod</b> - validation côté client</li>
+              <li><b>Cookie HttpOnly</b> - le token reste protégé même en cas de XSS</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Principe</strong> → bloqué à plusieurs niveaux (client → API → ORM → headers)</li>
+          <li><strong>Injection SQL (A05)</strong> → Prisma paramétré · ValidationPipe (whitelist) · DTO</li>
+          <li><strong>XSS</strong> → React échappe par défaut (pas de dangerouslySetInnerHTML) · Helmet CSP · cookie HttpOnly</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 28 - Sécurité : CSRF & Broken Access Control -->
+    <section class="content">
+      <header class="slide-head owasp-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>CSRF & contrôle d'accès</h2>
+        <span class="owasp-badge" aria-label="OWASP Top 10 2025">
+          <span class="owasp-word">OWASP</span>
+          <span class="owasp-sub">Top 10 : 2025</span>
+        </span>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Contrôler <b>qui peut faire quoi</b> - de la requête forgée au risque n°1 OWASP</p>
+        <div class="threat-split">
+
+          <div class="threat-card fragment fade-up">
+            <div class="tc-head">
+              <span class="tc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM48,128a79.9,79.9,0,0,1,129.63-62.94L65.06,177.63A79.62,79.62,0,0,1,48,128Zm80,80a79.9,79.9,0,0,1-51.63-18.94L190.94,78.37A79.9,79.9,0,0,1,128,208Z"/></svg></span>
+              <span class="tc-name">CSRF</span>
+            </div>
+            <span class="tc-tag">Requête forgée · rattachée à A01</span>
+            <ul class="tc-layers">
+              <li><b>CORS restrictif</b> - une seule origine autorisée (<code>FRONTEND_URL</code>)</li>
+              <li><b>Cookie SameSite=Lax</b> - pas d'envoi du cookie en cross-site</li>
+              <li>Résultat : une requête forgée depuis un autre site est <b>bloquée</b></li>
+            </ul>
+          </div>
+
+          <div class="threat-card fragment fade-up">
+            <div class="tc-head">
+              <span class="tc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96Zm40,110.63V184a8,8,0,0,1-16,0V166.63a24,24,0,1,1,16,0Z"/></svg></span>
+              <span class="tc-name">Contrôle d'accès</span>
+            </div>
+            <span class="tc-tag">OWASP A01 · Broken Access Control</span>
+            <ul class="tc-layers">
+              <li><b>JwtAuthGuard + RolesGuard</b> - rôles USER / ADMIN</li>
+              <li><b>@Roles / @CurrentUser</b> - déclaratif sur chaque route</li>
+              <li><b>Vérification propriétaire</b> - <code>order.userId === userId</code></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>CSRF</strong> → CORS restrictif (1 origine) + cookie SameSite=Lax → requête forgée bloquée</li>
+          <li><strong>Contrôle d'accès (A01, risque n°1)</strong> → JwtAuthGuard + RolesGuard + ownership (order.userId)</li>
+          <li><strong>Rappel</strong> → le serveur déclare, le navigateur applique (CORS/SameSite)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 29 - Tests : stratégie (unitaires, honnête sur les limites) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>Tests : une stratégie ciblée</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Des tests <b>unitaires</b> concentrés sur la logique critique - checkout, paiement, panier</p>
+        <div class="tests-split">
+
+          <div class="test-done fragment fade-up">
+            <div class="td-head"><span class="td-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>Tests unitaires</div>
+            <div class="td-kpi"><b>211</b><span>tests unitaires</span></div>
+            <div class="td-chips">
+              <span><b>151</b> Jest (back)</span>
+              <span><b>60</b> Vitest + Testing Library (front)</span>
+            </div>
+            <ul class="td-points">
+              <li>Priorité : <b>logique critique</b> (checkout, paiement, panier)</li>
+              <li>Exécutés en <b>CI sur chaque PR</b> (bloquent le merge)</li>
+            </ul>
+          </div>
+
+          <div class="test-code fragment fade-up">
+            <div class="td-head"><span class="td-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></svg></span>Exemple : un test du panier</div>
+            <div class="code-wrap">
+              <div class="code-file">cart/store/__tests__/cartStore.test.ts</div>
+              <pre><code class="language-typescript" data-trim>it("should increment quantity if item already exists", () => {
+  const { addItem } = useCartStore.getState();
+
+  addItem(1, 2);
+  addItem(1, 3);
+
+  const state = useCartStore.getState();
+  expect(state.items).toHaveLength(1);
+  expect(state.items[0]?.quantity).toBe(5);
+});</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Uniquement unitaires</strong> (honnête, pas de fausse pyramide)</li>
+          <li><strong>211 tests</strong> → 151 Jest (back) + 60 Vitest+Testing Library (front)</li>
+          <li><strong>Ciblage</strong> → logique critique (checkout, paiement, panier)</li>
+          <li><strong>CI</strong> → sur chaque PR (bloquent le merge)</li>
+          <li><strong>Exemple</strong> → arrange/act/assert (panier cumule la quantité)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 30 - Jeu d'essai : le tunnel de vente (tableau plein largeur) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>Jeu d'essai : le tunnel de vente</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Le parcours critique validé cas par cas - du nominal aux erreurs, <b>sans écart constaté</b></p>
+        <div class="table-card jeu-essai fragment fade-up">
+          <table>
+            <thead>
+              <tr>
+                <th class="je-num">#</th>
+                <th>Cas testé</th>
+                <th>Résultat attendu</th>
+                <th class="je-ok">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="je-num">1</td>
+                <td>Ajout d'un arbre déjà présent au panier</td>
+                <td>Quantité cumulée (une seule ligne)</td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">2</td>
+                <td>Sync stock : quantité (5) &gt; stock serveur (3)</td>
+                <td>Quantité <b>ajustée à 3</b></td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">3</td>
+                <td>Panier inactif depuis plus de 24 h</td>
+                <td>Panier vidé automatiquement</td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">4</td>
+                <td>Accès à la commande d'un autre utilisateur</td>
+                <td><code>403 Forbidden</code></td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">5</td>
+                <td>Double confirmation d'un même checkout</td>
+                <td>Idempotent : pas de second décrément de stock</td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">6</td>
+                <td>Webhook Stripe <code>payment_intent.succeeded</code></td>
+                <td>Paiement <code>PAID</code> → commande <code>CONFIRMED</code></td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">7</td>
+                <td>Webhook Stripe <code>payment_intent.payment_failed</code></td>
+                <td>Paiement <code>FAILED</code></td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="je-num">8</td>
+                <td>Signature du webhook Stripe invalide</td>
+                <td>Rejeté : <code>HTTP 400</code>, aucun traitement</td>
+                <td class="je-ok"><span class="je-check" aria-label="conforme"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="je-caption fragment fade-up">Scénarios rejoués en <b>CI sur chaque PR</b> - aucun écart entre résultat attendu et obtenu</p>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Jeu d'essai fonctionnel</strong> (attendu CP9) → nominal + cas d'erreur</li>
+          <li><strong>8 cas</strong> → panier · sync · expiration 24h · 403 · idempotence · webhook PAID/FAILED · signature→400</li>
+          <li><strong>Aucun écart</strong> attendu/obtenu · rejoués en CI</li>
+          <li><strong>Complète</strong> les tests unitaires</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 31 - RGPD : anonymiser plutôt que supprimer (schéma avant/après + 2 cartes) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Sécurité, tests & conformité</span>
+        <h2>RGPD &amp; cadre légal de l'application</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Concilier le <b>droit à l'effacement</b> (art. 17) et l'<b>obligation comptable</b> de conservation</p>
+
+        <div class="rgpd-flow">
+
+          <div class="rgpd-act fragment fade-up">
+            <figure class="rgpd-shot">
+              <img src="assets/exporter-mes-donnees.png" alt="Encart « Exporter mes données » (droit d'accès, art. 15)">
+            </figure>
+            <span class="rgpd-arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span>
+            <div class="rgpd-out">
+              <div class="out-head"><span class="oh-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM152,88V44l44,44Z"/></svg></span>Droit d'accès<span class="out-art">art. 15</span></div>
+              <p>Un <b>fichier JSON</b> structuré : profil, commandes, adresses - sans champ sensible</p>
+              <span class="rc-route">GET /auth/me/export</span>
+            </div>
+          </div>
+
+          <div class="rgpd-act fragment fade-up">
+            <figure class="rgpd-shot">
+              <img src="assets/supprimer-mon-compte.png" alt="Encart « Supprimer mon compte » : compte supprimé, données anonymisées, commandes conservées">
+            </figure>
+            <span class="rgpd-arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span>
+            <div class="rgpd-out">
+              <div class="out-head"><span class="oh-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Zm0,48c0,9.62-7.88,19.43-21.61,26.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM128,120c-22.19,0-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80s7.88-19.43,21.61-26.92C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120Z"/></svg></span>Anonymisation<span class="out-art">art. 17</span><span class="out-note">transaction atomique</span></div>
+              <div class="out-map">
+                <div class="om-row"><span class="om-old">Jean Dupont</span><span class="om-arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span><span class="om-new">Utilisateur supprimé</span></div>
+                <div class="om-row"><span class="om-old">jean.dupont@email.com</span><span class="om-arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></span><span class="om-new">deleted@anonymized.local</span></div>
+              </div>
+              <div class="out-keep"><span class="ok-lock" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96Zm40,110.63V184a8,8,0,0,1-16,0V166.63a24,24,0,1,1,16,0Z"/></svg></span>Commandes <b>conservées</b> (obligation légale - 6 ans)</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="rgpd-cookie fragment fade-up">
+          <span class="ck-badge" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM48,128a79.9,79.9,0,0,1,129.63-62.94L65.06,177.63A79.62,79.62,0,0,1,48,128Zm80,80a79.9,79.9,0,0,1-51.63-18.94L190.94,78.37A79.9,79.9,0,0,1,128,208Z"/></svg></span>
+          <span class="ck-txt"><b>Cookies</b> - aucun traceur ni analytics → <b>pas de bannière</b> (seul le cookie d'auth HttpOnly, strictement nécessaire)</span>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Arbitrage</strong> → effacement (art.17) vs obligation comptable (6 ans)</li>
+          <li><strong>Solution</strong> → anonymiser (pas supprimer), en transaction → commandes conservées</li>
+          <li><strong>Droit d'accès (art.15)</strong> → export JSON (profil, commandes, adresses)</li>
+          <li><strong>Cookies</strong> → 0 traceur → pas de bannière (seul cookie = auth, strictement nécessaire)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Intercalaire bloc 5 : DÉPLOIEMENT & DEVOPS -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Déploiement & DevOps</h2>
+          <ul class="divider-summary">
+            <li>Conteneurisation (Docker)</li>
+            <li>CI/CD (GitHub Actions)</li>
+            <li>Mise en production (Hetzner / Coolify)</li>
+          </ul>
+        </div>
+        <div class="divider-index">05</div>
+      </div>
+      <ol class="toc">
+        <li class="done">Introduction</li>
+        <li class="done">Conception</li>
+        <li class="done">Tunnel de vente</li>
+        <li class="done">Sécurité, tests & conformité</li>
+        <li class="current">Déploiement</li>
+        <li>Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « De la machine locale à la production. »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 32 - Conteneurisation (Docker + Makefile) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Déploiement & DevOps</span>
+        <h2>Conteneurisation : un environnement reproductible</h2>
+      </header>
+      <div class="slide-body spread">
+        <div class="env-leadrow fragment fade-up">
+          <span class="env-docker" aria-label="Docker"><svg viewBox="0 0 640 512" fill="currentColor"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H8.7c-8.6 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4 .4 67.6 .1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+          <p class="threat-lead">Docker Compose - un dev complet en <b>une commande</b>, une prod <b>durcie</b></p>
+        </div>
+        <div class="env4 fragment fade-up">
+          <div class="env-yaml">
+            <div class="code-file">compose.dev.yml</div>
+            <pre><code class="language-yaml" data-trim>backend:
+  build:
+    dockerfile: Dockerfile
+  command: >
+    prisma migrate deploy
+    && npm run start:dev
+  ports:
+    - "3000:3000"   # exposé
+  volumes:
+    - ./app/backend:/app
+  depends_on:
+    - database
+    - redis</code></pre>
+          </div>
+          <div class="env-card env-dev">
+            <div class="env-head"><span class="env-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></svg></span>Développement<span class="env-count">7 services</span></div>
+            <div class="env-chips">
+              <span>React (Vite)</span><span>NestJS</span><span>PostGIS</span><span>Redis</span><span>Nginx</span><span>Stripe CLI</span><span>Prisma Studio</span>
+            </div>
+            <div class="env-tag env-tag-dev">Hot reload · ports exposés · tunnel Stripe</div>
+          </div>
+          <div class="env-card env-prod">
+            <div class="env-head"><span class="env-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></span>Production<span class="env-count">4 services</span></div>
+            <div class="env-chips">
+              <span>React</span><span>NestJS</span><span>PostGIS</span><span>Redis</span>
+            </div>
+            <div class="env-tag">expose · healthchecks · restart</div>
+          </div>
+          <div class="env-yaml">
+            <div class="code-file">compose.prod.yml</div>
+            <pre><code class="language-yaml" data-trim>backend:
+  build:
+    dockerfile: Dockerfile.prod
+  expose:
+    - "3000"   # pas public
+  restart: unless-stopped
+  depends_on:
+    - database
+    - redis
+  healthcheck:
+    test: [ /api/health ]
+    interval: 30s
+    retries: 3</code></pre>
+          </div>
+        </div>
+        <div class="env-feats fragment fade-up">
+          <span class="feat"><span class="feat-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M117.31,134l-72,64a8,8,0,0,1-10.62-12L100,128,34.69,70A8,8,0,0,1,45.31,58l72,64a8,8,0,0,1,0,12ZM216,184H120a8,8,0,0,0,0,16h96a8,8,0,0,0,0-16Z"/></svg></span><b>Makefile</b> - ~20 commandes (<code>make dev</code>)</span>
+          <span class="feat"><span class="feat-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg></span><b>Multi-stage</b> Alpine, non-root</span>
+          <span class="feat"><span class="feat-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17Z"/></svg></span><b>Nginx</b> gzip + cache 1 an</span>
+          <span class="feat"><span class="feat-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Zm-34.34,69.66-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L120,140.69l42.34-42.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>Validation <b>Joi</b> (fail-fast)</span>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Reproductibilité</strong> → fini « ça marche chez moi »</li>
+          <li><strong>Dev</strong> → 7 services (hot reload · ports exposés · tunnel Stripe)</li>
+          <li><strong>Prod</strong> → 4 services durcis (expose · healthcheck · restart)</li>
+          <li><strong>Images</strong> → multi-stage Alpine non-root (légères, surface réduite)</li>
+          <li><strong>Joi</strong> → valide l'env au démarrage (fail-fast) · <strong>Makefile</strong> ~20 commandes</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 33 - CI/CD : 3 workflows GitHub Actions -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Déploiement & DevOps</span>
+        <h2>CI/CD : trois workflows GitHub Actions</h2>
+      </header>
+      <div class="slide-body spread">
+        <div class="cicd-leadrow fragment fade-up">
+          <span class="cicd-gh" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+          <p class="threat-lead">La qualité est <b>automatisée</b> à chaque étape - de la Pull Request à la mise en production</p>
+        </div>
+        <div class="cicd fragment fade-up">
+          <div class="cicd-stage">
+            <div class="cs-head"><span class="cs-dot"></span><span class="cs-branch">Pull Request</span></div>
+            <div class="cs-file">pr-checks.yml</div>
+            <ul class="cs-steps">
+              <li>lint</li>
+              <li>tests unitaires</li>
+              <li>npm audit <code>critical</code></li>
+            </ul>
+            <div class="cs-out">garde-fou : bloque le merge</div>
+          </div>
+          <span class="cicd-merge" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg><span>merge</span></span>
+          <div class="cicd-stage">
+            <div class="cs-head"><span class="cs-dot"></span><span class="cs-branch">develop</span></div>
+            <div class="cs-file">develop-ci.yml</div>
+            <ul class="cs-steps">
+              <li>BDD de test</li>
+              <li>migrate + seed</li>
+              <li>lint</li>
+              <li>couverture <code>test:cov</code></li>
+            </ul>
+            <div class="cs-out">intégration continue</div>
+          </div>
+          <span class="cicd-merge" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg><span>merge</span></span>
+          <div class="cicd-stage cs-prod">
+            <div class="cs-head"><span class="cs-dot"></span><span class="cs-branch">main</span></div>
+            <div class="cs-file">production-deploy.yml</div>
+            <ul class="cs-steps">
+              <li>tests</li>
+              <li>webhook Coolify</li>
+              <li>health check <code>/api/health</code></li>
+            </ul>
+            <div class="cs-out"><span class="cs-rocket" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1-8-8,8,8,0,0,1,8-8h32A8,8,0,0,1,152,224Zm71.62-144.16c-8.11,42.72-38.4,75.52-54.62,90.81V184a16,16,0,0,1-16,16H103a16,16,0,0,1-16-16V170.65C70.78,155.36,40.49,122.56,32.38,79.84A16.09,16.09,0,0,1,45.53,61.13a151,151,0,0,1,164.94,0A16.09,16.09,0,0,1,223.62,79.84ZM144,120a16,16,0,1,0-16,16A16,16,0,0,0,144,120Z"/></svg></span>déploiement en prod</div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>3 étages</strong> → suivent le git flow</li>
+          <li><strong>PR</strong> → lint + tests + npm audit critical (garde-fou, bloque le merge)</li>
+          <li><strong>develop</strong> → vraie BDD PostgreSQL + migrate + seed + couverture</li>
+          <li><strong>main</strong> → tests + webhook Coolify + health check /api/health</li>
+          <li><strong>J'interprète</strong> les rapports CI</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 34 - Déploiement prod : Hetzner + Coolify -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Déploiement & DevOps</span>
+        <h2>Mise en production : Hetzner + Coolify</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Un déploiement réalisé <b>de bout en bout</b> - VPS + PaaS auto-hébergé</p>
+        <div class="infra-flow fragment fade-up">
+          <span class="ifs"><span class="ifs-k">git push</span><span class="ifs-v">main</span></span>
+          <span class="if-arrow">→</span>
+          <span class="ifs"><span class="ifs-k">GitHub Actions</span><span class="ifs-v">tests OK</span></span>
+          <span class="if-arrow">→</span>
+          <span class="ifs"><span class="ifs-k">Webhook Coolify</span><span class="ifs-v">build + deploy</span></span>
+          <span class="if-arrow">→</span>
+          <span class="ifs"><span class="ifs-k">Conteneurs</span><span class="ifs-v">front · back · db · redis</span></span>
+          <span class="if-arrow">→</span>
+          <span class="ifs ifs-live"><span class="ifs-k">Nginx / HTTPS</span><span class="ifs-v">app live (sslip.io)</span></span>
+        </div>
+        <div class="infra-cards">
+          <div class="infra-card fragment fade-up">
+            <div class="ic-head"><span class="ic-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40H48A24,24,0,0,0,24,64v48a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,72a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm0,40H48a24,24,0,0,0-24,24v16a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V176A24,24,0,0,0,208,152Zm8,40a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V176a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8ZM64,88A12,12,0,1,1,76,100,12,12,0,0,1,64,88Zm0,96a12,12,0,1,1,12,12A12,12,0,0,1,64,184Z"/></svg></span>VPS Hetzner + Coolify</div>
+            <p>Coolify orchestre Docker (un « Heroku » auto-hébergé). Domaine <code>sslip.io</code>, Nginx en façade, HTTPS.</p>
+          </div>
+          <div class="infra-card fragment fade-up">
+            <div class="ic-head"><span class="ic-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Zm-21.61-50.16C170.93,101.35,150.19,106,128,106s-42.93-4.65-58.39-12.16C55.88,86.35,48,78.62,48,72s7.88-14.35,21.61-21.84C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,10.16C200.12,57.65,208,65.38,208,72S200.12,86.35,186.39,93.84ZM208,176c0,6.62-7.88,14.35-21.61,21.84C170.93,205.35,150.19,210,128,210s-42.93-4.65-58.39-12.16C55.88,190.35,48,182.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64Z"/></svg></span>Sauvegarde / restauration</div>
+            <p><code>pg_dump</code> / <code>pg_restore</code> - procédure documentée, validée en local.</p>
+          </div>
+          <div class="infra-card fragment fade-up">
+            <div class="ic-head"><span class="ic-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Z"/></svg></span>Sécurité infra</div>
+            <p>HTTPS · <code>expose</code> (pas de ports publics) · conteneurs non-root · env validé par Joi.</p>
+          </div>
+        </div>
+        <p class="infra-honest fragment fade-up"><span class="ih-tag">En cours</span> Reste à finaliser l'<b>automatisation des sauvegardes</b> (procédure <code>pg_dump</code> validée en local).</p>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Argument fort</strong> → déploiement fait de A à Z moi-même</li>
+          <li><strong>Pipeline</strong> → push main → Actions → webhook Coolify → conteneurs → Nginx/HTTPS</li>
+          <li><strong>Infra</strong> → VPS Hetzner · Coolify (PaaS auto-hébergé) · sslip.io · HTTPS</li>
+          <li><strong>Sauvegarde</strong> → pg_dump/pg_restore validé en local</li>
+          <li><strong>Honnêteté</strong> → automatisation des sauvegardes = à finaliser</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Intercalaire bloc 6 : CONCLUSION -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-grid">
+        <div class="divider-main">
+          <h2>Conclusion</h2>
+          <ul class="divider-summary">
+            <li>Perspectives & axes d'amélioration</li>
+            <li>Bilan personnel</li>
+          </ul>
+        </div>
+        <div class="divider-index">06</div>
+      </div>
+      <ol class="toc">
+        <li class="done">Introduction</li>
+        <li class="done">Conception</li>
+        <li class="done">Tunnel de vente</li>
+        <li class="done">Sécurité, tests & conformité</li>
+        <li class="done">Déploiement</li>
+        <li class="current">Conclusion</li>
+      </ol>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « Prise de recul. »</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 35 - Perspectives / axes d'amélioration -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conclusion</span>
+        <h2>Perspectives &amp; axes d'amélioration</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="threat-lead fragment fade-up">Un MVP solide livré - voici les axes <b>identifiés et priorisés</b> pour la suite</p>
+        <div class="persp-grid fragment fade-up">
+          <div class="persp-card">
+            <div class="pc-head"><span class="pc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>Tests</div>
+            <ul class="pc-list">
+              <li>Tests d'intégration</li>
+              <li>E2E (Cypress / Playwright)</li>
+              <li>Seuil de couverture en CI</li>
+            </ul>
+          </div>
+          <div class="persp-card">
+            <div class="pc-head"><span class="pc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></span>Fonctionnel</div>
+            <ul class="pc-list">
+              <li>Carte interactive PostGIS</li>
+              <li>Portail partenaires</li>
+              <li>Parrainage</li>
+              <li>Multilingue</li>
+            </ul>
+          </div>
+          <div class="persp-card">
+            <div class="pc-head"><span class="pc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></svg></span>Technique</div>
+            <ul class="pc-list">
+              <li>SSE vs polling</li>
+              <li>Sync panier côté serveur</li>
+              <li>Husky (hooks pré-commit)</li>
+            </ul>
+          </div>
+          <div class="persp-card">
+            <div class="pc-head"><span class="pc-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40H48A24,24,0,0,0,24,64v48a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,72a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm0,40H48a24,24,0,0,0-24,24v16a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V176A24,24,0,0,0,208,152Zm8,40a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V176a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8ZM64,88A12,12,0,1,1,76,100,12,12,0,0,1,64,88Zm0,96a12,12,0,1,1,12,12A12,12,0,0,1,64,184Z"/></svg></span>Production</div>
+            <ul class="pc-list">
+              <li>Finaliser le webhook Stripe</li>
+              <li>Monitoring &amp; alerting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Ne pas tout lire</strong> → 3-4 exemples</li>
+          <li><strong>Message</strong> → MVP solide livré, voici ce qu'on ferait avec plus de temps (priorisation, posture mature)</li>
+          <li><strong>Tests</strong> → intégration · E2E · seuil de couverture · refresh token (auth)</li>
+          <li><strong>Prod</strong> → finaliser le webhook Stripe · monitoring/alerting</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 36 - Bilan personnel -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Conclusion</span>
+        <h2>Bilan personnel</h2>
+      </header>
+      <div class="slide-body spread">
+        <p class="bilan-lead fragment fade-up">Une reconversion aboutie : de la <b>conception</b> à la <b>mise en production</b>.</p>
+        <div class="bilan-pillars fragment fade-up">
+          <div class="bp">
+            <span class="bp-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg></span>
+            <b>Montée full-stack</b>
+            <span>front, back, BDD, DevOps</span>
+          </div>
+          <div class="bp">
+            <span class="bp-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+            <b>Rigueur &amp; Agile</b>
+            <span>4 sprints, CI/CD, tests</span>
+          </div>
+          <div class="bp">
+            <span class="bp-ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></span>
+            <b>Autonomie</b>
+            <span>déploiement réalisé de A à Z</span>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Ton sincère</strong> → la boucle « concevoir puis construire » est bouclée</li>
+          <li><strong>3 piliers</strong> → montée full-stack (conception→prod) · rigueur &amp; Agile · autonomie (déploiement A→Z)</li>
+          <li><strong>(parlé, aboutissement)</strong> → CDI chez LDLC, concepteur intégrateur IA (avril 2026)</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide 37 - Merci / clôture -->
+    <section class="closing" data-background-color="#14261C">
+      <div class="closing-wrap">
+        <img class="closing-logo" src="assets/logo.png" alt="">
+        <span class="closing-brand">GreenRoots</span>
+        <h2 class="closing-title">Merci de votre attention</h2>
+        <p class="closing-sub">Je suis à votre disposition pour vos questions.</p>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li>(parlé) « Merci de votre attention, je reste à votre disposition pour vos questions. »</li>
+        </ul>
+      </aside>
+    </section>
+
+  </div>
+
+</div>
+
+<script src="vendor/reveal.js"></script>
+<script src="vendor/highlight.js"></script>
+<script src="vendor/notes.js"></script>
+<!-- Télécommande téléphone (reveal.js-remote) : ces 2 scripts ne se chargent QUE si le deck est servi
+     par le serveur remote (chemins absolus /socket.io et /_remote). En ouverture fichier (file://) ils
+     échouent silencieusement -> mode dégradé clavier, aucun impact. -->
+<script src="/socket.io/socket.io.min.js"></script>
+<script src="/_remote/plugin/remote.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280, height: 720, margin: 0.08,   // marge un peu plus large = zone sûre contre l'overscan TV
+    center: false,                 // mode natif : contenu ancré en HAUT (titre en haut), robuste
+    hash: true, slideNumber: 'c/t',
+    transition: 'slide', backgroundTransition: 'fade',
+    // Config télécommande (ignorée si le plugin n'est pas chargé)
+    remote: {
+      remote: true,
+      multiplex: false,
+      server: window.location.protocol + "//" + window.location.host,
+      path: "/socket.io",
+      shareUrl: window.location.href,
+      allowSwipe: true,
+    },
+    plugins: [ RevealHighlight, RevealNotes ].concat(
+      typeof RevealRemote !== 'undefined' ? [ RevealRemote ] : []
+    ),
+  });
+  // Slides sombres/nues : masquer footer + n°
+  const deck = document.querySelector('.reveal');
+  function chrome(){
+    const s = Reveal.getCurrentSlide();
+    const bare = s.id === 'cover' || s.classList.contains('divider') || s.classList.contains('closing');
+    deck.classList.toggle('bare', bare);
+  }
+  Reveal.on('ready', chrome);
+  Reveal.on('slidechanged', chrome);
+
+  // Synchro code <-> repères : surligne les lignes du repère courant (data-lines)
+  function syncCodeHighlight(){
+    document.querySelectorAll('.cc-code code').forEach((code) => {
+      const scope = code.closest('.slide-body') || document;
+      const reperes = [...scope.querySelectorAll('.cc-reperes li[data-lines]')];
+      const visible = reperes.filter((li) => li.classList.contains('visible'));
+      const current = visible[visible.length - 1];
+      code.querySelectorAll('tr').forEach((tr) => tr.classList.remove('cc-hl'));
+      if (!current) { code.classList.remove('cc-dim'); return; }
+      code.classList.add('cc-dim');
+      current.dataset.lines.split(',').forEach((r) => {
+        const p = r.split('-').map(Number);
+        const a = p[0], b = p.length > 1 ? p[1] : p[0];
+        for (let n = a; n <= b; n++) {
+          code.querySelectorAll('.hljs-ln-numbers[data-line-number="' + n + '"]').forEach((td) => {
+            const tr = td.closest('tr'); if (tr) tr.classList.add('cc-hl');
+          });
+        }
+      });
+    });
+  }
+  Reveal.on('fragmentshown', syncCodeHighlight);
+  Reveal.on('fragmenthidden', syncCodeHighlight);
+  Reveal.on('slidechanged', syncCodeHighlight);
+  Reveal.on('ready', syncCodeHighlight);
+
+  // Synchro bidirectionnelle Prisma <-> SQL (slide 23) : le pas courant surligne les deux
+  function hlLines(code, spec){
+    if(!code || !spec) return;
+    code.classList.add('cc-dim');
+    spec.split(',').forEach(function(r){
+      var p = r.split('-').map(Number), a = p[0], b = p.length>1 ? p[1] : p[0];
+      for(var n=a; n<=b; n++){
+        code.querySelectorAll('.hljs-ln-numbers[data-line-number="'+n+'"]').forEach(function(td){
+          var tr = td.closest('tr'); if(tr) tr.classList.add('cc-hl');
+        });
+      }
+    });
+  }
+  function syncDualHighlight(){
+    document.querySelectorAll('.sqlsplit').forEach(function(split){
+      var scope = split.closest('.slide-body') || document;
+      var cols = split.querySelectorAll('.sqlcol code');
+      var prisma = cols[0], sql = cols[1];
+      [prisma, sql].forEach(function(c){ if(c){ c.querySelectorAll('tr').forEach(function(tr){tr.classList.remove('cc-hl');}); c.classList.remove('cc-dim'); } });
+      var steps = Array.prototype.slice.call(scope.querySelectorAll('.sql-points [data-p]'));
+      var visible = steps.filter(function(s){ return s.classList.contains('visible'); });
+      var cur = visible[visible.length-1];
+      if(!cur) return;
+      hlLines(prisma, cur.getAttribute('data-p'));
+      hlLines(sql, cur.getAttribute('data-s'));
+    });
+  }
+  Reveal.on('fragmentshown', syncDualHighlight);
+  Reveal.on('fragmenthidden', syncDualHighlight);
+  Reveal.on('slidechanged', syncDualHighlight);
+  Reveal.on('ready', syncDualHighlight);
+</script>
+</body>
+</html>

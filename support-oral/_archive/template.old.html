@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenRoots - Template & bibliothèque de patterns (CDA)</title>
+  <link rel="stylesheet" href="vendor/reset.css">
+  <link rel="stylesheet" href="vendor/reveal.css">
+  <link rel="stylesheet" href="vendor/code-light.css">
+  <link rel="stylesheet" href="theme.css">
+  <!--
+    ============================================================
+    TEMPLATE / KITCHEN SINK - support oral GreenRoots (CDA)
+    ------------------------------------------------------------
+    Bibliothèque de patterns (pas le deck final). Chaque <section>
+    démontre UN archétype, documenté en commentaire.
+    RÈGLES : aérer · jamais de "—" (→ "-") · pas de CP sur slides ·
+    pas d'emojis (→ icônes Lucide .ico) · logo réel (assets/logo.png).
+    Rendu : ouvrir dans Chrome. F=plein écran · S=speaker view · Esc=overview.
+    ============================================================
+  -->
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 1 - COVER (page de garde)
+         Logo réel + barre d'accent verte pleine hauteur (signature).
+         Pas de blob. Côté droit laissé aéré.
+         ══════════════════════════════════════════════════════ -->
+    <section id="cover" class="cover">
+      <div class="cover-wrap">
+        <div class="cover-mark">
+          <img src="assets/logo.png" alt="Logo GreenRoots">
+          GreenRoots
+        </div>
+        <h1>GreenRoots</h1>
+        <p class="baseline">Plateforme e-commerce de reforestation</p>
+        <div class="accent"></div>
+        <p class="meta">
+          <b>Dossier de projet</b> - Titre professionnel Concepteur Développeur d'Applications<br>
+          <b>Tony Memponteil</b> · Centre de formation O'Clock · Session 2026
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 2 - INTERCALAIRE / SECTION-DIVIDER
+         Fond vert foncé + index géant en filigrane + sommaire du
+         bloc (icônes Lucide) + fil d'Ariane agrandi (6 blocs).
+         Classes fil d'Ariane : .done (passé) · .current (en cours).
+         ══════════════════════════════════════════════════════ -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="ghost-index">03</div>
+      <div class="divider-wrap">
+        <div class="block-kicker">Bloc 3</div>
+        <h2>Fil rouge - le tunnel de vente</h2>
+        <div class="accent"></div>
+        <ul class="block-toc">
+          <li><svg class="ico" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>Démo live du parcours d'achat</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>Front : formulaire, état, qualité</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>Back : transaction, webhook Stripe</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>Données : SQL & Redis</li>
+        </ul>
+        <ol class="toc">
+          <li class="done">Introduction</li>
+          <li class="done">Conception</li>
+          <li class="current">Tunnel de vente</li>
+          <li>Passages obligatoires</li>
+          <li>Déploiement</li>
+          <li>Conclusion</li>
+        </ol>
+      </div>
+      <aside class="notes">Transition : « Maintenant qu'on a posé la conception, entrons dans le cœur du projet. »</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 3 - CONTENU + CARTES (c3) + FRAGMENTS + icônes
+         .fragment sur chaque carte → apparition une par une.
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Conception</span>
+      <h2>Une architecture 3 tiers découplée</h2>
+      <div class="cards c3">
+        <div class="card fragment fade-up">
+          <svg class="card-ico" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          <div class="role">Présentation</div>
+          <h3>SPA React</h3>
+          <p>Exécutée dans le navigateur (Vite). Servie par Nginx.</p>
+        </div>
+        <div class="card fragment fade-up">
+          <svg class="card-ico" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+          <div class="role">Logique métier</div>
+          <h3>API REST NestJS</h3>
+          <p>Architecture modulaire, injection de dépendances.</p>
+        </div>
+        <div class="card fragment fade-up">
+          <svg class="card-ico" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+          <div class="role">Données</div>
+          <h3>PostgreSQL · Redis</h3>
+          <p>Relationnel + PostGIS, cache en mémoire.</p>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:.8em;"><strong>Nginx</strong> en reverse proxy · chaque couche ne parle qu'à la suivante.</p>
+      <aside class="notes">Définir les 3 tiers, le découplage SPA/API (pas de Next.js), le rôle de Nginx, Redis en couche cache.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 4 - CODE : fenêtre éditeur (onglet arbo + code)
+         · .code-window = fenêtre à taille stable (onglet + code)
+         · data-line-numbers="1-6|2-3|9" → focus par étapes (clic)
+         · data-ln-start-from="12" → vrais numéros du fichier
+         · légende .code-steps (style aimé pour z.infer)
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Réalisation</span>
+      <h2>Formulaire checkout - validation typée</h2>
+      <figure class="code-window">
+        <figcaption class="code-file"><span class="dot"></span>features/checkout/schemas/checkoutSchema.ts</figcaption>
+        <pre><code class="language-typescript" data-trim data-noescape data-ln-start-from="12" data-line-numbers="1-6|2-3|9">export const checkoutFormSchema = z.object({
+  contactEmail: z.string().min(1, "L'adresse e-mail est requise")
+                          .email("Adresse e-mail invalide"),
+  firstName:   z.string().min(1, "Le prénom est requis").max(64),
+  postalCode:  z.string().min(1, "Le code postal est requis"),
+});
+
+// type dérivé du schéma → front & validation toujours synchronisés
+export type CheckoutFormValues = z.infer&lt;typeof checkoutFormSchema&gt;;</code></pre>
+      </figure>
+      <ul class="code-steps">
+        <li><span class="step-badge">1</span>Un seul schéma pour toutes les règles</li>
+        <li><span class="step-badge">2</span>Messages d'erreur en français</li>
+        <li><span class="step-badge">3</span><code>z.infer</code> → type dérivé, jamais désynchronisé</li>
+      </ul>
+      <aside class="notes">Zod = validation + typage. Défense en profondeur : redoublé par les DTO côté API. Cliquer pour dérouler les 3 focus.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 5 - FIGURE / DIAGRAMME
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Conception</span>
+      <h2>Cycle de vie d'une commande</h2>
+      <div class="figure">
+        <img src="../diagrammes/corps-etats-commande.png" alt="Diagramme d'états - cycle de vie d'une commande">
+      </div>
+      <aside class="notes">Deux machines à états parallèles. Le webhook Stripe pilote PaymentStatus qui déclenche OrderStatus.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 6 - KPI (rangée de chiffres-clés)
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Qualité</span>
+      <h2>Des tests sur la logique critique</h2>
+      <div class="kpi-row">
+        <div class="kpi fragment fade-up">211<small>tests unitaires</small></div>
+        <div class="kpi fragment fade-up">151<small>back - Jest</small></div>
+        <div class="kpi fragment fade-up">60<small>front - Vitest + TL</small></div>
+        <div class="kpi fragment fade-up">100%<small>PR passées en CI</small></div>
+      </div>
+      <p class="lead" style="margin-top:1.1em;">Priorité donnée au <strong>checkout / paiement / panier</strong>. Intégration et E2E assumés comme axes d'amélioration.</p>
+      <aside class="notes">Choix pragmatique (4 sprints). Connaître les concepts manquants = axes prioritaires.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 7 - 2 COLONNES (Prisma | SQL) - deux fenêtres code
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Données</span>
+      <h2>La transaction : de l'ORM au SQL</h2>
+      <div class="split">
+        <figure class="code-window">
+          <figcaption class="code-file"><span class="dot"></span>Prisma</figcaption>
+          <pre><code class="language-typescript" data-trim>await prisma.$transaction(async (tx) =&gt; {
+  await tx.treeStock.update({
+    where: { treeId },
+    data: { quantity: { decrement: qty } },
+  });
+  await tx.order.update({ ... });
+});</code></pre>
+        </figure>
+        <figure class="code-window">
+          <figcaption class="code-file"><span class="dot"></span>SQL équivalent</figcaption>
+          <pre><code class="language-sql" data-trim>BEGIN;
+  UPDATE stock
+     SET quantity = quantity - $1
+   WHERE tree_id = $2;
+  UPDATE orders SET ... WHERE id = $3;
+COMMIT;</code></pre>
+        </figure>
+      </div>
+      <aside class="notes">$transaction = BEGIN…COMMIT/ROLLBACK. decrement = UPDATE atomique. Requêtes paramétrées → injection SQL impossible.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 8 - TABLEAU DE COMPARAISON (icônes, sans emoji)
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Cadrage</span>
+      <h2>Un périmètre borné en ingénieur</h2>
+      <table>
+        <thead>
+          <tr>
+            <th><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>MVP (livré)</th>
+            <th><svg class="ico" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/></svg>Évolutions (hors périmètre)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Catalogue + fiche arbre</td><td>Carte interactive de plantation</td></tr>
+          <tr><td>Authentification complète</td><td>Suivi détaillé de la pousse</td></tr>
+          <tr><td>Panier → Checkout <strong>paiement Stripe</strong> → Confirmation</td><td>Multilingue</td></tr>
+          <tr><td>Espace utilisateur (profil, historique)</td><td>Parrainage</td></tr>
+          <tr><td>Back-office admin</td><td>Portail partenaires</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Cœur du MVP = parcours d'achat complet avec vrai paiement Stripe. Bornage assumé.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 9 - CALLOUTS (info / attention / danger) + icônes
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <span class="eyebrow">Architecture</span>
+      <h2>Honnêteté sur les choix d'architecture</h2>
+      <div class="callout">
+        <span class="callout-title"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Choix assumé</span>
+        Architecture modulaire en couches (Controller → Service → Prisma), pensée pour la testabilité via l'injection de dépendances.
+      </div>
+      <div class="callout warn">
+        <span class="callout-title"><svg class="ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Nuance</span>
+        Ce n'est pas une architecture hexagonale au sens strict : le service dépend directement de Prisma - choix pragmatique pour 4 sprints.
+      </div>
+      <div class="callout danger">
+        <span class="callout-title"><svg class="ico" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Risque neutralisé</span>
+        Broken Access Control (OWASP A01) : double contrôle rôle (guard) + propriétaire (<code>order.userId === userId</code>).
+      </div>
+      <aside class="notes">Assumer les choix, montrer qu'on connaît les alternatives = posture d'ingénieur mature.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 10 - STATEMENT (phrase forte)
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <div class="statement">
+        <blockquote>
+          <p>« J'ai toujours aimé <strong>concevoir</strong>, puis <strong>construire</strong>. »</p>
+          <cite>- fil rouge de mon parcours, de la finance au développement</cite>
+        </blockquote>
+      </div>
+      <aside class="notes">Slide de respiration / accroche. Ton personnel.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 11 - AUTO-ANIMATE : le tunnel se construit
+         2 sections data-auto-animate. Les .step partagés (data-id)
+         se déplacent, les nouveaux glissent en place. Le titre
+         (data-id="tt") reste fixe.
+         ══════════════════════════════════════════════════════ -->
+    <section data-auto-animate>
+      <span class="eyebrow">Fil rouge</span>
+      <h2 data-id="tt">Le tunnel de vente</h2>
+      <div class="tunnel">
+        <div class="step" data-id="s1"><svg class="ico" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span class="step-name">Panier</span><span class="step-sub">Local (Zustand)</span></div>
+        <div class="chev" data-id="c1"><svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="step" data-id="s2"><svg class="ico" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg><span class="step-name">Checkout</span><span class="step-sub">Formulaire validé</span></div>
+      </div>
+      <aside class="notes">On pose les 2 premières étapes.</aside>
+    </section>
+    <section data-auto-animate>
+      <span class="eyebrow">Fil rouge</span>
+      <h2 data-id="tt">Le tunnel de vente</h2>
+      <div class="tunnel">
+        <div class="step" data-id="s1"><svg class="ico" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span class="step-name">Panier</span><span class="step-sub">Local (Zustand)</span></div>
+        <div class="chev" data-id="c1"><svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="step" data-id="s2"><svg class="ico" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg><span class="step-name">Checkout</span><span class="step-sub">Formulaire validé</span></div>
+        <div class="chev"><svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="step" data-id="s3"><svg class="ico" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg><span class="step-name">Paiement</span><span class="step-sub">Stripe (webhook)</span></div>
+        <div class="chev"><svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="step" data-id="s4"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span class="step-name">Confirmation</span><span class="step-sub">Commande PAID</span></div>
+      </div>
+      <aside class="notes">Paiement + Confirmation glissent en place (auto-animate). Fil rouge de tout le bloc 3.</aside>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 12 - SLIDES VERTICALES (deep-dive à la demande)
+         ══════════════════════════════════════════════════════ -->
+    <section>
+      <section>
+        <span class="eyebrow">Réalisation</span>
+        <h2>confirmCheckout - réservation atomique</h2>
+        <p class="lead">Réserver le stock de façon atomique, sécurisée et idempotente, avant le paiement.</p>
+        <ul>
+          <li class="fragment">Transaction Prisma (tout-ou-rien)</li>
+          <li class="fragment">Vérification du propriétaire (Forbidden)</li>
+          <li class="fragment">Idempotence (double-clic neutralisé)</li>
+          <li class="fragment">Valider tout le stock avant d'écrire</li>
+        </ul>
+        <p class="muted" style="font-size:.6em;margin-top:1em;">↓ Détail du code disponible si le jury creuse</p>
+        <aside class="notes">Descendre (↓) uniquement si le jury demande le code.</aside>
+      </section>
+      <section>
+        <span class="eyebrow">Détail</span>
+        <h2>Le code, en détail</h2>
+        <figure class="code-window">
+          <figcaption class="code-file"><span class="dot"></span>checkout/checkout.service.ts</figcaption>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1|2-3|5">return this.prisma.$transaction(async (tx) =&gt; {
+  if (order.userId !== userId)          // sécurité : propriétaire
+    throw new ForbiddenException();
+  // on collecte les manques AVANT d'écrire
+  const issues = checkStock(order.items);
+});</code></pre>
+        </figure>
+        <aside class="notes">Slide de profondeur (verticale). On y va seulement sur question.</aside>
+      </section>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         LAYOUT 13 - CLÔTURE (merci) - logo réel
+         ══════════════════════════════════════════════════════ -->
+    <section class="divider" data-background-color="#14261C">
+      <div class="divider-wrap center" style="text-align:center;align-items:center;justify-content:center;padding:0;">
+        <img src="assets/logo.png" alt="GreenRoots" style="width:64px;height:64px;border-radius:14px;margin-bottom:.6em;">
+        <h2 style="text-align:center;max-width:none;">Merci de votre attention</h2>
+        <p style="color:rgba(255,255,255,.7);font-size:.8em;margin-top:.4em;">Je suis à votre disposition pour vos questions.</p>
+      </div>
+      <aside class="notes">Clôture nette, pas de blanc. Debout, posé.</aside>
+    </section>
+
+  </div>
+
+  <!-- Pied de page global (logo réel ; masqué sur cover + intercalaires par JS) -->
+  <div class="deck-footer" id="footer">
+    <span class="brand">
+      <img src="assets/logo.png" alt="">
+      GreenRoots · CDA
+    </span>
+  </div>
+</div>
+
+<script src="vendor/reveal.js"></script>
+<script src="vendor/highlight.js"></script>
+<script src="vendor/notes.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280, height: 720, margin: 0.045,
+    center: false,                 // contenu ancré en haut (deck technique dense)
+    hash: true, slideNumber: 'c/t', transition: 'slide', transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    plugins: [ RevealHighlight, RevealNotes ],
+  });
+  // Slides « nues » (cover, intercalaires, clôture) : masquer footer + n° via .bare
+  const deck = document.querySelector('.reveal');
+  function chrome(){
+    const s = Reveal.getCurrentSlide();
+    const bare = s.id === 'cover' || s.classList.contains('divider');
+    deck.classList.toggle('bare', bare);
+  }
+  Reveal.on('ready', chrome);
+  Reveal.on('slidechanged', chrome);
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@startuml paysage
+
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+actor "Visiteur" as V
+actor "Utilisateur" as U
+actor "Admin" as A
+
+U --|> V
+A --|> U
+
+rectangle "GreenRoots" {
+
+    package "Fonctionnalites publiques" {
+        usecase "Consulter le catalogue" as UC1
+        usecase "Voir la fiche d'un arbre" as UC2
+        usecase "Gerer son panier" as UC3
+        usecase "S'inscrire" as UC4
+        usecase "Se connecter" as UC5
+        usecase "Reinitialiser son\nmot de passe" as UC6
+    }
+
+    package "Fonctionnalites utilisateur" {
+        usecase "Passer commande" as UC7
+        usecase "Verifier le stock" as UC16
+        usecase "Payer via Stripe" as UC17
+        usecase "Consulter ses commandes" as UC8
+        usecase "Gerer son profil" as UC9
+        usecase "Supprimer son compte" as UC10
+        usecase "Exporter ses donnees" as UC11
+    }
+
+    package "Fonctionnalites admin" {
+        usecase "Gerer les arbres" as UC12
+        usecase "Gerer les categories" as UC13
+        usecase "Gerer les localisations" as UC14
+        usecase "Gerer les commandes" as UC15
+        usecase "Rembourser via Stripe" as UC18
+    }
+}
+
+V -- UC1
+V -- UC2
+V -- UC3
+V -- UC4
+V -- UC5
+V -- UC6
+
+U -- UC7
+U -- UC8
+U -- UC9
+U -- UC10
+U -- UC11
+
+A -- UC12
+A -- UC13
+A -- UC14
+A -- UC15
+
+UC7 ..> UC16 : <<include>>
+UC7 ..> UC17 : <<include>>
+UC18 ..> UC15 : <<extend>>
+
+@enduml
