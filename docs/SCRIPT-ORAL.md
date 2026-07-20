@@ -75,18 +75,18 @@ Le responsive, ensuite : avec Tailwind, mais surtout un hook, useMediaQuery, qui
 Les composants sont organisés en Atomic Design, pour la réutilisabilité et la cohérence.
 Et l'accessibilité est réelle : par exemple notre champ de quantité expose un rôle spinbutton, donc un lecteur d'écran annonce la valeur et les bornes à un utilisateur non-voyant.
 
-### Une architecture 3 tiers découplée
-Passons à l'architecture. Elle est en trois tiers, trois couches déployables séparément : la présentation, une application React ; la logique métier, une API NestJS ; et les données, PostgreSQL avec Redis.
-Tout est découplé - une application front d'un côté, une API REST de l'autre, sans framework de rendu serveur, ce qui est adapté à une application derrière authentification.
-Nginx sert de reverse proxy : le navigateur ne parle jamais directement au back ni à la base.
-Et surtout, la sécurité est pensée dès la conception, selon la grille DICP - disponibilité, intégrité, confidentialité, preuve - conformément aux recommandations de l'ANSSI et de l'OWASP.
-
 ### Justification de la stack
 Un mot sur la stack, parce qu'aucun choix n'est au hasard.
 Trois fils directeurs : la sûreté de typage, l'éco-conception, et l'accessibilité.
 Il y a aussi une part de pragmatisme assumée : des technos qu'on maîtrisait déjà plus ou moins, dans un délai court.
 Le choix emblématique, c'est shadcn/ui : il coche les trois cases - accessible grâce à Radix, éco parce qu'on n'importe que ce qu'on utilise, et entièrement typé.
-Redis est un vrai choix d'architecture, pas une rustine de dernière minute. Et Stripe nous permet de ne stocker aucune donnée bancaire.
+Et Stripe, enfin, nous permet de ne stocker aucune donnée bancaire - tout est délégué.
+
+### Une architecture 3 tiers découplée
+Passons à l'architecture. Elle est en trois tiers, trois couches déployables séparément : la présentation, une application React ; la logique métier, une API NestJS ; et les données, PostgreSQL avec Redis.
+Tout est découplé - une application front d'un côté, une API REST de l'autre, sans framework de rendu serveur, ce qui est adapté à une application derrière authentification.
+Nginx sert de reverse proxy : le navigateur ne parle jamais directement au back ni à la base.
+Et surtout, la sécurité est pensée dès la conception, selon la grille DICP - disponibilité, intégrité, confidentialité, preuve - conformément aux recommandations de l'ANSSI et de l'OWASP.
 
 ### Architecture applicative
 Si on zoome à l'intérieur des briques.
