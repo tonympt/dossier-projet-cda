@@ -100,7 +100,7 @@ Le modèle conceptuel, le métier pur. Puis le modèle logique, obtenu par les r
 Et le troisième niveau, le modèle physique, c'est la slide suivante.
 
 ### MPD - le passage au physique
-Le modèle physique, lui, dépend vraiment de PostgreSQL. Quelques décisions concrètes.
+Le modèle physique, c'est le schéma concret tel qu'implémenté dans PostgreSQL, dérivé du modèle logique et géré par Prisma. Quelques décisions concrètes.
 Les prix sont stockés en entiers, en centimes - le standard Stripe, pour éviter les erreurs d'arrondi.
 Les statuts sont des enums, qui serviront de support aux machines à états.
 J'ai séparé l'arbre de son stock en deux tables, parce que le stock change très souvent.
@@ -127,19 +127,19 @@ Je vais vous la présenter sous deux angles.
 Côté utilisateur, le parcours : panier, checkout, paiement, confirmation.
 Et côté technique, la même donnée qui descend couche par couche : de React à NestJS, puis Prisma, puis PostgreSQL.
 
-### Le formulaire de checkout
-Première étape côté front : le formulaire de checkout, l'adresse et le paiement.
-Toute la validation repose sur Zod : un seul schéma définit à la fois les règles et le type TypeScript, donc les deux ne peuvent jamais diverger. Et c'est le cas pour tous les formulaires du site.
-On le couple à React Hook Form, qui gère les champs et la soumission de façon performante.
-Les champs viennent de shadcn/ui, avec le label et les messages d'erreur reliés en ARIA.
-Et cette validation côté client est toujours redoublée côté serveur, par les DTO - c'est de la défense en profondeur.
-
 ### Trois natures d'état
 Deuxième étape front : la gestion de l'état. Mon principe, c'est de ne pas tout mettre dans un état global, mais de séparer par nature.
 L'état local, le panier, avec Zustand - persisté dans le navigateur, avec une expiration de vingt-quatre heures.
 L'état serveur, le stock, avec TanStack Query - rafraîchi régulièrement.
 Et l'état de formulaire, avec React Hook Form et Zod.
 Un mécanisme important : syncWithStock, qui réconcilie le panier local avec le stock réel - si un article est épuisé, la quantité est ajustée et l'utilisateur est prévenu.
+
+### Le formulaire de checkout
+Première étape côté front : le formulaire de checkout, l'adresse et le paiement.
+Toute la validation repose sur Zod : un seul schéma définit à la fois les règles et le type TypeScript, donc les deux ne peuvent jamais diverger. Et c'est le cas pour tous les formulaires du site.
+On le couple à React Hook Form, qui gère les champs et la soumission de façon performante.
+Les champs viennent de shadcn/ui, avec le label et les messages d'erreur reliés en ARIA.
+Et cette validation côté client est toujours redoublée côté serveur, par les DTO - c'est de la défense en profondeur.
 
 ### Cycle de vie : deux dimensions d'état
 Une commande a deux dimensions d'état, que j'ai modélisées explicitement.
@@ -188,10 +188,9 @@ Point important : si Redis tombe, l'application continue - elle se rabat sur la 
 ### Authentification : défense en profondeur
 La sécurité, d'abord par l'authentification, en défense en profondeur.
 La décision clé : le jeton d'authentification est stocké dans un cookie HttpOnly, donc illisible en JavaScript - une faille XSS ne peut pas le voler.
+L'ensemble repose sur Passport, avec deux stratégies : une pour le login, une pour protéger les routes.
 Les mots de passe sont hachés avec bcrypt : salés, et volontairement lents.
-Les jetons de réinitialisation sont hachés en SHA-256 en base.
 On a aussi l'anti-force-brute et la blacklist, déjà vus avec Redis.
-Et le tout repose sur Passport, avec deux stratégies : une pour le login, une pour protéger les routes.
 
 ### Injection SQL & XSS : défense en profondeur
 Deux failles majeures, neutralisées à plusieurs niveaux.

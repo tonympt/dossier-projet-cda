@@ -235,7 +235,7 @@
           <li><strong>Admin</strong> → back-office : CRUD arbres · suivi des commandes</li>
           <li><strong>Cœur du MVP</strong> → parcours d'achat de bout en bout, vrai paiement (Stripe dans le MVP, pas simulé)</li>
           <li><strong>Évolutions</strong> (carte · suivi pousse · multilingue · parrainage) → écartées volontairement = priorisation</li>
-          <li><strong>→ Suite</strong> : et pour livrer tout ça, voici comment on s'est organisés</li>
+          <li><strong>→ Suite</strong> : et pour livrer ce MVP, voici comment on s'est organisés</li>
         </ul>
       </aside>
     </section>
@@ -286,7 +286,7 @@
           <li><strong>Méthode</strong> → Agile/Scrum · sprints d'1 semaine · cérémonies (daily · revue · rétro)</li>
           <li><strong>Les sprints racontent une histoire</strong> → sprint 0 conception → fondations → MVP → sprint 3 qualité/prod</li>
           <li><strong>Outils</strong> → Trello (backlog) · GitHub (versioning + PR relues) · Google Docs (doc)</li>
-          <li><strong>Conventions</strong> → Conventional Commits · ESLint + Prettier</li>
+          <li><strong>Conventions</strong> → Conventional Commits · Git flow · ESLint + Prettier</li>
           <li><strong>→ Suite</strong> : le cadre est posé - entrons dans la conception, du besoin à l'architecture</li>
         </ul>
       </aside>
@@ -446,7 +446,7 @@
           <li><strong>Wireframe</strong> → zoning · hiérarchie · parcours</li>
           <li><strong>Maquette HF</strong> → charte · couleurs · composants réels</li>
           <li><strong>Responsive</strong> → pensé dès la maquette (desktop + mobile)</li>
-          <li><strong>Conformité</strong> → on le verra à la démo</li>
+          <li><strong>Conformité</strong> → aperçu de l'UX/UI en démo</li>
           <li><strong>→ Suite</strong> : la maquette posée, comment garantit-on la qualité de cette interface ?</li>
         </ul>
       </aside>
@@ -615,10 +615,10 @@
           <div class="dicp-strip">
             <div class="dicp-lead">Sécurité <em>by design</em> (DICP) - conforme ANSSI / OWASP Top 10:2025</div>
             <div class="dicp-items">
-              <span class="dicp-item"><span class="dicp-badge">D</span><b>Disponibilité</b> cron · healthchecks</span>
-              <span class="dicp-item"><span class="dicp-badge">I</span><b>Intégrité</b> transactions · contraintes BDD</span>
-              <span class="dicp-item"><span class="dicp-badge">C</span><b>Confidentialité</b> JWT HttpOnly · bcrypt · rôle relu</span>
-              <span class="dicp-item"><span class="dicp-badge">P</span><b>Preuve</b> factures n° · anonymisation</span>
+              <span class="dicp-item fragment fade-up"><span class="dicp-badge">D</span><b>Disponibilité</b> cron · healthchecks</span>
+              <span class="dicp-item fragment fade-up"><span class="dicp-badge">I</span><b>Intégrité</b> transactions · contraintes BDD</span>
+              <span class="dicp-item fragment fade-up"><span class="dicp-badge">C</span><b>Confidentialité</b> JWT HttpOnly · bcrypt · rôle relu</span>
+              <span class="dicp-item fragment fade-up"><span class="dicp-badge">P</span><b>Preuve</b> factures n° · anonymisation</span>
             </div>
           </div>
         </div>
@@ -726,8 +726,7 @@
       <aside class="notes">
         <ul>
           <li><strong>Pourquoi MERISE</strong> → méthode structurée du métier au physique (langage commun, étape attendue)</li>
-          <li><strong>MCD → MLD, 2 exemples</strong> → « Commande contient Arbres » (N-N) devient la table OrderItem (FK + unique) ; « Commande a une adresse » devient OrderAddress</li>
-          <li><strong>Ne pas tout lire</strong> → montrer juste ces 2 transformations</li>
+          <li><strong>MCD → MLD (règles de passage)</strong> → les associations deviennent des tables/FK : « Commande contient Arbres » (N-N) → table OrderItem (FK + @@unique) ; « Commande a une adresse » → OrderAddress</li>
           <li><strong>Teaser MPD</strong> → types PostgreSQL · enums · split Tree/TreeStock</li>
           <li><strong>→ Suite</strong> : du logique au physique - le passage à PostgreSQL, le MPD</li>
         </ul>
@@ -756,12 +755,11 @@
       </div>
       <aside class="notes">
         <ul>
-          <li><strong>MPD physique</strong> → dépend de PostgreSQL (types réels, enums)</li>
-          <li><strong>@map</strong> → pont camelCase (code) ↔ snake_case (BDD)</li>
+          <li><strong>Du MLD au physique</strong> → le schéma concret dans PostgreSQL (le SGBD choisi), implémenté via Prisma · types réels, enums</li>
           <li><strong>Int/centimes</strong> → standard Stripe, pas de flottants</li>
           <li><strong>Enums</strong> → supports des state machines</li>
           <li><strong>Split Tree/TreeStock</strong> → le stock change souvent, on l'isole de la fiche arbre</li>
-          <li><strong>@@unique</strong> = intégrité métier · <strong>24 migrations</strong> = traçabilité</li>
+          <li><strong>Nommage et intégrité</strong> → @map (camel↔snake) · @@unique (contraintes métier) · 24 migrations versionnées</li>
           <li><strong>→ Suite</strong> : assez de conception : place au cœur du projet, le tunnel de vente</li>
         </ul>
       </aside>
@@ -884,58 +882,7 @@
           <li><strong>Deux vues</strong> → côté utilisateur (le parcours) + côté technique (la donnée traverse les couches)</li>
           <li><strong>Parcours</strong> → Panier → Checkout → Paiement → Confirmation</li>
           <li><strong>La donnée descend</strong> → React → NestJS → Prisma → PostgreSQL</li>
-          <li><strong>→ Suite</strong> : commençons par le front - le formulaire de checkout</li>
-        </ul>
-      </aside>
-    </section>
-
-    <!-- Slide - Front : le formulaire checkout (validation typée) -->
-    <section class="content">
-      <header class="slide-head">
-        <span class="eyebrow">Tunnel de vente</span>
-        <h2>Le formulaire de checkout</h2>
-      </header>
-      <div class="slide-body">
-        <div class="form-demo">
-          <figure class="form-shot fragment fade-up">
-            <img src="assets/formulaire-adresse-facturation-screenshot.png" alt="Formulaire d'adresse de facturation avec messages de validation en français">
-          </figure>
-          <div class="form-code fragment fade-up">
-            <div class="code-file">features/checkout/schemas/checkoutSchema.ts</div>
-            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers="|7-10|15-16">import { z } from "zod";
-
-export const checkoutFormSchema = z.object({
-  contactEmail: z.string()
-    .min(1, "L'adresse e-mail est requise")
-    .email("Adresse e-mail invalide"),
-  street: z.string().min(1, "L'adresse est requise"),
-  city: z.string().min(1, "La ville est requise"),
-  postalCode: z.string().min(1, "Le code postal est requis"),
-  countryCode: z.string().min(1, "Le pays est requis"),
-  phone: z.string().max(20).optional(),
-});
-
-// type dérivé : le formulaire est typé automatiquement
-export type CheckoutFormValues =
-  z.infer&lt;typeof checkoutFormSchema&gt;;</code></pre>
-            <div class="form-points">
-              <span>RHF + <b>zodResolver</b></span>
-              <span>Messages <b>FR</b> dans le schéma</span>
-              <span><b>z.infer</b> : schéma ↔ form typés</span>
-              <span>Champs <b>shadcn/ui</b> accessibles (ARIA)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <aside class="notes">
-        <ul>
-          <li><strong>Étape</strong> → front : le formulaire (adresse + paiement)</li>
-          <li><strong>Zod</strong> → validation + type (z.infer) : une seule source pour règles ET type</li>
-          <li><strong>Zod partout</strong> → tous les formulaires du site validés par un schéma Zod</li>
-          <li><strong>React Hook Form</strong> → gère champs / validation / soumission, performant (champs non contrôlés)</li>
-          <li><strong>shadcn/ui</strong> → label + erreur reliés en ARIA</li>
-          <li><strong>Défense en profondeur</strong> → revalidé côté API par les DTO</li>
-          <li><strong>→ Suite</strong> : au-delà du formulaire, comment gère-t-on l'état de l'application ?</li>
+          <li><strong>→ Suite</strong> : commençons par le front - le panier et la gestion d'état</li>
         </ul>
       </aside>
     </section>
@@ -1008,7 +955,58 @@ export type CheckoutFormValues =
           <li><strong>Serveur</strong> → TanStack Query (stock, polling 5 min + refetch focus)</li>
           <li><strong>Formulaire</strong> → React Hook Form + Zod</li>
           <li><strong>syncWithStock</strong> → introuvable=conservé · suffisant=inchangé · insuffisant=ajusté + dialog</li>
-          <li><strong>→ Suite</strong> : avant le back, le modèle qui pilote tout ça - le cycle de vie de la commande</li>
+          <li><strong>→ Suite</strong> : le panier prêt, passons au formulaire de checkout</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Slide - Front : le formulaire checkout (validation typée) -->
+    <section class="content">
+      <header class="slide-head">
+        <span class="eyebrow">Tunnel de vente</span>
+        <h2>Le formulaire de checkout</h2>
+      </header>
+      <div class="slide-body">
+        <div class="form-demo">
+          <figure class="form-shot fragment fade-up">
+            <img src="assets/formulaire-adresse-facturation-screenshot.png" alt="Formulaire d'adresse de facturation avec messages de validation en français">
+          </figure>
+          <div class="form-code fragment fade-up">
+            <div class="code-file">features/checkout/schemas/checkoutSchema.ts</div>
+            <pre><code class="language-typescript" data-trim data-noescape data-line-numbers="|7-10|15-16">import { z } from "zod";
+
+export const checkoutFormSchema = z.object({
+  contactEmail: z.string()
+    .min(1, "L'adresse e-mail est requise")
+    .email("Adresse e-mail invalide"),
+  street: z.string().min(1, "L'adresse est requise"),
+  city: z.string().min(1, "La ville est requise"),
+  postalCode: z.string().min(1, "Le code postal est requis"),
+  countryCode: z.string().min(1, "Le pays est requis"),
+  phone: z.string().max(20).optional(),
+});
+
+// type dérivé : le formulaire est typé automatiquement
+export type CheckoutFormValues =
+  z.infer&lt;typeof checkoutFormSchema&gt;;</code></pre>
+            <div class="form-points">
+              <span>RHF + <b>zodResolver</b></span>
+              <span>Messages <b>FR</b> dans le schéma</span>
+              <span><b>z.infer</b> : schéma ↔ form typés</span>
+              <span>Champs <b>shadcn/ui</b> accessibles (ARIA)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        <ul>
+          <li><strong>Étape</strong> → front : le formulaire (adresse + paiement)</li>
+          <li><strong>Zod</strong> → validation + type (z.infer) : une seule source pour règles ET type</li>
+          <li><strong>Zod partout</strong> → tous les formulaires du site validés par un schéma Zod</li>
+          <li><strong>React Hook Form</strong> → gère champs / validation / soumission, performant (champs non contrôlés)</li>
+          <li><strong>shadcn/ui</strong> → label + erreur reliés en ARIA</li>
+          <li><strong>Défense en profondeur</strong> → revalidé côté API par les DTO</li>
+          <li><strong>→ Suite</strong> : le formulaire rempli, voyons le modèle qui pilote la commande - son cycle de vie</li>
         </ul>
       </aside>
     </section>
@@ -1265,7 +1263,6 @@ COMMIT;</code></pre>
           <li><strong>Étape</strong> → données : la transaction, vue SQL</li>
           <li><strong>$transaction</strong> ↔ BEGIN … COMMIT/ROLLBACK</li>
           <li><strong>include</strong> ↔ JOINs · <strong>decrement</strong> ↔ UPDATE atomique (un par arbre, pas de race condition)</li>
-          <li><strong>Requêtes paramétrées</strong> ($1,$2) → injection SQL impossible (A05)</li>
           <li><strong>→ Suite</strong> : dernière couche de données, en NoSQL cette fois - Redis</li>
         </ul>
       </aside>
@@ -1360,21 +1357,19 @@ COMMIT;</code></pre>
           </figure>
           <ul class="auth-mechs fragment fade-up">
             <li><b>Cookie HttpOnly</b> + Secure + SameSite=Lax<em>token illisible au JS → XSS neutralisé (migration depuis localStorage)</em></li>
+            <li><b>Passport</b> - 2 stratégies<em>Local (login) / Jwt (routes protégées)</em></li>
             <li><b>bcrypt</b> (10 rounds)<em>mots de passe hachés avec un sel unique (irréversible)</em></li>
-            <li><b>Tokens</b> reset / vérif <b>hashés</b><em>SHA-256 (fuite BDD inexploitable)</em></li>
             <li><b>Anti-brute-force</b><em>5 échecs / 15 min (Redis)</em></li>
             <li><b>Blacklist JWT</b> au logout<em>révoque un token stateless (Redis)</em></li>
-            <li><b>Passport</b> - 2 stratégies<em>Local (login) / Jwt (routes protégées)</em></li>
           </ul>
         </div>
       </div>
       <aside class="notes">
         <ul>
           <li><strong>Décision clé</strong> → JWT en cookie HttpOnly (illisible au JS → XSS neutralisé)</li>
-          <li><strong>bcrypt (10)</strong> → haché + salé (lent = anti-brute-force)</li>
-          <li><strong>Tokens reset/vérif</strong> → SHA-256 (fuite BDD inexploitable)</li>
-          <li><strong>Anti-brute-force</strong> → 5/15 min · <strong>Blacklist JWT</strong> au logout (Redis)</li>
           <li><strong>Passport</strong> → 2 stratégies (Local login / JWT routes protégées)</li>
+          <li><strong>bcrypt (10)</strong> → haché + salé (lent = anti-brute-force)</li>
+          <li><strong>Anti-brute-force</strong> → 5/15 min · <strong>Blacklist JWT</strong> au logout (Redis)</li>
           <li><strong>→ Suite</strong> : l'identité est gérée ; passons aux failles applicatives - injection et XSS</li>
         </ul>
       </aside>
