@@ -213,19 +213,19 @@
 ### Enum vs Table séparée (Role)
 - **Enum Prisma** (ex: OrderStatus) : liste fixe, pas de jointure, mais ajouter une valeur = migration + redéploiement
 - **Table séparée** (ex: Role) : extensible sans migration (un INSERT suffit), peut porter des métadonnées (description, permissions)
-- GreenRoots : table Role avec one-to-many. Un enum aurait suffi pour le MVP (3 rôles, pas de métadonnées), mais la table est prête pour une évolution (many-to-many si multi-rôles, ajout de permissions)
+- GreenRoots : table Role avec one-to-many. Un enum aurait suffi pour le MVP (2 rôles : user, admin - pas de métadonnées), mais la table est prête pour une évolution (many-to-many si multi-rôles, ajout de permissions)
 - Si le jury demande : "La table Role permet d'ajouter des rôles sans migration et pourrait porter des métadonnées. Un enum aurait suffi pour le MVP mais la table offre plus d'extensibilité."
 
 ### Sens de la relation User/Role — la FK est dans `users` (piège fréquent)
 - **Erreur à éviter** : penser que la table `roles` contient les utilisateurs. C'est l'inverse
-- **`roles`** = référentiel de 3 lignes (`id`, `name`) : user / admin / superadmin. Elle ne connaît PAS les users
+- **`roles`** = référentiel (`id`, `name`) : **2 rôles** - `user` / `admin`. La table ne connaît PAS les users
 - **`users`** porte la colonne **`role_id`** (FK → `roles.id`). C'est le côté « n » qui pointe vers le « 1 »
 - Règle générale (passage MCD→MLD) : dans une relation 1:n, **la clé du côté « 1 » descend comme FK dans le côté « n »**. Ici la PK de `roles` descend dans `users`
 - Un rôle a 0..N users, un user a exactement 1 rôle → **relation Many-to-One** côté user
 
 ### Rôle unique (1,1) au MCD + évolution RBAC fin — savoir défendre les deux
 - **Choix actuel assumé** : au MCD, `User (1,1) — HAS — (0,N) Role`. Un utilisateur a **un seul** rôle obligatoire (FK non-nullable). C'est fidèle au code — **ne pas prétendre 0..N au jury** (il verrait la FK unique)
-- **Justification MVP** : domaine fermé de 3 rôles, RBAC route-level suffisant → **YAGNI**
+- **Justification MVP** : domaine fermé de 2 rôles (user, admin), RBAC route-level suffisant → **YAGNI**
 - **Limite reconnue** : RBAC à gros grain, les droits (« qui peut faire quoi ») sont **codés en dur dans les décorateurs `@Roles()`**, pas en base. Impossible d'attribuer un droit ponctuel sans créer un rôle, ni de cumuler plusieurs rôles
 - **Évolution documentée (MCD cible en annexe)** : RBAC fin piloté par la base → `User n:n Role` (cumul de rôles) et `Role n:n Permission` (table `Permission` granulaire). Les guards interrogeraient la base au lieu de chaînes en dur
 - Si le jury demande : "Aujourd'hui un utilisateur a un rôle unique et les permissions sont dans les guards — un choix MVP assumé. L'évolution serait un RBAC fin : User n:n Role n:n Permission, avec une table Permission, pour attribuer les droits sans redéployer."
@@ -302,6 +302,20 @@
 - Sprint 3 (audit sécurité) : migration vers cookies HttpOnly+Secure+SameSite=Lax
 - Le token reste valide jusqu'à expiration → blacklist Redis nécessaire pour le logout
 - HttpOnly = protection côté client (vol impossible), blacklist = invalidation côté serveur — complémentaires
+
+### Blacklist JWT — ce qu'elle fait exactement + limite + évolution refresh token
+- **Ce que fait la blacklist aujourd'hui** (rappel, détail complet dans "Redis plutôt que PostgreSQL...") :
+  - Un **seul** token JWT, durée de vie **1 jour** (`JWT_EXPIRATION`), dans le cookie HttpOnly
+  - Au **logout** → le token est mis dans Redis (`blacklist:<token>`) avec un TTL = sa durée de vie restante
+  - À **chaque requête authentifiée** → la `JwtStrategy` vérifie la signature **puis** interroge Redis pour voir si le token est blacklisté
+  - Ça permet la **révocation** (sans ça, un JWT reste valide jusqu'à expiration, on ne peut pas le "déconnecter")
+- **La tension que ça révèle** : un JWT est censé être **stateless** (le serveur ne stocke rien, il vérifie juste la signature). La blacklist redonne un pouvoir de révocation, mais au prix de rendre le JWT **stateful** = un appel Redis à **chaque** requête. On garde une durée de vie longue (1 j) pour le confort → mais si un token fuit, il est exploitable **1 jour entier**, et on ne peut blacklister que les tokens qu'on **sait** compromis (au logout), pas un token volé en douce
+- **Pourquoi le refresh token est mieux** : on **sépare deux besoins** avec deux tokens
+  - **Access token** : durée **courte** (~15 min), envoyé à **chaque** requête, vérifié par **signature seule** → redevient **stateless** (0 Redis sur le chemin critique), et peu dangereux s'il fuit
+  - **Refresh token** : durée **longue** (~7 j), envoyé **uniquement** sur `/auth/refresh` (via `path` du cookie), **stocké hashé** côté serveur donc **révocable** individuellement
+  - Cycle : login → access + refresh ; access expiré → 401 → le front appelle `/auth/refresh` → nouveau access (+ nouveau refresh) ; logout → on supprime le refresh du store
+  - **Rotation + détection de réutilisation** (le point qui impressionne) : à chaque refresh on jette l'ancien et on en émet un nouveau. Si un ancien refresh (déjà consommé) réapparaît → c'est un signe de vol → on **révoque toute la session** de l'utilisateur
+- **Ce qu'il faut dire au jury** : "Aujourd'hui : JWT long + blacklist Redis au logout — ça marche et ça révoque, mais chaque requête dépend de Redis et il reste une fenêtre d'un jour si un token fuit. L'évolution naturelle est access token court (stateless, peu risqué) + refresh token long avec rotation et détection de réutilisation. Je n'ai pas eu à l'implémenter, mais je connais la limite de mon choix et où j'irais ensuite."
 
 ### Défense en profondeur (organisation sécurité par couches)
 - Principe ANSSI/OWASP : chaque couche a ses propres mesures de sécurité, indépendantes
@@ -394,11 +408,17 @@
 - Une seule ligne : `app.use(helmet())` → couvre une dizaine de headers d'un coup
 - Si le jury demande : "Helmet sécurise les headers HTTP automatiquement — c'est une protection côté réseau qu'on active en une ligne."
 
-### CORS (Cross-Origin Resource Sharing)
-- Par défaut, un navigateur **interdit** les requêtes vers un domaine différent de la page
-- Le CORS autorise explicitement un domaine précis : `origin: FRONTEND_URL`
-- Sans ça, n'importe quel site pourrait appeler ton API depuis le navigateur d'un utilisateur connecté
-- Si le jury demande : "Le CORS restreint l'accès à notre API au seul domaine du frontend — aucun autre site ne peut appeler l'API depuis un navigateur."
+### CORS (Cross-Origin Resource Sharing) — ce que fait GreenRoots concrètement
+- **Le point de départ = la Same-Origin Policy (SOP)** : par défaut, le navigateur interdit au JavaScript d'une origine de **lire** les réponses d'une **autre origine**. Une "origine" = `scheme://host:port` (si l'un des trois change, c'est une autre origine). Sans ça, un site ouvert dans ton onglet pourrait appeler ta banque avec ton cookie et lire tes données
+- **CORS = le mécanisme qui assouplit la SOP de façon contrôlée** : c'est le **serveur** qui déclare, via des headers de réponse, quelles origines ont le droit de lire ses réponses
+- **Ce que fait l'application** (`main.ts`, `app.enableCors({...})`) :
+  - `origin: FRONTEND_URL` → une seule origine autorisée (le front), **jamais `*`**
+  - `credentials: true` → autorise l'échange du **cookie** en cross-origin (obligatoire pour l'auth par cookie ; incompatible avec `origin: '*'`, le navigateur le refuse)
+  - `methods` / `allowedHeaders` → limite les verbes et headers acceptés
+- **⚠️ Subtilité de notre déploiement** : en prod, le front et l'API sont servis **sous le même domaine** par le reverse proxy (Coolify/Traefik), l'API étant juste le chemin `/api` (`VITE_API_URL=/api`, relatif). Donc les appels du front vers l'API sont **same-origin** → CORS n'est même **pas déclenché** dans le fonctionnement normal. Le CORS sert de **garde-fou** : il protège si un **autre** site tente d'appeler l'API depuis le navigateur d'un utilisateur connecté
+- **CORS n'est PAS un pare-feu** (idée fausse à éviter) : il ne bloque pas la requête d'**arriver** au serveur, il bloque la **lecture de la réponse** par le JS attaquant. C'est une protection **du navigateur**, pas du serveur
+- **Le preflight** : pour les requêtes "non simples" (verbe `PUT`/`PATCH`/`DELETE`, ou `Content-Type: application/json`), le navigateur envoie d'abord un `OPTIONS` de reconnaissance. Si l'origine n'est pas autorisée, il **n'envoie jamais la vraie requête**. Comme le front envoie tout en JSON (axios), chaque écriture déclenche un preflight → un site tiers échoue au preflight → écriture forgée bloquée (filet de sécurité complémentaire, cf. note CSRF/SameSite)
+- Si le jury demande : "Par défaut le navigateur applique la Same-Origin Policy ; CORS l'assouplit en autorisant explicitement l'origine du front, avec `credentials: true` pour le cookie. En prod on est de toute façon en same-origin (front et API sous le même domaine, l'API sur `/api`), donc CORS agit surtout comme garde-fou contre un site tiers. Ça protège la lecture des réponses, pas l'arrivée des requêtes."
 
 ### ValidationPipe (NestJS) — whitelist + forbidNonWhitelisted
 - **Pipe** NestJS (pas un middleware) : couche de validation appliquée automatiquement à chaque requête, configurée globalement dans `main.ts`
@@ -411,7 +431,7 @@
 - Si le jury demande : "Le ValidationPipe est global, il filtre toutes les entrées. whitelist supprime les champs inconnus, forbidNonWhitelisted va plus loin en rejetant la requête. transform + enableImplicitConversion gèrent la conversion de types. C'est la première ligne de défense avant même que le code métier ne s'exécute."
 
 ### ThrottlerGuard (rate limiting)
-- Limite le **nombre de requêtes par IP** par unité de temps (ex : 100 requêtes/min)
+- Limite le **nombre de requêtes par IP** par unité de temps (config réelle : **60 requêtes / 60 s**)
 - Si dépassement → 429 Too Many Requests
 - Protège contre les attaques par saturation (DDoS léger, brute force)
 - ≠ guards JWT/Roles qui gèrent les **droits d'accès** — le ThrottlerGuard gère le **volume**
@@ -657,9 +677,9 @@
 - En dev : on reste souvent en root pour le confort (volumes montés, permissions fichiers). En prod : toujours non-root
 - Si le jury demande : "Le Dockerfile prod utilise `USER nestjs` pour que le processus tourne en utilisateur non-root — c'est le principe du moindre privilège appliqué aux conteneurs."
 
-### Différence Docker Compose dev vs prod (7 vs 3 services)
+### Différence Docker Compose dev vs prod (7 vs 4 services)
 - **Dev (7 services)** : frontend (Vite HMR), backend (NestJS watch), database, redis, nginx, stripe-cli (webhooks locaux), prisma-studio (explorer la BDD)
-- **Prod (3 services)** : frontend (build statique + Nginx), backend (compilé), database
+- **Prod (4 services)** : frontend (build statique + Nginx), backend (compilé), database (PostGIS), redis
 - En dev : volumes montés (hot reload), ports exposés, outils de confort (Prisma Studio, Stripe CLI)
 - En prod : `expose` au lieu de `ports` (pas d'accès direct), images multi-stage, pas d'outils de dev
 - Si le jury demande : "En dev on a besoin d'outils de confort pour développer efficacement. En prod on épure au maximum — moins de surface d'attaque, images plus légères."
@@ -898,7 +918,7 @@
   3. **Supprime le panier** et ses items (plus besoin)
   4. **Supprime l'utilisateur** (compte, email, mot de passe hashé — tout disparaît de la table `user`)
 - **Ce qui reste** : les commandes (montants, statuts, numéros de facture, date) et les items commandés (quantité, prix unitaire, TVA). Ce sont les données comptables obligatoires — elles ne permettent plus d'identifier personne puisque les noms/adresses/emails sont anonymisés
-- **Pourquoi pas tout supprimer ?** Si un contrôle fiscal arrive, on doit pouvoir justifier les transactions. Une commande à 150€ avec facture n°GR-2025-0042 doit rester traçable comptablement. Mais le fisc n'a pas besoin de savoir que c'est Jean Dupont au 12 rue des Lilas — juste le montant et la TVA
+- **Pourquoi pas tout supprimer ?** Si un contrôle fiscal arrive, on doit pouvoir justifier les transactions. Une commande à 150€ avec facture n°FA-2026-000042 doit rester traçable comptablement. Mais le fisc n'a pas besoin de savoir que c'est Jean Dupont au 12 rue des Lilas — juste le montant et la TVA
 - **Pourquoi une transaction** : si l'anonymisation des adresses réussit mais la suppression de l'utilisateur échoue → état incohérent (données anonymisées mais compte toujours actif). La transaction garantit le tout-ou-rien
 - Si le jury demande : "On anonymise les données nominatives (noms, adresses, email) mais on conserve les données comptables (montants, factures) — obligation légale de 6 ans. Le tout dans une transaction pour garantir la cohérence."
 
@@ -944,12 +964,11 @@
 - **Philosophie Testing Library** : tester du point de vue de l'utilisateur (ce qu'il voit, ce qu'il clique), pas le code interne du composant
 - Si le jury demande : "On teste les composants comme un utilisateur les utiliserait — on clique, on vérifie ce qui s'affiche. Testing Library encourage cette approche plutôt que de tester l'implémentation interne."
 
-### Pyramide de tests — pourquoi cette répartition
-- **Base large** : tests unitaires (rapides, isolés, nombreux) — services backend, stores frontend
-- **Milieu** : tests d'intégration (moins nombreux, plus lents) — dans GreenRoots : CI avec BDD réelle sur `develop-ci`
-- **Sommet** : tests E2E (peu, coûteux) — absents dans GreenRoots, axe d'amélioration identifié
+### Tests — unitaires only (pas de vraie pyramide)
+- **Seul étage présent** : tests **unitaires** (rapides, isolés, nombreux) — services backend, stores frontend
+- **Intégration & E2E : ABSENTS** — axes d'amélioration assumés. ⚠️ Ne pas présenter `develop-ci` comme un étage « intégration » : sa vraie BDD sert à valider `prisma migrate deploy` + l'idempotence du seed, **pas** des tests d'intégration applicatifs (les tests unitaires mockent Prisma)
 - La priorité a été mise sur les **tests de logique métier critique** (checkout, paiement, panier) plutôt que sur la couverture exhaustive
-- Si le jury demande : "On a priorisé les tests unitaires sur la logique métier critique — checkout, paiement, gestion du stock. C'est pragmatique pour 4 sprints d'une semaine."
+- Si le jury demande : "On a fait des tests unitaires ciblés sur la logique critique — checkout, paiement, panier. L'intégration et l'E2E sont des axes d'évolution assumés — pragmatique pour 4 sprints d'une semaine."
 
 ### Jest vs Vitest — pourquoi deux frameworks
 - **Jest** (backend) : standard de l'écosystème NestJS, intégré par défaut avec `@nestjs/testing`
